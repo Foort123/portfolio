@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'PT Sans',Arial,Helvetica,sans-serif;color:#1c1c1c;background:#fff;font-size:15px;line-height:1.5}
+  a{color:#1c1c1c;text-decoration:none}
+  a:hover{color:#c8102e}
+  img{display:block;max-width:100%}
+  a,button,input,nav a,[style*="border-radius"]{transition:transform .25s ease,box-shadow .25s ease,background-color .25s ease,color .25s ease,border-color .25s ease}
+  button:hover{transform:translateY(-2px)}
+  button:active{transform:translateY(0)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  body>*{animation:fadeUp .55s ease both}
+  body>div>*{animation:fadeUp .5s ease both}
+</style>
+</helmet>
+<div style="max-width:1280px;margin:0 auto;padding:0 20px">
+
+  <!-- utility bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 0;font-size:13px;color:#8a8a8a">
+    <div style="display:flex;gap:28px">
+      <a href="#" style="color:#8a8a8a">Обучение</a>
+      <a href="#" style="color:#8a8a8a">Эпоксидная смола</a>
+      <a href="#" style="color:#8a8a8a">Подарочные сертификаты</a>
+      <a href="#" style="color:#8a8a8a">Доставка и оплата</a>
+    </div>
+    <div style="display:flex;gap:24px;align-items:center">
+      <a href="#" style="color:#8a8a8a">Красноярск, Москва</a>
+      <a href="#" style="color:#8a8a8a">Контакты</a>
+    </div>
+  </div>
+
+  <!-- main header -->
+  <div style="display:flex;align-items:center;gap:28px;padding:14px 0 22px">
+    <a href="#" style="display:flex;align-items:center;gap:13px;flex-shrink:0">
+      <span style="width:46px;height:46px;border-radius:13px;background:#c8102e;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;box-shadow:0 6px 16px rgba(200,16,46,0.25)">P</span>
+      <span style="display:flex;flex-direction:column;line-height:1">
+        <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;letter-spacing:1px">PALATOVDA</span>
+        <span style="font-size:10.5px;color:#9a9a9a;letter-spacing:2px;margin-top:4px">ИНТЕРНЕТ-МАГАЗИН</span>
+      </span>
+    </a>
+
+    <button style="display:flex;align-items:center;gap:11px;background:#c8102e;color:#fff;border:none;border-radius:12px;padding:0 26px;height:52px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:1px;cursor:pointer;flex-shrink:0;box-shadow:0 6px 16px rgba(200,16,46,0.25)">
+      <span style="display:grid;gap:4px">
+        <span style="width:18px;height:2px;background:#fff;display:block;border-radius:2px"></span>
+        <span style="width:18px;height:2px;background:#fff;display:block;border-radius:2px"></span>
+        <span style="width:18px;height:2px;background:#fff;display:block;border-radius:2px"></span>
+      </span>
+      КАТАЛОГ
+    </button>
+
+    <form style="flex:1;display:flex;align-items:center;height:52px;border:1px solid #e6e4e0;border-radius:14px;background:#f5f4f1;padding-left:18px">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9a9a9a" stroke-width="2" stroke-linecap="round" style="flex-shrink:0">
+        <circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+      </svg>
+      <input placeholder="Поиск по товарам, брендам и категориям" style="flex:1;border:none;outline:none;padding:0 16px;font-size:15px;font-family:inherit;background:transparent;color:#1c1c1c">
+      <button style="height:40px;margin-right:6px;border:none;background:#1c1c1c;color:#fff;border-radius:10px;padding:0 22px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:1px;cursor:pointer">НАЙТИ</button>
+    </form>
+
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <a href="#" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11.5px;color:#666;width:64px;height:64px;border:1px solid #ececec;border-radius:14px" style-hover="border-color:#c8102e;color:#c8102e">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+        Избранное
+      </a>
+      <a href="#" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11.5px;color:#666;width:64px;height:64px;border:1px solid #ececec;border-radius:14px" style-hover="border-color:#c8102e;color:#c8102e">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.4a1.5 1.5 0 0 0 1.5 1.2h8.3a1.5 1.5 0 0 0 1.5-1.2L21 7H6"></path></svg>
+        Корзина
+        <span style="position:absolute;top:8px;right:11px;background:#c8102e;color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px">0</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- category nav -->
+  <nav style="display:flex;flex-wrap:wrap;gap:6px;padding:6px 0 4px">
+    <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="8">
+      <a href="#" style="font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:0.5px;padding:10px 16px;color:#2b2b2b;background:#f5f4f1;border-radius:10px" style-hover="background:#c8102e;color:#fff">{{ cat }}</a>
+    </sc-for>
+  </nav>
+</div>
+
+<!-- hero -->
+<div style="background:#f6f5f3;margin-top:22px;border-radius:24px;overflow:hidden">
+  <div style="max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;min-height:420px;gap:40px">
+    <div style="flex:1;padding:50px 0">
+      <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:52px;line-height:1.02;letter-spacing:0.5px">ЭПОКСИДНЫЕ СМОЛЫ<br>ДЕНИСА ПАЛАТОВА</div>
+      <p style="font-size:17px;color:#4a4a4a;max-width:520px;margin:22px 0 30px">Эпоксидная смола PALATOVDA — идеальный выбор для тех, кто ищет надёжный и качественный материал для своих проектов.</p>
+      <a href="#" style="display:inline-block;background:#c8102e;color:#fff;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:1px;padding:16px 40px;border-radius:999px;font-size:15px;box-shadow:0 8px 22px rgba(200,16,46,0.28)">В КАТАЛОГ</a>
+    </div>
+    <div style="flex:1;align-self:stretch;min-height:420px;background:linear-gradient(135deg,#eae7e2,#dcd8d1);border-radius:20px;margin:24px 0;display:flex;align-items:center;justify-content:center">
+      <span style="font-family:monospace;font-size:13px;color:#9a9a9a;background:#fff;padding:6px 12px;border-radius:8px">баннер · фото продукции</span>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1280px;margin:0 auto;padding:0 20px">
+
+  <!-- promo tiles -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:40px 0">
+    <sc-for list="{{ promos }}" as="p" hint-placeholder-count="4">
+      <a href="#" style="border:1px solid #ececec;border-radius:16px;overflow:hidden;display:block;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,0.05);transition:box-shadow .2s" style-hover="border-color:#c8102e">
+        <div style="height:130px;background:linear-gradient(135deg,#f3f1ee,#e9e6e1);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:monospace;font-size:11px;color:#a5a5a5">{{ p.tag }}</span>
+        </div>
+        <div style="padding:16px 16px 20px">
+          <div style="font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:0.3px">{{ p.title }}</div>
+          <div style="font-size:13px;color:#777;margin-top:6px">{{ p.sub }}</div>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+
+  <!-- best offers -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin:48px 0 6px">
+    <h2 style="font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;margin:0;letter-spacing:0.5px">ЛУЧШИЕ ПРЕДЛОЖЕНИЯ</h2>
+    <a href="#" style="font-size:14px;color:#c8102e">Весь каталог →</a>
+  </div>
+  <div style="display:flex;gap:6px;border-bottom:1px solid #e6e6e6;margin-bottom:26px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ selectTab }}" data-tab="{{ t.label }}" style="{{ t.style }}">{{ t.label }}</button>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+    <sc-for list="{{ products }}" as="prod" hint-placeholder-count="8">
+      <div style="border:1px solid #ececec;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,0.05)">
+        <div style="position:relative;height:210px;background:linear-gradient(135deg,#f3f1ee,#e9e6e1);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:monospace;font-size:11px;color:#a5a5a5">фото товара</span>
+          <div style="position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px">
+            <sc-for list="{{ prod.badges }}" as="b" hint-placeholder-count="2">
+              <span style="{{ b.style }}">{{ b.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:14px 14px 18px;display:flex;flex-direction:column;flex:1">
+          <a href="#" style="font-size:14px;line-height:1.35;font-weight:700;min-height:56px">{{ prod.name }}</a>
+          <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;margin:14px 0 12px">{{ prod.price }}</div>
+          <button style="margin-top:auto;background:#c8102e;color:#fff;border:none;border-radius:12px;padding:12px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:1px;font-size:13px;cursor:pointer">В КОРЗИНУ</button>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- reviews + news -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin:60px 0">
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;margin:0">О НАС ПИШУТ</h2>
+        <a href="#" style="font-size:13px;color:#c8102e">Все отзывы →</a>
+      </div>
+      <div style="border:1px solid #ececec;border-radius:18px;padding:26px;box-shadow:0 4px 18px rgba(0,0,0,0.05)">
+        <div style="color:#f0a500;font-size:16px;margin-bottom:8px">★★★★★</div>
+        <p style="margin:0 0 12px;font-size:15px;color:#333">Отличный станок для выравнивания слэбов, работает точно и без нареканий. Поддержка помогла с настройкой. Рекомендую!</p>
+        <div style="font-size:13px;color:#888">Алексей М. · отзыв на станок</div>
+      </div>
+      <a href="#" style="display:inline-block;margin-top:16px;font-size:14px;color:#c8102e">Оставить отзыв</a>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;margin:0">НОВОСТИ</h2>
+        <a href="#" style="font-size:13px;color:#c8102e">Все новости →</a>
+      </div>
+      <sc-for list="{{ news }}" as="n" hint-placeholder-count="5">
+        <a href="#" style="display:block;padding:13px 0;border-bottom:1px solid #ededed">
+          <div style="font-size:12px;color:#999;margin-bottom:3px">{{ n.date }}</div>
+          <div style="font-size:15px;font-weight:700">{{ n.title }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- gallery -->
+  <div style="margin:60px 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <h2 style="font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;margin:0">ГАЛЕРЕЯ</h2>
+      <a href="#" style="font-size:14px;color:#c8102e">Все фотографии →</a>
+    </div>
+    <p style="color:#666;max-width:760px;margin:0 0 26px">Фотографии расскажут больше, чем тексты. Мы пополняем галерею яркими событиями из жизни компании: реализованные проекты, рабочие процессы и другое.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="4">
+        <a href="#" style="display:block;border-radius:16px;overflow:hidden;position:relative">
+          <div style="height:200px;background:linear-gradient(135deg,#f3f1ee,#e9e6e1);border-radius:16px;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:monospace;font-size:11px;color:#a5a5a5">фото</span>
+          </div>
+          <div style="padding:12px 2px 0;font-size:14px;font-weight:700">{{ g.title }}</div>
+          <div style="font-size:13px;color:#888;padding:0 2px">{{ g.count }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<footer style="background:#1c1c1c;color:#c9c9c9;margin-top:40px">
+  <div style="max-width:1280px;margin:0 auto;padding:50px 20px 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+    <div>
+      <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;color:#fff;letter-spacing:1px">PALATOVDA</div>
+      <p style="font-size:14px;line-height:1.6;margin:16px 0 20px;max-width:280px">Эпоксидная смола, станки, столы на заказ и обучение работе со смолой от Дениса Палатова.</p>
+      <div style="display:flex;gap:12px">
+        <sc-for list="{{ socials }}" as="s" hint-placeholder-count="5">
+          <a href="#" style="width:38px;height:38px;border:1px solid #444;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9c9c9;font-size:13px" style-hover="border-color:#c8102e;color:#fff">{{ s }}</a>
+        </sc-for>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:15px;margin-bottom:16px;letter-spacing:0.5px">КОМПАНИЯ</div>
+      <sc-for list="{{ footerCompany }}" as="f" hint-placeholder-count="5">
+        <a href="#" style="display:block;font-size:14px;color:#c9c9c9;padding:6px 0" style-hover="color:#fff">{{ f }}</a>
+      </sc-for>
+    </div>
+    <div>
+      <div style="font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:15px;margin-bottom:16px;letter-spacing:0.5px">КАТАЛОГ</div>
+      <sc-for list="{{ footerCatalog }}" as="f" hint-placeholder-count="5">
+        <a href="#" style="display:block;font-size:14px;color:#c9c9c9;padding:6px 0" style-hover="color:#fff">{{ f }}</a>
+      </sc-for>
+    </div>
+    <div>
+      <div style="font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:15px;margin-bottom:16px;letter-spacing:0.5px">КОНТАКТЫ</div>
+      <a href="tel:+79275402022" style="display:block;font-size:22px;font-family:'Oswald',sans-serif;color:#fff;margin-bottom:6px">+7 927 540-20-22</a>
+      <a href="#" style="display:block;font-size:14px;color:#c8102e;margin-bottom:14px">Заказать звонок</a>
+      <a href="mailto:info@palatovda.ru" style="display:block;font-size:14px;color:#c9c9c9;margin-bottom:10px" style-hover="color:#fff">info@palatovda.ru</a>
+      <div style="font-size:14px;color:#9a9a9a">Красноярск, Москва, Россия</div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #333">
+    <div style="max-width:1280px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;font-size:13px;color:#8a8a8a">
+      <span>2026 © ЭПОКСИДНАЯ СМОЛА PALATOVDA</span>
+      <span>Все права защищены</span>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'Хит' };
+
+  renderVals() {
+    const badge = (label, bg) => ({ label, style:`background:${bg};color:#fff;font-family:'Oswald',sans-serif;font-weight:600;font-size:10px;letter-spacing:0.5px;padding:3px 8px;border-radius:3px;width:fit-content` });
+    const hit = badge('ХИТ','#c8102e');
+    const rec = badge('СОВЕТУЕМ','#2b2b2b');
+    const nov = badge('НОВИНКА','#1f9d55');
+    const akc = badge('АКЦИЯ','#e08a00');
+
+    const products = [
+      { name:'Обеденный стол из ореха с чёрной смолой под матовым лаком 200×95 см', price:'от 100 000 ₽/м²', badges:[hit,rec] },
+      { name:'Станок для выравнивания слэбов 1220×1500 мм', price:'98 894 ₽/шт', badges:[hit,rec] },
+      { name:'Станок для выравнивания слэбов 1500×3000 мм', price:'147 919 ₽/шт', badges:[hit,rec] },
+      { name:'Эпоксидная смола PALATOVDA EXPERT+ 7 кг', price:'5 635 ₽/шт', badges:[hit,rec] },
+      { name:'Эпоксидная смола PALATOVDA EXPERT+ 14 кг', price:'10 878 ₽/шт', badges:[hit,rec] },
+      { name:'Эпоксидная смола PALATOVDA EXPERT+ 28 кг', price:'20 944 ₽/шт', badges:[hit,rec] },
+      { name:'Новые видеоуроки по работе с эпоксидной смолой от Дениса Палатова', price:'5 000 ₽/шт', badges:[akc,nov] },
+      { name:'Эпоксидная смола PALATOVDA CREATIVE 30 кг', price:'19 845 ₽/шт', badges:[hit,rec] },
+    ];
+
+    const tabStyle = (active) => `font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:0.5px;padding:11px 20px;border:none;background:none;cursor:pointer;border-bottom:3px solid ${active?'#c8102e':'transparent'};color:${active?'#c8102e':'#555'};margin-bottom:-1px`;
+    const tabs = ['Хит','Советуем','Новинка','Акция'].map(t => ({ label:t, style:tabStyle(t===this.state.tab) }));
+
+    return {
+      categories: ['КАЛЬКУЛЯТОР СМОЛЫ','ЭПОКСИДНАЯ СМОЛА PALATOVDA','ВОДОМЕТНЫЕ ЛОДКИ','ОБУЧЕНИЕ','СТОЛЫ НА ЗАКАЗ','СТАНКИ PALATOVDA','RGB ПЛИТКИ','+ ЕЩЁ'],
+      promos: [
+        { tag:'обучение', title:'Обучающий курс', sub:'Видеоуроки от Дениса Палатова' },
+        { tag:'станки', title:'Станки для слэбов', sub:'Эксклюзивные станки на заказ' },
+        { tag:'лодки', title:'Золотая книга', sub:'Покупателей водомётных лодок' },
+        { tag:'калькулятор', title:'Калькулятор смолы', sub:'Рассчитайте расход онлайн' },
+      ],
+      tabs,
+      selectTab: (e) => this.setState({ tab: e.currentTarget.getAttribute('data-tab') }),
+      products,
+      news: [
+        { date:'02 марта 2026', title:'Сократили сроки изготовления станков' },
+        { date:'26 февраля 2026', title:'Отзыв на наш станок для выравнивания слэбов' },
+        { date:'17 февраля 2026', title:'Начало приёма предзаказов на наши лодки' },
+        { date:'09 февраля 2026', title:'Прайс на журнальные столы' },
+        { date:'18 декабря 2025', title:'Повышение цен на 15% на станки для слэбов' },
+      ],
+      gallery: [
+        { title:'Отзывы про наши столы', count:'9 фото' },
+        { title:'Отзывы на обучение', count:'8 фото' },
+        { title:'Наши работы, 2-я половина 2024', count:'12 фото' },
+        { title:'Наши работы, 1-я половина 2024', count:'8 фото' },
+      ],
+      socials: ['ВК','IG','TG','YT','WA'],
+      footerCompany: ['О компании','Новости','Отзывы','Сертификаты','Контакты'],
+      footerCatalog: ['Эпоксидная смола','Станки для слэбов','Столы на заказ','Водомётные лодки','Калькулятор смолы'],
+    };
+  }
+}
+</script>
+</body>
+</html>
