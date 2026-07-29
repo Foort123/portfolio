@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+  <!-- Применяем сохранённую тему до отрисовки страницы, чтобы избежать мигания -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('biostone_theme');
+        var theme = (saved === 'gray' || saved === 'dark' || saved === 'light') ? saved : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      // Предзагрузка тёмного логотипа для мгновенного переключения
+      (new Image()).src = './images/logo-text2.png';
+    })();
+  </script>
+
+  
+
+  <!-- Иконка сайта (Favicon) - Улучшенная версия -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/logo-mountains.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/logo-mountains.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/logo-mountains.png">
+  <!-- Для большинства браузеров будет достаточно иконки 32x32, но мы добавили несколько вариантов для лучшей совместимости. -->
+
+  <!-- Подключение Tailwind CSS, шрифтов Montserrat -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./js/cookie-consent.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+          },
+          screens: {
+            'xs': '375px',
+          }
+        },
+        backdropBlur: {
+          'xl': '24px',
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* БЛОКИРОВКА СКРОЛЛА И ФОНА ДЛЯ МОБИЛЬНОГО МЕНЮ */
+    body.menu-open {
+      overflow: hidden !important;
+      touch-action: none !important; /* Полностью запрещает сенсорный скролл основного экрана */
+    }
+
+    #mobile-menu {
+      touch-action: pan-y !important; /* Разрешает прокрутку только внутри самого меню */
+      overscroll-behavior: contain !important; /* Предотвращает передачу прокрутки на родительский документ */
+      background-color: var(--bg-card) !important; /* Гарантирует непрозрачность фона меню */
+      opacity: 1 !important;
+    }
+    /* ПРИНУДИТЕЛЬНОЕ УВЕЛИЧЕНИЕ ЛОГОТИПА НА МОБИЛЬНЫХ УСТРОЙСТВАХ */
+    .brand-logo-text {
+      height: 24px !important;
+      width: auto !important;
+    }
+    header img[alt="Иконка BioStone"] {
+      height: 32px !important;
+      width: auto !important;
+    }
+
+    /* Для экранов от 375px (обычные смартфоны) */
+    @media (min-width: 375px) {
+      .brand-logo-text {
+        height: 28px !important;
+      }
+      header img[alt="Иконка BioStone"] {
+        height: 36px !important;
+      }
+    }
+
+    /* Для экранов от 640px (планшеты) */
+    @media (min-width: 640px) {
+      .brand-logo-text {
+        height: 32px !important;
+      }
+      header img[alt="Иконка BioStone"] {
+        height: 40px !important;
+      }
+    }
+
+    /* Для экранов от 1024px (десктоп) */
+    @media (min-width: 1024px) {
+      .brand-logo-text {
+        height: 38px !important;
+      }
+      header img[alt="Иконка BioStone"] {
+        height: 46px !important;
+      }
+    }
+    /* Скрытие скроллбара для горизонтального скролла на мобильных */
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Убираем стрелочки (спиннеры) у числовых полей ввода */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    /* Логотип переключается через src — без CSS-фильтров */
+
+    /* Премиальная анимация для баннера */
+    .premium-banner-hover {
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.4s ease, box-shadow 0.4s ease !important;
+    }
+
+    .premium-banner-hover::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+      );
+      transform: skewX(-20deg);
+      pointer-events: none;
+    }
+
+    .premium-banner-hover:hover::after {
+      animation: shine-effect 1.2s ease-out;
+    }
+
+    @keyframes shine-effect {
+      0% { left: -150%; }
+      100% { left: 150%; }
+    }
+
+    .premium-banner-hover:hover {
+      background-color: #444e3e !important;
+      box-shadow: 0 20px 40px -15px rgba(61, 70, 56, 0.35) !important;
+    }
+
+    /* Отключение прыжков кнопок */
+    .hover\:-translate-y-0\.5:hover,
+    .hover\:-translate-y-1:hover,
+    .active\:translate-y-0:active {
+      transform: none !important;
+    }
+
+    /* Устранение пустого пространства сверху */
+    html, body {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      margin: 0 !important;
+    }
+
+    html {
+      scroll-behavior: auto !important;
+      overflow-y: scroll;
+    }
+    @supports (scrollbar-gutter: stable) {
+      html { overflow-y: auto; scrollbar-gutter: stable; }
+    }
+    
+    /* СИСТЕМА ТЕМ */
+    :root,
+    html[data-theme="light"] {
+      --bg-main: #fbfaf8;
+      --bg-main-rgb: 251, 250, 248;
+      --text-main: #2c2520;
+      --text-muted: #6e645e;
+      --border-main: #eae3db;
+      --bg-card: #ffffff;
+      --bg-header: rgba(255, 255, 255, 0.95);
+      --bg-accent: #3d4638;
+      --bg-accent-hover: #2d3329;
+      --bg-soft-accent: rgba(61, 70, 56, 0.05);
+      --bg-placeholder: #f4eee7;
+      --bg-requisites: rgba(242, 240, 234, 0.65);
+      --border-requisites: #eae3db;
+      --shadow-color: rgba(0, 0, 0, 0.08);
+    }
+
+    html[data-theme="gray"] {
+      --bg-main: #e5e5e5;
+      --bg-main-rgb: 229, 229, 229;
+      --text-main: #171717;
+      --text-muted: #525252;
+      --border-main: #a3a3a3;
+      --bg-card: #f5f5f5;
+      --bg-header: rgba(245, 245, 245, 0.95);
+      --bg-accent: #404040;
+      --bg-accent-hover: #262626;
+      --bg-soft-accent: rgba(64, 64, 64, 0.08);
+      --bg-placeholder: #d4d4d4;
+      --bg-requisites: rgba(212, 212, 212, 0.65);
+      --border-requisites: #737373;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    html[data-theme="dark"] {
+      --bg-main: #17181a;
+      --bg-main-rgb: 23, 24, 26;
+      --text-main: #f5f5f5;
+      --text-muted: #a3a3a3;
+      --border-main: #2d3034;
+      --bg-card: #232528;
+      --bg-header: rgba(23, 24, 26, 0.95);
+      --bg-accent: #6b7d5c;
+      --bg-accent-hover: #7f9370;
+      --bg-soft-accent: rgba(107, 125, 92, 0.15);
+      --bg-placeholder: #232528;
+      --bg-requisites: rgba(35, 37, 40, 0.65);
+      --border-requisites: #3a3d42;
+      --shadow-color: rgba(0, 0, 0, 0.45);
+    }
+
+    .theme-bg-card { background-color: var(--bg-card) !important; }
+    .theme-bg-main { background-color: var(--bg-main) !important; }
+    .theme-text-main { color: var(--text-main) !important; }
+    .theme-text-muted { color: var(--text-muted) !important; }
+    .theme-border { border-color: var(--border-main) !important; }
+    .theme-bg-soft-accent { background-color: var(--bg-soft-accent) !important; }
+
+    html[data-theme="dark"] .bg-white\/20,
+    html[data-theme="dark"] .bg-white\/10,
+    html[data-theme="gray"] .bg-white\/20,
+    html[data-theme="gray"] .bg-white\/10 {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    html[data-theme="dark"] .bg-black\/25,
+    html[data-theme="gray"] .bg-black\/25 {
+      background-color: rgba(0, 0, 0, 0.24) !important;
+    }
+
+    html, body, header, .bg-white, [class*="bg-"], [class*="text-"], [class*="border-"] {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    body {
+      background-color: var(--bg-main) !important;
+      color: var(--text-main) !important;
+    }
+    header {
+      background-color: var(--bg-header) !important;
+      border-color: var(--border-main) !important;
+    }
+    
+    .text-white, 
+    .hover:text-white:hover {
+      color: #ffffff !important;
+    }
+    
+    .text-gray-400,
+    .text-gray-500, 
+    .text-gray-600, 
+    .text-gray-700, 
+    .text-gray-800, 
+    .text-\[\#6d7568\] { 
+      color: var(--text-muted) !important; 
+    }
+    
+    .border-\[\#eae8e1\], 
+    .border-gray-100, 
+    .divide-gray-100 > :not([hidden]) ~ :not([hidden]) { 
+      border-color: var(--border-main) !important; 
+    }
+    
+    .bg-\[\#3d4638\] { background-color: var(--bg-accent) !important; }
+    .bg-\[\#3d4638\]:hover { background-color: var(--bg-accent-hover) !important; }
+    .text-\[\#3d4638\] { color: var(--bg-accent) !important; }
+    .border-\[\#3d4638\] { border-color: var(--bg-accent) !important; }
+    .bg-\[\#3d4638\]/5 { background-color: var(--bg-soft-accent) !important; }
+    .bg-\[\#f2f0ea\] { background-color: var(--bg-placeholder) !important; }
+    
+    button.bg-\[\#3d4638\],
+    a.bg-\[\#3d4638\],
+    .bg-\[\#3d4638\] {
+      color: #ffffff !important;
+    }
+
+    html[data-theme="gray"] .bg-amber-50,
+    html[data-theme="dark"] .bg-amber-50 { background-color: rgba(217, 119, 6, 0.15) !important; color: #f59e0b !important; }
+    html[data-theme="gray"] .bg-emerald-50,
+    html[data-theme="dark"] .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.15) !important; color: #34d399 !important; }
+    html[data-theme="gray"] .bg-blue-50,
+    html[data-theme="dark"] .bg-blue-50 { background-color: rgba(64, 64, 64, 0.2) !important; color: #a3a3a3 !important; }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translate3d(0, 10px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+    .tab-animate-active { animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    
+    .premium-hover-card {
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                  background-color 0.3s ease, 
+                  border-color 0.2s ease !important;
+      -webkit-font-smoothing: antialiased !important;
+      transform: translateY(0);
+      backface-visibility: hidden;
+    }
+    @media (min-width: 1024px) {
+      .premium-hover-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--bg-accent) !important;
+        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.2) !important;
+      }
+    }
+
+    .requisites-block {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      background-color: var(--bg-requisites) !important;
+      border-color: var(--border-requisites) !important;
+      color: var(--text-main) !important;
+    }
+
+    .filter-btn {
+      background-color: var(--bg-card) !important;
+      color: var(--text-main) !important;
+      border-color: var(--border-main) !important;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+    }
+
+    .filter-btn:not(.is-active):hover {
+      border-color: var(--bg-accent) !important;
+      background-color: var(--bg-soft-accent) !important;
+      color: var(--bg-accent) !important;
+    }
+
+    .filter-btn.is-active {
+      background-color: var(--bg-accent) !important;
+      color: #ffffff !important;
+      border-color: var(--bg-accent) !important;
+    }
+
+    .theme-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 999px;
+      background-color: var(--bg-soft-accent);
+      border: 1px solid var(--border-main);
+    }
+    .theme-switcher-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      color: var(--text-muted);
+      background-color: transparent;
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      border: none;
+    }
+    .theme-switcher-btn:hover {
+      color: var(--text-main);
+      background-color: var(--bg-card);
+    }
+    .theme-switcher-btn.is-active {
+      background-color: var(--bg-accent) !important;
+      color: #ffffff !important;
+    }
+    .theme-switcher-btn svg { width: 14px; height: 14px; }
+
+    header nav .nav-link {
+      color: var(--text-main) !important;
+      border-bottom-width: 2px !important;
+      border-color: transparent !important;
+      transition: color 0.25s ease, border-color 0.25s ease !important;
+    }
+
+    header nav .nav-link:hover {
+      color: var(--bg-accent) !important;
+      border-color: var(--border-main) !important;
+    }
+
+    header nav .nav-link.is-active {
+      color: var(--bg-accent) !important;
+      border-color: var(--bg-accent) !important;
+    }
+
+    header nav .nav-link[href="#tab-important"] {
+      color: #dc2626 !important;
+    }
+    header nav .nav-link[href="#tab-important"].is-active {
+      color: #b91c1c !important;
+      border-color: #b91c1c !important;
+    }
+
+    #mobile-menu .mobile-nav-link {
+      color: var(--text-main) !important;
+      border-color: var(--border-main) !important;
+      transition: color 0.2s ease !important;
+    }
+    #mobile-menu .mobile-nav-link.is-active {
+      color: var(--bg-accent) !important;
+    }
+    #mobile-menu .mobile-nav-link[href="#tab-important"] {
+      color: #dc2626 !important;
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-masked-image {
+        -webkit-mask-image: linear-gradient(105deg, transparent 20%, rgba(0,0,0,0.1) 32%, rgba(0,0,0,0.85) 55%, #000 75%);
+        mask-image: linear-gradient(105deg, transparent 20%, rgba(0,0,0,0.1) 32%, rgba(0,0,0,0.85) 55%, #000 75%);
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var STORAGE_KEY = 'biostone_theme';
+      var root = document.documentElement;
+      var buttons = document.querySelectorAll('[data-theme-btn]');
+
+      function setActiveButtons(theme) {
+        buttons.forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.getAttribute('data-theme-btn') === theme);
+        });
+      }
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+        setActiveButtons(theme);
+        var logo = document.getElementById('brand-logo-img');
+        if (logo) {
+          var attr = theme === 'dark' ? 'data-src-dark' : 'data-src-light';
+          var src = logo.getAttribute(attr);
+          if (src) logo.src = src;
+        }
+      }
+
+      setActiveButtons(root.getAttribute('data-theme') || 'light');
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyTheme(btn.getAttribute('data-theme-btn'));
+        });
+      });
+    });
+  </script>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- ШАПКА САЙТА -->
+  <header class="w-full sticky top-0 z-50 border-b shadow-sm">
+    <div class="w-full flex justify-between items-center gap-2 px-3 py-3 md:gap-4 md:px-6 md:py-4 lg:py-5">
+      
+      <!-- ЛОГОТИП С ИЗОБРАЖЕНИЕМ BIOSTONE (Увеличен для мобильных) -->
+      <div class="shrink-0 xl:flex-1 flex justify-start items-center max-w-[65%] xs:max-w-none">
+        <a href="#tab-home" class="flex items-center gap-2 sm:gap-2.5 lg:gap-3 transition-all duration-200 hover:opacity-95 active:scale-95">
+          <img src="./images/logo-mountains.png" 
+               alt="Иконка BioStone" 
+               class="h-8 xs:h-9 sm:h-10 md:h-11 lg:h-12 w-auto max-w-full object-contain shrink" 
+               loading="eager" 
+               decoding="async">
+          
+          <img src="./images/logo-text.png"
+               alt="БиоСтоун Природный камень"
+               id="brand-logo-img"
+               data-src-light="./images/logo-text.png"
+               data-src-dark="./images/logo-text2.png"
+               class="brand-logo-text h-5 xs:h-6 sm:h-7 md:h-8 lg:h-9 w-auto max-w-full object-contain shrink"
+               loading="eager"
+               decoding="async">
+        </a>
+      </div>
+      <script>
+        (function() {
+          var theme = document.documentElement.getAttribute('data-theme');
+          var logo = document.getElementById('brand-logo-img');
+          if (logo && theme === 'dark') {
+            var src = logo.getAttribute('data-src-dark');
+            if (src) logo.src = src;
+          }
+        })();
+      </script>
+
+      <!-- НАВИГАЦИОННОЕ МЕНЮ (на десктопе) -->
+      <nav class="hidden xl:flex justify-center items-center gap-2 xl:gap-3 2xl:gap-4">
+        <a href="#tab-home" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Главная</a>
+        <a href="#tab-paving" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Примеры брусчатки</a>
+        <a href="#tab-facades" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Примеры фасадов</a>
+        <a href="#tab-interior" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Интерьер из природного камня</a>
+        <a href="#tab-benefits" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Сравнение материалов</a>
+        <a href="#tab-pricing" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Стоимость и расчет</a>
+        <a href="#tab-important" class="nav-link text-[11px] font-extrabold tracking-widest text-red-600 uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-red-600/40 hover:text-red-700 whitespace-nowrap">Самое важное</a>
+        <a href="#tab-contacts" class="nav-link text-[11px] font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all duration-300 ease-out hover:border-[#3d4638]/40 hover:text-[#3d4638] whitespace-nowrap theme-text-main">Контакты</a>
+      </nav>
+
+      <!-- ПРАВАЯ КОЛОНКА -->
+      <div class="shrink-0 xl:flex-1 flex justify-end items-center gap-2 xl:gap-3 2xl:gap-4 z-10">
+        <!-- Переключатель темы (на планшетах и десктопе) -->
+        <div class="theme-switcher hidden sm:inline-flex" role="group" aria-label="Переключение темы оформления">
+          <button type="button" class="theme-switcher-btn" data-theme-btn="light" aria-label="Светлая тема" title="Светлая тема">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </button>
+          <button type="button" class="theme-switcher-btn" data-theme-btn="gray" aria-label="Серая тема" title="Серая тема">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 019 9 9 9 0 01-9 9V3z" fill="currentColor" stroke="none"/></svg>
+          </button>
+          <button type="button" class="theme-switcher-btn" data-theme-btn="dark" aria-label="Тёмная тема" title="Тёмная тема">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+        </div>
+        
+        <!-- Кнопка телефона -->
+        <a href="tel:+79689063063" class="hidden sm:inline-block bg-[#3d4638] hover:bg-[#2d3329] text-[#f2f0ea] text-[10px] xl:text-xs font-bold tracking-widest uppercase px-4 py-2.5 rounded transition shadow-sm text-center whitespace-nowrap">
+          +7 (9689)-063-063
+        </a>
+
+        <!-- Компактная иконка телефона для мобильных -->
+        <a href="tel:+79689063063" class="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-[#3d4638] hover:bg-[#2d3329] text-white shrink-0 shadow-sm" aria-label="Позвонить">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+        </a>
+
+        <!-- Кнопка бургер-меню (Touch-оптимизированная) -->
+        <button id="mobile-menu-btn" class="xl:hidden flex items-center justify-center w-10 h-10 shrink-0 border border-transparent rounded active:scale-95 active:bg-neutral-100 dark:active:bg-neutral-800/40 focus:outline-none" style="-webkit-tap-highlight-color: transparent;" aria-label="Меню">
+          <svg class="w-6 h-6 theme-text-main" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ (Идеально позиционированное) -->
+  <div id="mobile-menu" class="hidden xl:hidden fixed inset-x-0 top-[57px] sm:top-[64px] bottom-0 theme-bg-card z-40 overflow-y-auto p-5 space-y-1 theme-border border-t">
+    <a href="#tab-home" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest border-b theme-border theme-text-main">Главная</a>
+    <a href="#tab-paving" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest border-b theme-border theme-text-main">Примеры брусчатки</a>
+    <a href="#tab-facades" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest border-b theme-border theme-text-main">Примеры фасадов</a>
+    <a href="#tab-interior" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest border-b theme-border theme-text-main">Интерьер из природного камня</a>
+    <a href="#tab-benefits" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest border-b theme-border theme-text-main">Сравнение материалов</a>
+    <a href="#tab-pricing" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest border-b theme-border theme-text-main">Стоимость и расчет</a>
+    <a href="#tab-important" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-extrabold uppercase tracking-widest text-red-600 border-b theme-border">Самое важное</a>
+    <a href="#tab-contacts" class="mobile-nav-link block w-full text-left py-3.5 px-2 text-xs font-bold uppercase tracking-widest theme-text-main">Контакты</a>
+    
+    <div class="pt-6 pb-2 flex flex-col items-center gap-4">
+      <span class="text-[10px] font-bold tracking-widest theme-text-muted uppercase">Выбор цветовой темы</span>
+      <div class="theme-switcher" role="group" aria-label="Переключение темы оформления">
+        <button type="button" class="theme-switcher-btn" data-theme-btn="light" aria-label="Светлая тема">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" class="theme-switcher-btn" data-theme-btn="gray" aria-label="Серая тема">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 019 9 9 9 0 01-9 9V3z" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <button type="button" class="theme-switcher-btn" data-theme-btn="dark" aria-label="Тёмная тема">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="pt-4">
+      <a href="tel:+79689063063" class="block w-full bg-[#3d4638] text-white text-center text-xs font-bold tracking-widest uppercase py-4 rounded-xl shadow-sm">+7 (9689)-063-063</a>
+    </div>
+  </div>
+
+<main class="flex-grow">
+
+    <!-- СЕКЦИЯ 1: ГЛАВНАЯ -->
+    <div id="tab-home" class="tab-content transition-opacity duration-300">
+        <section class="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 md:py-12">
+            
+            <!-- ГЛАВНАЯ КОНСТРУКЦИЯ HERO -->
+            <div class="flex flex-col lg:flex-row items-stretch lg:min-h-[620px] rounded-3xl overflow-hidden relative border theme-border shadow-sm"
+                 style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('./images/fon.png'); background-size: cover; background-position: center;">
+
+                <!-- Телефон производства (на мобилке в потоке, на десктопе справа сверху) -->
+                <div class="static lg:absolute lg:top-6 lg:right-6 lg:z-20 mt-3 sm:mt-4 mb-2 sm:mb-4 lg:mb-0 flex justify-end">
+                    <div class="phone-production bg-black/25 backdrop-blur-xl p-2 sm:p-3 rounded-xl border border-white/10 shadow-lg">
+                        <div class="text-right">
+                            <span class="phone-production-title text-[7px] sm:text-[8px] font-bold tracking-widest text-gray-400 uppercase block mb-0.5">Телефон производства</span>
+                            <a href="tel:+79689063063" class="phone-production-link text-xs sm:text-sm font-bold tracking-tight text-gray-300 hover:text-white transition-colors duration-200">
+                            +7 (9689)-063-063
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Левая текстовая колонка (Зафиксированная по высоте против прыжков) -->
+                <div class="flex-1 flex flex-col justify-center z-10 p-6 sm:p-12 lg:p-16">
+                    <div class="bg-black/30 backdrop-blur-xl p-6 sm:p-8 md:p-10 rounded-2xl border border-white/15 shadow-lg">
+                        <div class="text-white">
+                            <h1 class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[36px] xl:text-[42px] font-bold leading-[1.05] tracking-tight">
+                                БИОСТОУН
+                            </h1>
+                            <p class="text-sm xs:text-base sm:text-lg md:text-2xl lg:text-[28px] font-semibold leading-snug mt-2 sm:mt-3 text-white/85">
+                                Природный камень для фасада, брусчатки и интерьера.
+                            </p>
+                        </div>
+                        <p class="text-[12px] xs:text-[13px] sm:text-sm md:text-base leading-relaxed mt-4 sm:mt-5 text-white/80 max-w-2xl">
+                            Биостоун предлагает доставку природного камня для облицовки домов и заборов, а также натуральный камень для интерьера и брусчатки.
+                        </p>
+                        <div class="mt-6 sm:mt-8">
+                            <a href="#tab-pricing" class="btn-primary inline-flex h-11 sm:h-14 items-center justify-center text-white text-[9px] sm:text-[11px] font-extrabold tracking-[0.18em] uppercase px-6 sm:px-12 rounded-full shadow-[0_4px_14px_rgba(61,70,56,0.35)] hover:shadow-[0_6px_20px_rgba(61,70,56,0.5)] transition-all duration-300 ease-out">
+                                Смотреть продукцию
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Правая колонка с формой обратной связи и текстом -->
+                <div class="flex-1 relative w-full flex flex-col justify-center p-5 sm:p-10 xl:p-14">
+                    
+                    <div class="relative z-10 w-full max-w-lg mx-auto space-y-6 bg-black/25 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 shadow-lg lg:mt-16">
+                        
+                        <!-- Текстовый блок формы -->
+                        <div class="space-y-3">
+                            <span class="text-[9px] sm:text-xs font-extrabold tracking-[0.25em] text-gray-400 uppercase block">Индивидуальные заказы</span>
+                            <h2 class="text-lg sm:text-2xl xl:text-[26px] font-black uppercase tracking-tight text-gray-300 leading-snug">
+                                Мы можем реализовать любой проект из природного камня!
+                            </h2>
+                            <p class="text-xs sm:text-sm leading-relaxed text-[#f2f0ea]">
+                                Если у вас нет времени на звонки — просто оставьте заявку. Специалист свяжется с вами и детально проконсультирует по всем вопросам.
+                            </p>
+                        </div>
+
+                        <!-- Улучшенная форма обратной связи -->
+                        <form id="hero-callback-form" class="space-y-4" novalidate>
+                            
+                            <!-- Ваше имя -->
+                            <div>
+                                <label for="callback-name" class="block text-[9px] font-bold uppercase tracking-[0.15em] mb-1.5 text-[#f2f0ea]">Ваше имя</label>
+                                <input type="text" id="callback-name" name="name" required placeholder="Иван"
+                                       class="w-full h-11 px-4 text-xs sm:text-sm rounded-xl border border-gray-500/30 bg-white/20 text-gray-200 placeholder-gray-400/70 focus:outline-none focus:ring-1 focus:ring-green-300 transition-shadow duration-200">
+                                <p class="callback-field-error hidden text-[10px] font-semibold text-red-500 mt-1">Пожалуйста, заполните это поле.</p>
+                            </div>
+                            
+                            <!-- Телефон -->
+                            <div>
+                                <label for="callback-phone" class="block text-[9px] font-bold uppercase tracking-[0.15em] mb-1.5 text-[#f2f0ea]">Контактный телефон</label>
+                                <input type="tel" inputmode="tel" id="callback-phone" name="phone" required placeholder="+7 (999) 999-99-99"
+                                       class="w-full h-11 px-4 text-xs sm:text-sm rounded-xl border border-gray-500/30 bg-white/20 text-gray-200 placeholder-gray-400/70 focus:outline-none focus:ring-1 focus:ring-green-300 transition-shadow duration-200">
+                                <p class="callback-field-error hidden text-[10px] font-semibold text-red-500 mt-1">Пожалуйста, заполните это поле.</p>
+                            </div>
+                            
+                            <!-- Капча -->
+                            <div>
+                                <label for="callback-captcha" class="block text-[9px] font-bold uppercase tracking-[0.15em] mb-1.5 text-[#f2f0ea]">Проверка безопасности</label>
+                                <div class="flex items-stretch gap-2 sm:gap-4">
+                                    <div id="captcha-question" class="flex-1 flex items-center justify-center text-xs sm:text-sm font-black tracking-widest text-gray-300 bg-white/20 border border-gray-500/30 rounded-xl select-none h-11">
+                                        8 + 3 = ?
+                                    </div>
+                                    <input type="number" id="callback-captcha" name="captcha_ans" required placeholder="Ответ"
+                                           class="w-24 sm:w-32 h-11 px-3 text-xs sm:text-sm text-center rounded-xl border border-gray-500/30 bg-white/20 text-gray-200 focus:outline-none focus:ring-1 focus:ring-green-300 transition-shadow duration-200">
+                                </div>
+                                <p class="callback-field-error hidden text-[10px] font-semibold text-red-500 mt-1">Пожалуйста, заполните это поле.</p>
+                            </div>
+
+                            <!-- Согласие на обработку данных -->
+                            <div class="flex flex-wrap items-center gap-2">
+                                <input type="checkbox" id="callback-consent" name="consent" required
+                                       class="h-4 w-4 rounded border-gray-300 text-[#3d4638] focus:ring-[#3d4638]">
+                                <label for="callback-consent" class="text-xs text-[#f2f0ea]">
+                                    Я согласен на
+                                </label>
+                                <a href="#" class="cc-modal-trigger underline text-[#f2f0ea] hover:text-white text-xs">
+                                    обработку персональных данных
+                                </a>
+                            </div>
+                            <p id="callback-consent-error" class="callback-field-error hidden text-[10px] font-semibold text-red-500 mt-1">Пожалуйста, подтвердите согласие.</p>
+
+                            <!-- Кнопка действия -->
+                            <button type="submit" class="btn-primary w-full h-11 text-white text-[10px] sm:text-xs font-extrabold tracking-[0.2em] uppercase rounded-xl transition-all duration-300 shadow-sm cursor-pointer mt-2">
+                                Отправить заявку
+                            </button>
+                            
+                            <!-- Вывод статуса -->
+                            <p id="callback-form-status" class="text-xs font-bold text-center hidden"></p>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ИКОНКИ ПРЕИМУЩЕСТВ -->
+            <div class="grid grid-cols-2 md:grid-cols-4 justify-between items-center gap-4 sm:gap-6 py-6 md:py-12 border-t select-none mt-6 md:mt-12 theme-border">
+                
+                <!-- Блок 1 -->
+                <div class="flex flex-col items-center text-center px-1">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm theme-border theme-bg-card">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 theme-text-main" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M12 3a9 9 0 019 9M12 21a9 9 0 01-9-9M12 3a9 9 0 00-9 9M12 21a9 9 0 009-9" />
+                        </svg>
+                    </div>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">Природный</span>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">камень</span>
+                </div>
+
+                <!-- Блок 2 -->
+                <div class="flex flex-col items-center text-center px-1">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm theme-border theme-bg-card">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 theme-text-main" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12z" />
+                        </svg>
+                    </div>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">Долговечность</span>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">и прочность</span>
+                </div>
+
+                <!-- Блок 3 -->
+                <div class="flex flex-col items-center text-center px-1">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm theme-border theme-bg-card">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 theme-text-main" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
+                        </svg>
+                    </div>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">Морозостойкость</span>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">и надёжность</span>
+                </div>
+
+                <!-- Блок 4 -->
+                <div class="flex flex-col items-center text-center px-1">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm theme-border theme-bg-card">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 theme-text-main" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                    </div>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">Индивидуальный</span>
+                    <span class="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase theme-text-main">подход</span>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 2: ПРИМЕРЫ БРУСЧАТКИ -->
+    <div id="tab-paving" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-4 md:py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-6 md:mb-10">
+                <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Элементы мощения</span>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Примеры брусчатки из природного камня</h2>
+                <div class="w-12 h-[2px] bg-[#3d4638] mx-auto mt-3"></div>
+                <p class="text-xs mt-3 theme-text-muted max-w-xl mx-auto">Надежное покрытие для пешеходных дорожек, парковых зон, въездов и террас с высокими показателями износостойкости.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Карточка 1 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/dorozhki-1.png" class="lightbox" data-gallery="paving-gallery">
+                                <img src="./images/dorozhki-1.png" alt="Дорожка из брусчатки 1" class="w-full h-full object-cover" loading="lazy">
+                                <span class="absolute bottom-3 right-3 bg-[#3d4638]/90 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-1 rounded">Толщина: 40-50 мм</span>
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-2">Классическое мощение</h3>
+                            <p class="text-[11px] leading-relaxed theme-text-muted mb-4">Пиленые боковые грани обеспечивают ровные швы, а природный рельеф камня исключает скольжение.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/dorozhki-2.png" class="lightbox" data-gallery="paving-gallery">
+                                <img src="./images/dorozhki-2.png" alt="Дорожка из брусчатки 2" class="w-full h-full object-cover" loading="lazy">
+                                <span class="absolute bottom-3 right-3 bg-[#3d4638]/90 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-1 rounded">Толщина: 30-40 мм</span>
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-2">Галтованная брусчатка</h3>
+                            <p class="text-[11px] leading-relaxed theme-text-muted mb-4">Скругленные при обработке края плитки создают эффект благородной старинной мостовой.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/dorozhki-3.png" class="lightbox" data-gallery="paving-gallery">
+                                <img src="./images/dorozhki-3.png" alt="Дорожка из брусчатки 3" class="w-full h-full object-cover" loading="lazy">
+                                <span class="absolute bottom-3 right-3 bg-[#3d4638]/90 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-1 rounded">Толщина: 30 мм</span>
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-2">Полнопиленая брусчатка</h3>
+                            <p class="text-[11px] leading-relaxed theme-text-muted mb-4">Идеальная плоскость лицевой стороны обеспечивает удобство хождения и легкий уход за дорожкой.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 3: ПРИМЕРЫ ФАСАДОВ -->
+    <div id="tab-facades" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-4 md:py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-6 md:mb-10">
+                <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Архитектурная облицовка</span>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Примеры фасада зданий из природного камня</h2>
+                <div class="w-12 h-[2px] bg-[#3d4638] mx-auto mt-3"></div>
+                <p class="text-xs mt-3 theme-text-muted max-w-xl mx-auto">Защитно-декоративная отделка внешних стен, цокольных этажей и архитектурных элементов природным экологически чистым материалом.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Карточка 1 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-1.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-1.png" alt="Фасад 1" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка светлым природным камнем</h3>
+                            <p class="text-[10px] leading-relaxed theme-text-muted">(песчаник со сколом 8 на 25) фасада одноэтажного жилого дома</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+ 
+                <!-- Карточка 2 -->
+                 <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                     <div>
+                         <div class="h-48 theme-bg-card overflow-hidden relative">
+                             <a href="./images/zabor.png" class="lightbox" data-gallery="facade-gallery">
+                                 <img src="./images/zabor.png" alt="Забор" class="w-full h-full object-cover" loading="lazy">
+                             </a>
+                         </div>
+                         <div class="p-4 sm:p-5">
+                             <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка «соломкой» из Уральского камня забора</h3>
+                             <p class="text-[10px] leading-relaxed theme-text-muted">Размер обработанного природного камня 8 на 25, укладка «соломкой».</p>
+                         </div>
+                     </div>
+                     <div class="p-4 sm:p-5 pt-0">
+                         <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                             ПОЗВОНИТЬ
+                         </a>
+                     </div>
+                 </div>
+
+                <!-- Карточка 3 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-3.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-3.png" alt="Фасад 3" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка фасада двухэтажного дома Уральским камнем, обработанного спилом и сколом по сторонам.</h3>
+                            <p class="text-[10px] leading-relaxed theme-text-muted">Размер обработанного природного камня 20 на 20.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 4 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-4.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-4.png" alt="Фасад 4" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка светлым природным камнем</h3>
+                            <p class="text-[10px] leading-relaxed theme-text-muted">(песчаник со сколом 8 на 25) фасада двухэтажного жилого дома</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 5 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-5.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-5.png" alt="Фасад 5" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка «соломкой» из Уральского камня фасада одноэтажного жилого дома</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 6 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-6.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-6.png" alt="Фасад 6" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка «соломкой» из Уральского камня фасада двухэтажного жилого дома</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 7 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-7.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-7.png" alt="Фасад 7" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка фасада двухэтажного дома Уральским камнем, обработанного спилом и сколом по сторонам.</h3>
+                            <p class="text-[10px] leading-relaxed theme-text-muted">Размер обработанного природного камня 20 на 20.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+                <!-- Карточка 8 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/fasad-8.png" class="lightbox" data-gallery="facade-gallery">
+                                <img src="./images/fasad-8.png" alt="Фасад 8" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка фасада одноэтажного дома Уральским камнем, обработанного ручным декоративным сколом по сторонам камня.</h3>
+                            <p class="text-[10px] leading-relaxed theme-text-muted">Размер обработанного природного камня 8 на 25.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 3.5: ИНТЕРЬЕРЫ ИЗ ПРИРОДНОГО КАМНЯ -->
+    <div id="tab-interior" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-4 md:py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-6 md:mb-10">
+                <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Интерьерные решения</span>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Интерьер из природного камня</h2>
+                <div class="w-12 h-[2px] bg-[#3d4638] mx-auto mt-3"></div>
+                <p class="text-xs mt-3 theme-text-muted max-w-xl mx-auto">Эксклюзивная отделка внутренних помещений природным камнем — долговечность и уникальный стиль.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Карточка 1 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/interier-1.png" class="lightbox" data-gallery="interior-gallery">
+                                <img src="./images/interier-1.png" alt="Интерьер 1" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка камина природным уральским камнем и фаской</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/interier-2.png" class="lightbox" data-gallery="interior-gallery">
+                                <img src="./images/interier-2.png" alt="Интерьер 2" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка стены «соломкой» из уральского камня</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/interier-3.png" class="lightbox" data-gallery="interior-gallery">
+                                <img src="./images/interier-3.png" alt="Интерьер 3" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка внутренней стены уральским камнем с фаской</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 4 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/interier-4.png" class="lightbox" data-gallery="interior-gallery">
+                                <img src="./images/interier-4.png" alt="Интерьер 4" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка дагестанским светлым камнем стены коридора</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 5 -->
+                <div class="rounded-xl overflow-hidden border shadow-sm premium-hover-card theme-bg-card theme-border flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 theme-bg-card overflow-hidden relative">
+                            <a href="./images/interier-5.png" class="lightbox" data-gallery="interior-gallery">
+                                <img src="./images/interier-5.png" alt="Интерьер 5" class="w-full h-full object-cover" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <h3 class="text-xs sm:text-sm font-bold uppercase theme-text-main mb-1">Отделка дагестанским светлым камнем камина</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 pt-0">
+                        <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] dark:bg-[#6b7d5c] dark:hover:bg-[#7f9370] text-white text-[11px] font-extrabold tracking-widest uppercase rounded-lg transition-all duration-300 ease-out shadow-sm">
+                            ПОЗВОНИТЬ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 4: СРАВНЕНИЕ МАТЕРИАЛОВ -->
+    <div id="tab-benefits" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-6 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+            
+            <div class="bg-[#3d4638] text-white rounded-2xl p-5 sm:p-12 mb-8 md:mb-16 text-center shadow-md premium-banner-hover cursor-default select-none">
+                <span class="text-[9px] sm:text-xs font-bold tracking-[0.25em] uppercase text-[#f2f0ea]/80">Долгосрочная перспектива</span>
+                <h3 class="text-base sm:text-2xl md:text-4xl font-extrabold uppercase tracking-tight mt-2 mb-3">Природный камень — это инвестиция в будущее на столетия!</h3>
+                <p class="text-[10px] sm:text-sm text-[#f2f0ea]/90 max-w-2xl mx-auto leading-relaxed">Вложения в качественную облицовку окупаются отсутствием необходимости ежегодных ремонтов, улучшением теплоизоляции и повышением рыночной стоимости недвижимости.</p>
+            </div>
+
+            <div class="text-center mb-6 md:mb-12">
+                <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Объективный выбор</span>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Природный камень VS Клинкер VS Короед</h2>
+                <div class="w-12 h-[2px] bg-[#3d4638] mx-auto mt-3"></div>
+            </div>
+
+            <!-- Переключатель вкладок сравнения для мобильных устройств -->
+            <div class="flex lg:hidden justify-center bg-black/[0.04] dark:bg-white/[0.05] p-1 rounded-2xl max-w-sm mx-auto mb-6 border theme-border">
+                <button type="button" data-vs-tab="stone" class="vs-tab-btn flex-1 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-200 bg-[#3d4638] text-white shadow-sm">Камень</button>
+                <button type="button" data-vs-tab="clinker" class="vs-tab-btn flex-1 py-2.5 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all duration-200 theme-text-muted hover:theme-text-main">Клинкер</button>
+                <button type="button" data-vs-tab="koroed" class="vs-tab-btn flex-1 py-2.5 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all duration-200 theme-text-muted hover:theme-text-main">Короед</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+                
+                <!-- Природный камень -->
+                <div id="vs-card-stone" class="vs-card premium-hover-card rounded-2xl p-4 sm:p-8 border-2 border-[#3d4638] shadow-md flex flex-col justify-between cursor-default select-none theme-bg-card">
+                    <div>
+                        <div class="flex justify-between items-center border-b pb-4 mb-4 theme-border">
+                            <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#3d4638]">Природный камень</h4>
+                            <span class="text-[8px] bg-[#3d4638] text-white px-2 py-1 rounded-full uppercase tracking-widest font-bold">Рекомендуем</span>
+                        </div>
+                        
+                        <div class="divide-y text-xs space-y-1 theme-border">
+                            <div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">1</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Долговечность</span>
+                                        <span class="text-xs font-bold theme-text-main">100–150 лет службы</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">2</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Внешний вид</span>
+                                        <span class="text-xs font-bold theme-text-main">Уникальный, премиальный</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">3</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Требует переделки</span>
+                                        <span class="text-xs font-bold theme-text-main">Нет</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">4</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость</span>
+                                        <span class="text-xs font-bold theme-text-main">Очень высокая</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">5</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Требует окраски</span>
+                                        <span class="text-xs font-bold theme-text-main">Навечно без окраски</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">6</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Экологичность</span>
+                                        <span class="text-xs font-bold theme-text-main">100% природный камень</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">7</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Престиж и статус</span>
+                                        <span class="text-xs font-bold theme-text-main">Максимальный</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">8</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к влаге</span>
+                                        <span class="text-xs font-bold theme-text-main">Высокая стойкость</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">9</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к морозу</span>
+                                        <span class="text-xs font-bold theme-text-main">Отличная стойкость</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">10</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стабильность цвета</span>
+                                        <span class="text-xs font-bold theme-text-main">Не меняется</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">11</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Ремонт фасада</span>
+                                        <span class="text-xs font-bold theme-text-main">Практически не требует</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">12</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Инвестиция в дом</span>
+                                        <span class="text-xs font-bold theme-text-main">Повышает стоимость</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">13</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к грязи</span>
+                                        <span class="text-xs font-bold theme-text-main">Легко чистится</span>
+                                    </div>
+                                </div>
+                                <span class="text-emerald-600 font-extrabold text-xs sm:text-base shrink-0 ml-1">✓</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Клинкер -->
+                <div id="vs-card-clinker" class="vs-card hidden lg:flex premium-hover-card rounded-2xl p-4 sm:p-8 border shadow-sm flex-col justify-between cursor-default select-none theme-bg-card theme-border">
+                    <div>
+                        <div class="border-b pb-4 mb-4 theme-border">
+                            <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#3d4638]">Клинкерная плитка</h4>
+                        </div>
+                        
+                        <div class="divide-y text-xs space-y-1 theme-border">
+                            <div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">1</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Долговечность</span>
+                                        <span class="text-xs font-bold theme-text-main">50–80 лет</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">2</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Внешний вид</span>
+                                        <span class="text-xs font-bold theme-text-main">Стандартный</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">3</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Требует переделки</span>
+                                        <span class="text-xs font-bold theme-text-main">Редко</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">4</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость</span>
+                                        <span class="text-xs font-bold theme-text-main">Средняя</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">5</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Требует окраски</span>
+                                        <span class="text-xs font-bold theme-text-main">Нет, не требует</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">6</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Экологичность</span>
+                                        <span class="text-xs font-bold theme-text-main">Обожженная глина</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">7</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Престиж и статус</span>
+                                        <span class="text-xs font-bold theme-text-main">Средний</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">8</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к влаге</span>
+                                        <span class="text-xs font-bold theme-text-main">Высокая стойкость</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">9</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к морозу</span>
+                                        <span class="text-xs font-bold theme-text-main">Хорошая стойкость</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">10</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стабильность цвета</span>
+                                        <span class="text-xs font-bold theme-text-main">Может выгорать</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">11</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Ремонт фасада</span>
+                                        <span class="text-xs font-bold theme-text-main">Редко требуется</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">12</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Инвестиция в дом</span>
+                                        <span class="text-xs font-bold theme-text-main">Нейтрально</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">13</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к грязи</span>
+                                        <span class="text-xs font-bold theme-text-main">Средняя</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Штукатурка Короед -->
+                <div id="vs-card-koroed" class="vs-card hidden lg:flex premium-hover-card rounded-2xl p-4 sm:p-8 border shadow-sm flex-col justify-between cursor-default select-none theme-bg-card theme-border">
+                    <div>
+                        <div class="border-b pb-4 mb-4 theme-border">
+                            <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#3d4638]">Штукатурка (Короед)</h4>
+                        </div>
+                        
+                        <div class="divide-y text-xs space-y-1 theme-border">
+                            <div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">1</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Долговечность</span>
+                                        <span class="text-xs font-bold theme-text-main">15–20 лет</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">2</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Внешний вид</span>
+                                        <span class="text-xs font-bold theme-text-main">Быстро теряет вид</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">3</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Требует переделки</span>
+                                        <span class="text-xs font-bold theme-text-main">Каждые 15–20 лет</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">4</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость</span>
+                                        <span class="text-xs font-bold theme-text-main">Низкая</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">5</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Требует окраски</span>
+                                        <span class="text-xs font-bold theme-text-main">Да (регулярно)</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">6</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Экологичность</span>
+                                        <span class="text-xs font-bold theme-text-main">Химические добавки</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">7</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Престиж и статус</span>
+                                        <span class="text-xs font-bold theme-text-main">Минимальный</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">8</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к влаге</span>
+                                        <span class="text-xs font-bold theme-text-main">Низкая (впитывает)</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">9</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к морозу</span>
+                                        <span class="text-xs font-bold theme-text-main">Средняя</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">10</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стабильность цвета</span>
+                                        <span class="text-xs font-bold theme-text-main">Выгорает быстро</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">11</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Ремонт фасада</span>
+                                        <span class="text-xs font-bold theme-text-main">Постоянно требуется</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">12</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Инвестиция в дом</span>
+                                        <span class="text-xs font-bold theme-text-main">Снижает оценку</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+<div class="py-2.5 flex justify-between items-center gap-2 border-[var(--border-main)]">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-6 h-6 shrink-0 rounded bg-[#3d4638]/5 text-[#3d4638] text-[9px] font-bold flex items-center justify-center">13</span>
+                                    <div>
+                                        <span class="text-[8px] sm:text-[10px] text-[#6d7568] block uppercase tracking-wider font-bold leading-none mb-1">Стойкость к грязи</span>
+                                        <span class="text-xs font-bold theme-text-main">Впитывает грязь</span>
+                                    </div>
+                                </div>
+                                <span class="text-red-500/80 font-extrabold text-xs sm:text-base shrink-0 ml-1">✗</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 5: СТОИМОСТЬ И РАСЧЕТ + КАТАЛОГ -->
+    <div id="tab-pricing" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-6 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-6 md:mb-12">
+                <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Финансовые условия</span>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Стоимость. Порядок заказа. Сроки.</h2>
+                <div class="w-12 h-[2px] bg-[#3d4638] mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 md:mb-24">
+                
+                <!-- Стоимость -->
+                <div class="rounded-2xl p-5 sm:p-8 border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border">
+                    <div>
+                        <div class="flex items-center gap-3.5 mb-5">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#3d4638]/5 flex items-center justify-center text-[#3d4638]">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h3 class="text-sm sm:text-lg font-bold uppercase tracking-tight theme-text-main">Сколько стоит?</h3>
+                        </div>
+                        <ul class="space-y-3 text-xs font-medium leading-relaxed list-none theme-text-muted">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#3d4638] font-bold mt-0.5">—</span>
+                                <div><strong class="theme-text-main">1 500 рублей</strong> за «соломку» (небольшие продолговатые фрагменты для фасада)</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#3d4638] font-bold mt-0.5">—</span>
+                                <div>От <strong class="theme-text-main">3 800 до 4 500 рублей</strong> за песчаник серого (темного) оттенка</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#3d4638] font-bold mt-0.5">—</span>
+                                <div>От <strong class="theme-text-main">7 000 до 7 700 рублей</strong> за песчаник благородного молочного цвета</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#3d4638] font-bold mt-0.5">—</span>
+                                <div>Работы по монтажу / укладке: в среднем <strong class="theme-text-main">2 000–2 500 рублей</strong> за кв. м</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center mt-6 bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded-xl transition">Позвонить на производство</a>
+                </div>
+
+                <!-- Как заказать -->
+                <div class="rounded-2xl p-5 sm:p-8 border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border">
+                    <div>
+                        <div class="flex items-center gap-3.5 mb-5">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#3d4638]/5 flex items-center justify-center text-[#3d4638]">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                            </div>
+                            <h3 class="text-sm sm:text-lg font-bold uppercase tracking-tight theme-text-main">Как заказать?</h3>
+                        </div>
+                        <p class="text-xs leading-relaxed mb-3 theme-text-muted">Для оформления заявки свяжитесь с нами удобным способом. Вы можете позвонить нам напрямую, либо, если линия занята, написать СМС — специалист оперативно перезвонит вам.</p>
+                        <p class="text-xs leading-relaxed mb-3 theme-text-muted">На сайте представлен наш основной номер, а в подвале страницы указаны дополнительные контакты.</p>
+                        <div class="p-3 rounded-lg text-[10px] font-semibold border theme-bg-card theme-border theme-text-muted">
+                            ✓ Работаем строго по договору. На предзаказы предусмотрена система скидок.
+                        </div>
+                    </div>
+                    <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center mt-6 bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded-xl transition">Позвонить на производство</a>
+                </div>
+
+                <!-- Сроки -->
+                <div class="rounded-2xl p-5 sm:p-8 border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border">
+                    <div>
+                        <div class="flex items-center gap-3.5 mb-5">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#3d4638]/5 flex items-center justify-center text-[#3d4638]">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            </div>
+                            <h3 class="text-sm sm:text-lg font-bold uppercase tracking-tight theme-text-main">Сколько ждать?</h3>
+                        </div>
+                        <p class="text-xs leading-relaxed mb-3 theme-text-muted">Стандартные сроки производства работ после согласования параметров, внесения предоплаты и подписания договора составляют в среднем <strong class="theme-text-main">от 1 до 2 месяцев</strong>.</p>
+                        <p class="text-xs leading-relaxed theme-text-muted font-semibold">Иногда цикл может увеличиваться — финальный срок напрямую зависит от объемов и уникальности размеров вашего индивидуального заказа, а также текущего уровня загруженности производственных линий.</p>
+                    </div>
+                    <a href="tel:+79689063063" class="w-full h-11 flex items-center justify-center mt-6 bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded-xl transition">Позвонить на производство</a>
+                </div>
+
+            </div>
+
+            <!-- ИНТЕРАКТИВНЫЙ КАТАЛОГ ПРОДУКЦИИ -->
+            <div class="border-t pt-10 sm:pt-16 theme-border">
+                <div id="catalog-section" class="scroll-mt-24">
+                    <div class="text-center mb-6">
+                        <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Производство</span>
+                        <h2 class="text-xl sm:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Каталог продукции</h2>
+                        <p class="text-xs mt-1 theme-text-muted">Выберите необходимый тип камня по его свойствам.</p>
+                    </div>
+
+                    <!-- Горизонтально прокручиваемая на мобильных панель фильтрации -->
+                    <div class="flex overflow-x-auto scrollbar-none gap-2 pb-4 px-4 -mx-4 md:mx-0 md:px-0 md:justify-center whitespace-nowrap">
+                        <button data-filter-btn="all" class="filter-btn text-[10px] font-bold tracking-wider uppercase px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border shadow-sm cursor-pointer shrink-0">Все камни</button>
+                        <button data-filter-btn="premium" class="filter-btn text-[10px] font-bold tracking-wider uppercase px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border shadow-sm cursor-pointer shrink-0">⭐ Брусчатка</button>
+                        <button data-filter-btn="eco" class="filter-btn text-[10px] font-bold tracking-wider uppercase px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border shadow-sm cursor-pointer shrink-0">🌱 Облицовка</button>
+                    </div>
+
+                    <!-- СЕТКА КАТАЛОГА -->
+                    <div id="products-grid-container">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                            <div data-product-features="premium" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Брусчатка</span>
+                                    <a href="./images/1.png" class="lightbox" data-gallery="catalog-gallery" data-title="Уральский камень" data-description="15/15 (со сколом)">
+                                        <img src="./images/1.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Уральский камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">★ Брусчатка</span>
+                                        
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Уральский камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">15/15 (со сколом)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="premium" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Брусчатка</span>
+                                    <a href="./images/2.png" class="lightbox" data-gallery="catalog-gallery" data-title="Уральский камень" data-description="15/15">
+                                        <img src="./images/2.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Уральский камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">★ Брусчатка</span>
+                                        
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Уральский камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">15/15</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="premium" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Брусчатка</span>
+                                    <a href="./images/3.png" class="lightbox" data-gallery="catalog-gallery" data-title="Уральский камень" data-description="8/24 (с подрезом)">
+                                        <img src="./images/3.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Уральский камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">★ Брусчатка</span>
+                                        
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Уральский камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">8/24 (с подрезом)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="premium" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Брусчатка</span>
+                                    <a href="./images/4.png" class="lightbox" data-gallery="catalog-gallery" data-title="Песчаный камень" data-description="8/24">
+                                        <img src="./images/4.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Песчаный камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">★ Брусчатка</span>
+                                        
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Песчаный камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">8/24</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="premium" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Брусчатка</span>
+                                    <a href="./images/5.png" class="lightbox" data-gallery="catalog-gallery" data-title="Песчаный камень" data-description="8/24 (с подрезом)">
+                                        <img src="./images/5.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Песчаный камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">★ Брусчатка</span>
+                                        
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Песчаный камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">8/24 (с подрезом)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="premium" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Брусчатка</span>
+                                    <a href="./images/6.png" class="lightbox" data-gallery="catalog-gallery" data-title="Песчаный камень" data-description="15/20 (со сколом)">
+                                        <img src="./images/6.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Песчаный камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">★ Брусчатка</span>
+                                        
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Песчаный камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">15/20 (со сколом)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="eco" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Облицовка</span>
+                                    <a href="./images/7.png" class="lightbox" data-gallery="catalog-gallery" data-title="Уральский камень" data-description="15/20 (со сколом и подрезом)">
+                                        <img src="./images/7.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Уральский камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">🌱 Облицовка</span>
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Уральский камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">15/20 (со сколом и подрезом)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="eco" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Облицовка</span>
+                                    <a href="./images/8.png" class="lightbox" data-gallery="catalog-gallery" data-title="Уральский камень" data-description="8/24">
+                                        <img src="./images/8.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Уральский камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">🌱 Облицовка</span>
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Уральский камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">8/24</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="eco" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Облицовка</span>
+                                    <a href="./images/9.png" class="lightbox" data-gallery="catalog-gallery" data-title="Песчаный камень" data-description="15/20 (со сколом и подрезом)">
+                                        <img src="./images/9.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Песчаный камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">🌱 Облицовка</span>
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Песчаный камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">15/20 (со сколом и подрезом)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+<div data-product-features="eco" class="overflow-hidden border shadow-sm flex flex-col justify-between premium-hover-card theme-bg-card theme-border rounded-xl">
+                                <div class="h-44 theme-bg-card relative overflow-hidden">
+                                    <span class="absolute top-3 left-3 bg-[#3d4638] text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full z-10">Облицовка</span>
+                                    <a href="./images/10.png" class="lightbox" data-gallery="catalog-gallery" data-title="Уральский камень" data-description=""соломка" (разные размеры)">
+                                        <img src="./images/10.png" onerror="this.src='https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80'" class="w-full h-full object-cover product-img" decoding="async" loading="lazy" alt="Уральский камень">
+                                    </a>
+                                 </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        
+                                        <span class="text-[8px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">🌱 Облицовка</span>
+                                    </div>
+                                    <h3 class="text-xs sm:text-sm font-bold uppercase mb-2 leading-tight theme-text-main">Уральский камень</h3>
+                                    <p class="text-[10px] sm:text-[11px] leading-relaxed theme-text-muted">"соломка" (разные размеры)</p>
+                                </div>
+                                <div class="p-4 sm:p-6 pt-0">
+                                    <a href="tel:+79689063063" class="w-full h-10 flex items-center justify-center bg-[#3d4638] hover:bg-[#2d3329] text-white text-[10px] font-bold uppercase rounded transition-all duration-300 ease-out">
+                                        Позвонить
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 6: САМОЕ ВАЖНОЕ -->
+    <div id="tab-important" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-6 md:py-16 px-4 sm:px-6 max-w-5xl mx-auto">
+            <div class="text-center mb-6 md:mb-12">
+                <span class="text-[9px] sm:text-[10px] font-bold tracking-widest text-[#6d7568] uppercase">Памятка клиенту</span>
+                <h2 class="text-xl sm:text-3xl font-extrabold uppercase tracking-tight mt-1 theme-text-main">Самое важное, что нужно знать</h2>
+                <div class="w-12 h-[2px] bg-[#3d4638] mx-auto mt-3"></div>
+            </div>
+
+            <div class="p-5 sm:p-8 md:p-12 rounded-2xl border shadow-sm mb-6 theme-bg-card theme-border">
+                <h3 class="text-sm sm:text-lg font-bold uppercase tracking-tight text-center mb-6 theme-text-main">Вы решили узнать, что же самое важное нужно знать? Правильное решение! Итак, по порядку:</h3>
+                
+                <div class="space-y-6 text-xs sm:text-sm leading-relaxed">
+                    <div class="flex gap-3 sm:gap-4 items-start">
+                        <span class="text-xs sm:text-sm font-extrabold text-[#3d4638] bg-[#3d4638]/5 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg shrink-0 theme-text-accent theme-bg-soft-accent">1</span>
+                        <div>
+                            <strong class="text-xs sm:text-base block mb-1 theme-text-main">Собственное производство</strong>
+                            <span class="theme-text-muted">Мы являемся непосредственным производителем, а не посредниками, «перекупами» или агентами. Это гарантирует вам прямое ценообразование, независимый контроль за качеством нарезки, а также чёткое планирование графиков отгрузки.</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 sm:gap-4 items-start">
+                        <span class="text-xs sm:text-sm font-extrabold text-[#3d4638] bg-[#3d4638]/5 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg shrink-0 theme-text-accent theme-bg-soft-accent">2</span>
+                        <div>
+                            <strong class="text-xs sm:text-base block mb-1 theme-text-main">Реализация любых эскизов и идей</strong>
+                            <span class="theme-text-muted">Дизайн и форматы не ограничиваются позициями нашего стандартного каталога. Вы всегда можете прислать собственную фотографию или проект с запросом «хочу вот так». Мы оценим техническую реализуемость (в большинства случаях задача выполнима) и сформируем расчет цены и сроков.</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 sm:gap-4 items-start">
+                        <span class="text-xs sm:text-sm font-extrabold text-[#3d4638] bg-[#3d4638]/5 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg shrink-0 theme-text-accent theme-bg-soft-accent">3</span>
+                        <div>
+                            <strong class="text-xs sm:text-base block mb-1 theme-text-main">Широкий спектр изделий</strong>
+                            <span class="theme-text-muted">Сфера применения песчаника невероятно обширна. Мы производим не только облицовочную плитку для фасадов и прочную брусчатку. Из природного камня можно изготовить ступени, балясины, крышки заборов, подоконники и индивидуальный ландшафтный декор. Напишите нам при наличии любых идей.</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 sm:gap-4 items-start">
+                        <span class="text-xs sm:text-sm font-extrabold text-[#3d4638] bg-[#3d4638]/5 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg shrink-0 theme-text-accent theme-bg-soft-accent">4</span>
+                        <div>
+                            <strong class="text-xs sm:text-base block mb-1 theme-text-main">Индивидуальные консультации</strong>
+                            <span class="theme-text-muted">Если у вас остались сомнения, возникли вопросы технического характера или требуется экспертная оценка — свяжитесь с нами по телефону. Мы предоставим компетентные ответы на все вопросы, развеем сомнения и поможем определиться с материалом.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- СЕКЦИЯ 7: КОНТАКТЫ -->
+    <div id="tab-contacts" class="tab-content transition-opacity duration-300 py-4 md:py-12">
+        <section class="py-6 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto rounded-3xl border theme-border shadow-sm theme-bg-card">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-6 p-6 sm:p-8 rounded-2xl border theme-border theme-bg-card shadow-lg">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-[9px] font-bold tracking-[0.2em] text-[#6d7568] uppercase block mb-1">Адреса и контакты</span>
+                            <h2 class="text-lg sm:text-3xl font-extrabold uppercase tracking-tight theme-text-main">Обратная связь</h2>
+                            <div class="w-full max-w-[280px] h-[2px] bg-[#3d4638] mt-2"></div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-[#3d4638]/5 flex items-center justify-center text-[#3d4638] shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg></div>
+                                <p class="text-xs sm:text-sm font-semibold theme-text-main leading-normal">
+                                    Россия, Самарская область, г. Тольятти, ул. Базовая, 4Б, цех 2
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-[#3d4638]/5 flex items-center justify-center text-[#3d4638] shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+                                <p class="text-xs sm:text-sm font-semibold theme-text-main">
+                                    <a href="tel:+79689063063" class="hover:text-[#3d4638] transition">+7 (9689)-063-063</a>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-[#3d4638]/5 flex items-center justify-center text-[#3d4638] shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                </div>
+                                <p class="text-xs sm:text-sm font-semibold theme-text-main">
+                                    <a href="mailto:ali.bdfy.1972@mail.ru" class="hover:text-[#3d4638] transition">ali.bdfy.1972@mail.ru</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 requisites-block border rounded-2xl text-[10px] sm:text-[11px] leading-relaxed space-y-3">
+                            <h4 class="font-bold text-xs uppercase tracking-wider">Реквизиты БИОСТОУН:</h4>
+                            <div class="space-y-1">
+                                <p><strong>ИП Алистратов Иван Николаевич</strong></p>
+                                <p>ИНН: 632155199532</p>
+                                <p>ОГРНИП: 326632700064301</p>
+                                <p>р/с: 40802810054740015183</p>
+                            </div>
+                            <div class="border-t border-gray-300/30 pt-3 space-y-1">
+                                <p><strong>Банк получателя:</strong></p>
+                                <p>Наименование: ПОВОЛЖСКИЙ БАНК ПАО СБЕРБАНК</p>
+                                <p>БИК: 043601607</p>
+                                <p>к/с: 30101810200000000607</p>
+                                <p>ИНН банка: 7707083893 / КПП: 631602006</p>
+                            </div>
+                            <div class="pt-2 text-[9px] text-gray-400">
+                                <a href="#" class="hover:underline cc-modal-trigger">Политика конфиденциальности</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Высота карты адаптирована под мобильные экраны -->
+                <div class="lg:col-span-6 w-full h-[280px] lg:h-[480px] rounded-2xl border overflow-hidden shadow-sm theme-border" id="map"></div>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+<script>
+    let myMap;
+    function loadMapWhenNeeded() {
+        const mapElement = document.getElementById('map');
+        if (!mapElement || !('IntersectionObserver' in window)) return;
+
+        const observer = new IntersectionObserver(entries => {
+            if (!entries[0].isIntersecting) return;
+            observer.disconnect();
+            const mapScript = document.createElement('script');
+            mapScript.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+            mapScript.async = true;
+            mapScript.onload = () => ymaps.ready(() => {
+                myMap = new ymaps.Map('map', { center: [53.524412, 49.471669], zoom: 16, controls: ['zoomControl'] });
+                myMap.geoObjects.add(new ymaps.Placemark([53.524412, 49.471669], { hintContent: 'БиоСтоун - Производство' }));
+            });
+            document.head.appendChild(mapScript);
+        }, { rootMargin: '320px 0px' });
+
+        observer.observe(mapElement);
+    }
+
+    loadMapWhenNeeded();
+
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                document.body.classList.add('menu-open');
+            } else {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('menu-open');
+            }
+        });
+    }
+
+    // Кинетическая функция плавного скролла
+    function fastSmoothScrollTo(targetSelector, duration = 800) {
+        const target = document.querySelector(targetSelector);
+        if (!target) return;
+        
+        const header = document.querySelector('header');
+        const headerOffset = header ? header.offsetHeight : 64;
+        
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            
+            const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            } else {
+                window.scrollTo(0, targetPosition);
+            }
+        }
+
+        function easeInOutCubic(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t * t + b;
+            t -= 2;
+            return c / 2 * (t * t * t + 2) + b;
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    // Обработчик переходов по якорям
+    document.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (anchor) {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href');
+            fastSmoothScrollTo(targetId, 800);
+            
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('menu-open'); // Снимаем блокировку прокрутки
+            }
+            return;
+        }
+
+        const dataBtn = e.target.closest('[data-tab]');
+        if (dataBtn) {
+            e.preventDefault();
+            const tabName = dataBtn.getAttribute('data-tab');
+            fastSmoothScrollTo(`#tab-${tabName}`, 800);
+            return;
+        }
+    });
+
+    // SCROLLSPY: Автоматическая подсветка пунктов меню при прокрутке
+    const sections = document.querySelectorAll('.tab-content');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    let scrollSpyPending = false;
+    let activeSectionId = '';
+
+    function updateScrollSpy() {
+        let currentSectionId = '';
+        const headerOffset = document.querySelector('header')?.offsetHeight || 64;
+        const scrollPosition = window.scrollY + headerOffset + 120;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+            currentSectionId = sections[sections.length - 1].getAttribute('id');
+        }
+
+        if (!currentSectionId && sections.length > 0) {
+            currentSectionId = sections[0].getAttribute('id');
+        }
+
+        if (currentSectionId === activeSectionId) return;
+        activeSectionId = currentSectionId;
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            const isTarget = href === `#${currentSectionId}`;
+            link.classList.toggle('is-active', isTarget);
+        });
+
+        mobileNavLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            const isTarget = href === `#${currentSectionId}`;
+            link.classList.toggle('is-active', isTarget);
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        if (scrollSpyPending) return;
+        scrollSpyPending = true;
+        requestAnimationFrame(() => {
+            updateScrollSpy();
+            scrollSpyPending = false;
+        });
+    }, { passive: true });
+
+    window.addEventListener('resize', updateScrollSpy, { passive: true });
+    updateScrollSpy();
+
+    // Фильтрация товаров в каталоге
+    function applyFilter(filterId) {
+        const cards = document.querySelectorAll('[data-product-features]');
+        const filterBtns = document.querySelectorAll('[data-filter-btn]');
+
+        filterBtns.forEach(btn => {
+            const isActive = btn.getAttribute('data-filter-btn') === filterId;
+            if (isActive) {
+                btn.classList.add('is-active');
+            } else {
+                btn.classList.remove('is-active');
+            }
+        });
+
+        cards.forEach(card => {
+            if (filterId === 'all') {
+                card.style.display = '';
+            } else {
+                const features = card.getAttribute('data-product-features').split(' ');
+                if (features.includes(filterId)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    const inlineFilterBtns = document.querySelectorAll('[data-filter-btn]');
+    inlineFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterValue = btn.getAttribute('data-filter-btn');
+            applyFilter(filterValue);
+        });
+    });
+
+    applyFilter('all');
+
+    // Логика переключателя вкладок (табов) VS-карточек для мобильных
+    const vsTabBtns = document.querySelectorAll('[data-vs-tab]');
+    const vsCards = {
+        stone: document.getElementById('vs-card-stone'),
+        clinker: document.getElementById('vs-card-clinker'),
+        koroed: document.getElementById('vs-card-koroed')
+    };
+
+    function switchVsTab(activeTabId) {
+        // Обновляем состояние кнопок
+        vsTabBtns.forEach(btn => {
+            const tabId = btn.getAttribute('data-vs-tab');
+            if (tabId === activeTabId) {
+                btn.className = "vs-tab-btn flex-1 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-200 bg-[#3d4638] text-white shadow-sm";
+            } else {
+                btn.className = "vs-tab-btn flex-1 py-2.5 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all duration-200 theme-text-muted hover:theme-text-main";
+            }
+        });
+
+        // Скрываем все карточки и показываем только активную на мобильных
+        Object.keys(vsCards).forEach(key => {
+            const card = vsCards[key];
+            if (!card) return;
+            
+            if (key === activeTabId) {
+                card.classList.remove('hidden');
+                card.classList.add('flex');
+            } else {
+                card.classList.add('hidden');
+                card.classList.remove('flex');
+            }
+        });
+    }
+
+    vsTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-vs-tab');
+            switchVsTab(tabId);
+        });
+    });
+
+    switchVsTab('stone');
+
+    // Генерация математической капчи
+    let captchaNum1, captchaNum2, captchaAnswer;
+
+    function generateCaptcha() {
+        captchaNum1 = Math.floor(Math.random() * 9) + 1;
+        captchaNum2 = Math.floor(Math.random() * 9) + 1;
+        captchaAnswer = captchaNum1 + captchaNum2;
+        
+        const qElement = document.getElementById('captcha-question');
+        if (qElement) {
+            qElement.innerText = `${captchaNum1} + ${captchaNum2} = ?`;
+        }
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+        generateCaptcha();
+        
+        const form = document.getElementById('hero-callback-form');
+        const status = document.getElementById('callback-form-status');
+        const phoneInput = document.getElementById('callback-phone');
+
+        // Маска номера телефона
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function (e) {
+                let input = e.target.value.replace(/\D/g, '');
+                
+                if (input.startsWith('8')) {
+                    input = '7' + input.substring(1);
+                }
+                if (input.length > 0 && !input.startsWith('7')) {
+                    input = '7' + input;
+                }
+                
+                let formatted = '';
+                if (input.length > 0) {
+                    formatted += '+7';
+                }
+                if (input.length > 1) {
+                    formatted += ' (' + input.substring(1, 4);
+                }
+                if (input.length >= 5) {
+                    formatted += ') ' + input.substring(4, 7);
+                }
+                if (input.length >= 8) {
+                    formatted += '-' + input.substring(7, 9);
+                }
+                if (input.length >= 10) {
+                    formatted += '-' + input.substring(9, 11);
+                }
+                
+                e.target.value = formatted;
+            });
+
+            phoneInput.addEventListener('focus', function () {
+                if (!this.value) {
+                    this.value = '+7 ';
+                }
+            });
+        }
+        
+        if (form) {
+            const nameInput = document.getElementById('callback-name');
+            const captchaInput = document.getElementById('callback-captcha');
+            const consentInput = document.getElementById('callback-consent');
+            const consentError = document.getElementById('callback-consent-error');
+
+            function clearFieldErrors() {
+                form.querySelectorAll('.callback-field-error').forEach((el) => {
+                    el.classList.add('hidden');
+                });
+                consentError.innerText = 'Пожалуйста, поставьте галочку.';
+                status.className = 'text-xs font-bold text-center hidden';
+                status.innerText = '';
+            }
+
+            function showFieldError(input, message) {
+                const wrapper = input.closest('div');
+                if (!wrapper) return;
+                const errorEl = wrapper.querySelector('.callback-field-error');
+                if (!errorEl) return;
+                errorEl.textContent = message;
+                errorEl.classList.remove('hidden');
+            }
+
+            function validateFormFields() {
+                let valid = true;
+                clearFieldErrors();
+
+                if (!nameInput.value.trim()) {
+                    showFieldError(nameInput, 'Пожалуйста, введите ваше имя.');
+                    valid = false;
+                }
+
+                const rawPhoneDigits = phoneInput.value.replace(/\D/g, '');
+                if (!phoneInput.value.trim()) {
+                    showFieldError(phoneInput, 'Пожалуйста, заполните это поле.');
+                    valid = false;
+                } else if (rawPhoneDigits.length !== 11) {
+                    showFieldError(phoneInput, 'Неверный номер телефона. Введите 11 цифр.');
+                    valid = false;
+                }
+
+                if (!captchaInput.value.trim()) {
+                    showFieldError(captchaInput, 'Пожалуйста, заполните это поле.');
+                    valid = false;
+                }
+
+                if (!consentInput.checked) {
+                    consentError.classList.remove('hidden');
+                    valid = false;
+                }
+
+                return valid;
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                if (!validateFormFields()) {
+                    return;
+                }
+                
+                const enteredVal = parseInt(captchaInput.value, 10);
+                
+                if (enteredVal !== captchaAnswer) {
+                    status.innerText = "Ошибка: Неверный ответ капчи!";
+                    status.className = "text-[10px] font-semibold text-center text-red-600 block mt-2";
+                    generateCaptcha();
+                    captchaInput.value = '';
+                    return;
+                }
+
+                const rawPhoneDigits = phoneInput.value.replace(/\D/g, '');
+                if (rawPhoneDigits.length !== 11) {
+                    status.innerText = "Ошибка: Номер телефона должен состоять из 11 цифр!";
+                    status.className = "text-[10px] font-semibold text-center text-red-600 block mt-2";
+                    return;
+                }
+                
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = "ОТПРАВКА...";
+
+                const name = nameInput.value;
+                const phone = phoneInput.value;
+                const consent = consentInput.checked;
+
+                const formData = new FormData();
+                formData.append('action', 'send_callback_mail');
+                formData.append('name', name);
+                formData.append('phone', phone);
+                formData.append('captcha_ans', enteredVal);
+                formData.append('captcha_expected', captchaAnswer);
+                formData.append('consent', consent);
+
+                // Имитация отправки — сайт работает в статическом режиме без бэкенда
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+
+                    console.log("📝 Заявка с сайта BioStone:");
+                    console.log("  Имя:", name);
+                    console.log("  Телефон:", phone);
+                    console.log("  Согласие:", consent ? "Да" : "Нет");
+
+                    status.innerText = "Спасибо! Ваша заявка успешно отправлена.";
+                    status.className = "text-[10px] font-semibold text-center text-[#3d4638] block mt-2";
+                    form.reset();
+                    generateCaptcha();
+                }, 1200);
+            });
+        }
+
+    });
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const lightbox = GLightbox({
+            selector: '.lightbox',
+            touchNavigation: true,
+            loop: true,
+        });
+    });
+  </script>
+<div id="cookie-consent">
+  <div class="cc-inner">
+  <p>Мы используем файлы cookie, чтобы улучшить ваш опыт. <a href="#" class="cc-more">Политика конфиденциальности</a>.</p>
+    <div class="cc-actions">
+      <button id="accept-cookies">Принять</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie consent modal for User Agreement -->
+<div id="cc-modal" class="cc-modal" aria-hidden="true">
+  <div class="cc-modal__overlay" data-cc-close></div>
+  <div class="cc-modal__content" role="dialog" aria-modal="true" aria-labelledby="cc-modal-title">
+    <button class="cc-modal__close" aria-label="Закрыть" data-cc-close>×</button>
+    <h2 id="cc-modal-title" class="text-xl font-extrabold uppercase tracking-tight mb-4">Политика конфиденциальности</h2>
+    <p class="text-sm theme-text-muted mb-4"><strong>Дата вступления в силу: 25 июля 2026 г.</strong></p>
+    <div class="cc-modal__body text-sm leading-relaxed space-y-3">
+
+<h3 class="font-bold text-base mt-4">1. ОБЩИЕ ПОЛОЖЕНИЯ</h3>
+<p><strong>1.1.</strong> Настоящая Политика конфиденциальности (далее – «Политика») определяет порядок обработки и защиты персональных данных пользователей (далее – «Пользователи») сайта, принадлежащего <strong>ИП Алистратов Иван Николаевич (ИНН: 632155199532)</strong> (далее – «Оператор», «мы»).</p>
+<p><strong>1.2.</strong> Оператор осуществляет агентскую деятельность по привлечению клиентов для компаний-принципалов на основании агентских договоров в соответствии с главой 52 ГК РФ и обрабатывает персональные данные в соответствии с:<br>
+– Конституцией Российской Федерации;<br>
+– Федеральным законом №152-ФЗ «О персональных данных»;<br>
+– Иными нормативными актами в области защиты персональных данных.</p>
+<p><strong>1.3.</strong> Настоящая Политика применяется ко всем персональным данным, получаемым Оператором через формы на сайте.</p>
+<p><strong>1.4.</strong> Использование сайта означает безоговорочное согласие Пользователя с настоящей Политикой.</p>
+
+<h3 class="font-bold text-base mt-4">2. ОСНОВНЫЕ ТЕРМИНЫ</h3>
+<p><strong>2.1.</strong> Персональные данные – любая информация, относящаяся к прямо или косвенно определенному физическому лицу.</p>
+<p><strong>2.2.</strong> Обработка персональных данных – любое действие с персональными данными, включая сбор, запись, хранение, изменение, передачу, удаление.</p>
+<p><strong>2.3.</strong> Конфиденциальность персональных данных – обязанность не раскрывать третьим лицам персональные данные без согласия субъекта.</p>
+<p><strong>2.4.</strong> Компании-принципалы – юридические лица и индивидуальные предприниматели, с которыми у Оператора заключены агентские договоры на привлечение клиентов.</p>
+
+<h3 class="font-bold text-base mt-4">3. ПРИНЦИПЫ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+<p><strong>3.1.</strong> Обработка персональных данных осуществляется на основе принципов:<br>
+– Законности и справедливой основы;<br>
+– Ограничения обработки достижением конкретных целей;<br>
+– Недопустимости объединения баз данных с несовместимыми целями;<br>
+– Соответствия объема данных заявленным целям;<br>
+– Точности и актуальности данных;<br>
+– Уничтожения данных по достижении целей обработки.</p>
+
+<h3 class="font-bold text-base mt-4">4. ПРАВОВЫЕ ОСНОВАНИЯ ОБРАБОТКИ</h3>
+<p><strong>4.1.</strong> Оператор обрабатывает персональные данные на следующих основаниях:<br>
+– Согласие Пользователя на обработку персональных данных;<br>
+– Исполнение договора, стороной которого является Пользователь;<br>
+– Достижение целей, предусмотренных законодательством РФ.</p>
+
+<h3 class="font-bold text-base mt-4">5. СОСТАВ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+<p><strong>5.1.</strong> Оператор может обрабатывать следующие персональные данные:<br>
+– Фамилия, имя, отчество;<br>
+– Номер телефона;<br>
+– Адрес электронной почты;<br>
+– Город проживания/нахождения;<br>
+– Информация о запрашиваемых услугах;<br>
+– IP-адрес;<br>
+– Данные cookies;<br>
+– Информация об устройстве и браузере;<br>
+– Иные данные, предоставленные Пользователем.</p>
+
+<h3 class="font-bold text-base mt-4">6. ЦЕЛИ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+<p><strong>6.1.</strong> Оператор обрабатывает персональные данные исключительно в следующих целях:<br>
+– Обработка заявок на получение услуг;<br>
+– Передача данных компаниям-партнерам для оказания запрошенных услуг;<br>
+– Исполнение договорных обязательств перед компаниями-партнерами;<br>
+– Информирование о статусе заявки;<br>
+– Улучшение качества обслуживания;<br>
+– Проведение статистических исследований;<br>
+– Соблюдение требований законодательства РФ.</p>
+
+<h3 class="font-bold text-base mt-4">7. ПЕРЕДАЧА ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+<p><strong>7.1.</strong> Оператор передает персональные данные Пользователей:<br>
+– Компаниям-партнерам – для непосредственного оказания запрошенных услуг;<br>
+– Контрагентам по договорам – в рамках исполнения обязательств по привлечению клиентов.</p>
+<p><strong>7.2.</strong> При передаче данных Оператор:<br>
+– Убеждается в наличии правовых оснований;<br>
+– Передает только необходимый объем данных;<br>
+– Информирует Пользователя о факте передачи (через настоящую Политику).</p>
+<p><strong>7.3.</strong> Оператор НЕ передает персональные данные:<br>
+– В маркетинговые базы данных;<br>
+– Для массовых рассылок без согласия Пользователя;<br>
+– В страны, не обеспечивающие адекватную защиту данных.</p>
+
+<h3 class="font-bold text-base mt-4">8. СРОКИ ОБРАБОТКИ И ХРАНЕНИЯ</h3>
+<p><strong>8.1.</strong> Персональные данные обрабатываются и хранятся:<br>
+– До достижения целей обработки;<br>
+– В течение 3 лет с момента последней заявки или иного обращения Пользователя к Оператору – для целей исполнения договоров с принципалами;<br>
+– До момента отзыва согласия – для иных целей.</p>
+<p><strong>8.2.</strong> По истечении срока хранения персональные данные уничтожаются.</p>
+
+<h3 class="font-bold text-base mt-4">9. СПОСОБЫ ОБРАБОТКИ</h3>
+<p><strong>9.1.</strong> Обработка персональных данных осуществляется:<br>
+– С использованием средств автоматизации;<br>
+– Без использования средств автоматизации.</p>
+<p><strong>9.2.</strong> При обработке обеспечивается:<br>
+– Точность данных;<br>
+– Их достаточность для заявленных целей;<br>
+– Недопустимость избыточности данных.</p>
+
+<h3 class="font-bold text-base mt-4">10. МЕРЫ ЗАЩИТЫ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+<p><strong>10.1.</strong> Оператор принимает необходимые организационные и технические меры для защиты персональных данных:<br>
+– Назначение ответственного за организацию обработки;<br>
+– Ограничение доступа к персональным данным;<br>
+– Использование средств защиты информации;<br>
+– Регулярный контроль и аудит системы защиты;<br>
+– Обучение сотрудников правилам обработки.</p>
+<p><strong>10.2.</strong> Оператор обеспечивает конфиденциальность персональных данных.</p>
+
+<h3 class="font-bold text-base mt-4">11. ПРАВА СУБЪЕКТОВ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+<p><strong>11.1.</strong> Пользователь имеет право:<br>
+– Получить информацию об обработке своих персональных данных;<br>
+– Требовать уточнения неточных данных;<br>
+– Требовать блокирования незаконно обрабатываемых данных;<br>
+– Требовать уничтожения персональных данных;<br>
+– Отозвать согласие на обработку;<br>
+– Обжаловать действия Оператора в Роскомнадзоре.</p>
+<p><strong>11.2.</strong> Для реализации прав Пользователь может направить запрос на email: <strong>ali.bdfy.1972@mail.ru</strong></p>
+
+<h3 class="font-bold text-base mt-4">12. ОБЯЗАННОСТИ ОПЕРАТОРА</h3>
+<p><strong>12.1.</strong> Оператор обязан:<br>
+– Использовать данные только в заявленных целях;<br>
+– Обеспечить защиту персональных данных;<br>
+– По требованию предоставить информацию об обработке;<br>
+– Устранить нарушения в случае их выявления;<br>
+– Уничтожить данные по достижении целей или по требованию.</p>
+
+<h3 class="font-bold text-base mt-4">13. ИСПОЛЬЗОВАНИЕ COOKIES</h3>
+<p><strong>13.1.</strong> Сайт использует файлы cookies для:<br>
+– Улучшения работы сайта;<br>
+– Анализа посещаемости;<br>
+– Сохранения пользовательских предпочтений.</p>
+<p><strong>13.2.</strong> Пользователь может отключить cookies в настройках браузера, но это может повлиять на функциональность сайта.</p>
+
+<h3 class="font-bold text-base mt-4">14. НЕСОВЕРШЕННОЛЕТНИЕ</h3>
+<p><strong>14.1.</strong> Оператор не обрабатывает персональные данные лиц, не достигших 18 лет.</p>
+<p><strong>14.2.</strong> Если Оператору стало известно о сборе данных несовершеннолетних, такие данные немедленно удаляются.</p>
+
+<h3 class="font-bold text-base mt-4">15. ТРАНСГРАНИЧНАЯ ПЕРЕДАЧА</h3>
+<p><strong>15.1.</strong> Оператор не осуществляет трансграничную передачу персональных данных.</p>
+
+<h3 class="font-bold text-base mt-4">16. ИЗМЕНЕНИЕ ПОЛИТИКИ</h3>
+<p><strong>16.1.</strong> Оператор вправе вносить изменения в настоящую Политику.</p>
+<p><strong>16.2.</strong> Новая редакция вступает в силу с момента размещения на сайте.</p>
+<p><strong>16.3.</strong> Продолжение использования сайта означает согласие с изменениями.</p>
+
+<h3 class="font-bold text-base mt-4">17. ОБРАТНАЯ СВЯЗЬ</h3>
+<p><strong>17.1.</strong> По всем вопросам обработки персональных данных Пользователь может обратиться:<br>
+– Email: <strong>ali.bdfy.1972@mail.ru</strong><br>
+– Почтовый адрес: предоставляется по запросу.</p>
+<p><strong>17.2.</strong> Срок ответа на обращения – не более 30 дней с момента получения.</p>
+
+<h3 class="font-bold text-base mt-4">18. РЕКВИЗИТЫ ОПЕРАТОРА</h3>
+<p><strong>ИП Алистратов Иван Николаевич</strong><br>
+ИНН: 632155199532<br>
+ОГРНИП: 326632700064301<br>
+Email: ali.bdfy.1972@mail.ru</p>
+<p class="theme-text-muted text-xs mt-4"><em>Дата последнего обновления: 25 июля 2026 г.</em></p>
+
+    </div>
+  </div>
+</div>
+  
+</body>
+</html>

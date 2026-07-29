@@ -1,0 +1,224 @@
+/*
+Theme Name: БиоСтоун
+Description: Тема для сайта природного камня
+Author: Твое Имя
+Version: 1.0
+*/
+
+#cookie-consent { display: none; }
+
+#cookie-consent p {
+    margin: 0;
+}
+
+#cookie-consent a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+#accept-cookies {
+    margin-left: 15px;
+    padding: 5px 10px;
+    background: #fff;
+    color: #333;
+    border: none;
+    cursor: pointer;
+}
+
+/* User agreement / policy styling */
+.entry-header .entry-title {
+    font-size: 2rem;
+    color: #2b2b2b;
+    margin-bottom: 0.5rem;
+}
+
+.entry-content h2 {
+    font-size: 1.5rem;
+    color: #1f5a3d;
+    margin-top: 1.25rem;
+}
+
+.entry-content h3 {
+    font-size: 1.125rem;
+    color: #2b2b2b;
+    margin-top: 1rem;
+}
+
+.entry-content p {
+    line-height: 1.7;
+    color: #333;
+    margin: 0.6rem 0;
+}
+
+.entry-content ul {
+    margin-left: 1.25rem;
+}
+
+.entry-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem 0;
+    background: #fff;
+}
+
+.entry-content table thead th {
+    background: #f5f5f5;
+    padding: 0.6rem;
+    text-align: left;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+.entry-content table tbody td {
+    padding: 0.6rem;
+    border-bottom: 1px solid #eee;
+}
+
+
+/* Cookie consent banner improvements (glassmorphism) */
+#cookie-consent {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 18, 26, 0.68);
+    color: #f2f0ea;
+    padding: 12px 0;
+    text-align: left;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 -6px 24px rgba(8,12,15,0.45);
+    z-index: 1000;
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    backdrop-filter: blur(10px) saturate(130%);
+}
+
+#cookie-consent .cc-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#cookie-consent p { margin: 0; flex: 1 1 60%; }
+
+#cookie-consent a { color: #d6ffea; text-decoration: underline; }
+
+#accept-cookies {
+    margin-left: 0;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.9);
+    color: #06321e;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    #cookie-consent { bottom: 12px; padding: 12px; }
+    #cookie-consent p { flex-basis: 100%; }
+    #accept-cookies { width: 100%; }
+}
+
+/* Optional class for a dedicated user agreement block */
+.user-agreement {
+    background: rgba(255,255,255,0.85);
+    border-left: 4px solid rgba(31,90,61,0.95);
+    padding: 14px 18px;
+    margin: 1rem 0;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(31,90,61,0.06);
+}
+
+/* Modal for user agreement */
+.cc-modal { display: none; }
+.cc-modal.cc-modal--open { display: block; position: fixed; inset: 0; z-index: 2000; }
+.cc-modal__overlay { position: absolute; inset: 0; background: rgba(8,12,15,0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.cc-modal__content {
+        position: relative;
+        max-width: 900px;
+        margin: 6vh auto;
+        background: var(--bg-card);
+        color: var(--text-main);
+        border-radius: 10px;
+        border: 1px solid var(--border-main);
+        box-shadow: 0 18px 50px rgba(8,12,15,0.45);
+        z-index: 2001;
+        padding: 22px 26px;
+        max-height: 80vh;
+        overflow: auto;
+}
+.cc-modal__close { position: absolute; right: 14px; top: 10px; background: transparent; border: none; font-size: 22px; cursor: pointer; color: var(--text-main); }
+.cc-modal__body p,
+.cc-modal__body h2,
+.cc-modal__body h3 {
+    margin: 0.8rem 0;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+.cc-modal__content h2 { margin-top: 0; }
+
+@media (max-width: 640px) {
+    .cc-modal__content { margin: 4vh 12px; padding: 16px; }
+}
+
+/* Make specific form labels match the color used for 'Ваше имя' */
+label[for="callback-name"],
+label[for="callback-phone"],
+label[for="callback-captcha"],
+label[for="callback-consent"] {
+        color: #9ca3af; /* same as Tailwind text-gray-400 */
+}
+
+/* show via JS */
+.btn-primary {
+    background-color: #2f3a2f;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #253225;
+}
+
+html[data-theme="dark"] .btn-primary {
+    background-color: #324436;
+}
+
+html[data-theme="dark"] .btn-primary:hover {
+    background-color: #27372f;
+}
+
+html[data-theme="gray"] .btn-primary {
+    background-color: #3a453d;
+}
+
+html[data-theme="gray"] .btn-primary:hover {
+    background-color: #2f3830;
+}
+
+.phone-production-title,
+.phone-production-link {
+    color: #d1d5db;
+}
+
+html[data-theme="gray"] .phone-production-title {
+    color: #a3a3a3 !important;
+}
+
+.phone-production-link:hover,
+.phone-production-title:hover {
+    color: #ffffff;
+}
+
+.phone-production {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+#cookie-consent.cc-visible { display: block; }
