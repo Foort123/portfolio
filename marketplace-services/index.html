@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PALATOVDA — Marketplace услуг</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p: #6C5CE7; --p2: #5A4BD1; --pl: #EEEAFF; --a: #F59E0B;
+  --s: #10B981; --d: #EF4444; --bg: #F8FAFC; --w: #fff;
+  --t: #0F172A; --ts: #64748B; --tm: #94A3B8; --b: #E2E8F0;
+  --sh: 0 1px 3px rgba(0,0,0,.08); --shm: 0 4px 20px rgba(0,0,0,.1);
+  --r: 12px; --rs: 8px; --rl: 16px; --f: 'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);color:var(--t);background:var(--bg);font-size:15px;line-height:1.5;overflow-x:hidden}
+a{color:var(--p);text-decoration:none}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;outline:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* Header */
+.header{background:var(--w);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100}
+.header-inner{display:flex;align-items:center;gap:20px;padding:12px 0;max-width:1200px;margin:0 auto;padding:12px 20px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:40px;height:40px;border-radius:10px;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;box-shadow:0 4px 12px rgba(108,92,231,.3)}
+.logo-text{font-weight:700;font-size:18px;letter-spacing:.5px}
+.logo-sub{font-size:10px;color:var(--tm);letter-spacing:1.5px;margin-top:1px}
+.header-search{flex:1;max-width:400px;position:relative}
+.header-search input{width:100%;padding:10px 16px 10px 40px;border:2px solid var(--b);border-radius:var(--rs);background:var(--bg);font-size:14px;transition:.2s}
+.header-search input:focus{border-color:var(--p);background:var(--w)}
+.header-search .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--tm)}
+.header-actions{display:flex;gap:10px;align-items:center;margin-left:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--rs);font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .25s;text-decoration:none}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shm)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--p);color:#fff}
+.btn-primary:hover{background:var(--p2)}
+.btn-outline{background:transparent;border:2px solid var(--b);color:var(--t)}
+.btn-outline:hover{border-color:var(--p);color:var(--p)}
+.btn-ghost{background:transparent;color:var(--ts)}
+.btn-ghost:hover{background:var(--bg);color:var(--t)}
+.btn-sm{padding:7px 14px;font-size:13px}
+.btn-lg{padding:14px 28px;font-size:16px}
+.btn-accent{background:var(--a);color:#fff}
+.btn-accent:hover{background:#D97706}
+.btn-icon{width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:var(--rs)}
+
+/* Cards */
+.card{background:var(--w);border-radius:var(--r);border:1px solid var(--b);overflow:hidden;transition:all .3s}
+.card:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.card-body{padding:20px}
+.grid{display:grid;gap:20px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* Avatar */
+.avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;flex-shrink:0}
+.avatar-sm{width:40px;height:40px;font-size:14px}
+.avatar-lg{width:80px;height:80px;font-size:28px}
+.avatar-xl{width:120px;height:120px;font-size:40px}
+
+/* Stars */
+.stars{display:flex;gap:2px;color:var(--a);font-size:14px}
+.rating-text{font-size:13px;color:var(--ts);margin-left:6px}
+
+/* Section */
+.section{padding:40px 0}
+.section-title{font-size:24px;font-weight:700;margin-bottom:6px}
+.section-sub{color:var(--ts);margin-bottom:24px}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.section-header .section-title{margin-bottom:0}
+
+/* Status badges */
+.badge{display:inline-flex;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-p{p{background:var(--pl);color:var(--p)}}
+.badge-s{background:#D1FAE5;color:#065F46}
+.badge-w{background:#FEF3C7;color:#92400E}
+.badge-d{background:#FEE2E2;color:#991B1B}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;animation:fadeIn .2s}
+.modal{background:var(--w);border-radius:var(--rl);padding:32px;width:90%;max-width:440px;max-height:90vh;overflow-y:auto;animation:slideUp .3s}
+.modal-title{font-size:20px;font-weight:700;margin-bottom:8px;text-align:center}
+.modal-sub{color:var(--ts);text-align:center;margin-bottom:24px;font-size:14px}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--tm)}
+
+/* Forms */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--ts);margin-bottom:6px}
+.form-input{width:100%;padding:12px 16px;border:2px solid var(--b);border-radius:var(--rs);font-size:15px;transition:.2s}
+.form-input:focus{border-color:var(--p)}
+.form-select{width:100%;padding:12px 16px;border:2px solid var(--b);border-radius:var(--rs);font-size:15px;background:var(--w);cursor:pointer}
+textarea.form-input{min-height:100px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Search hero */
+.hero{background:linear-gradient(135deg,var(--p) 0%,#8B7CF7 100%);padding:60px 0;text-align:center;color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.4}
+.hero-content{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.hero h1{font-size:36px;font-weight:800;margin-bottom:8px}
+.hero p{font-size:18px;opacity:.9;margin-bottom:28px}
+.hero-search{display:flex;gap:12px;max-width:560px;margin:0 auto;background:var(--w);border-radius:var(--r);padding:6px;box-shadow:0 8px 30px rgba(0,0,0,.15)}
+.hero-search input{flex:1;border:none;padding:12px 16px;font-size:16px}
+.hero-search .btn{padding:12px 28px;font-size:15px;border-radius:var(--rs)}
+.hero-tags{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hero-tag{background:rgba(255,255,255,.15);padding:8px 16px;border-radius:20px;font-size:13px;cursor:pointer;transition:.2s}
+.hero-tag:hover{background:rgba(255,255,255,.25)}
+
+/* Category cards */
+.cat-card{display:flex;flex-direction:column;align-items:center;padding:24px 16px;text-align:center;cursor:pointer}
+.cat-icon{width:56px;height:56px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
+.cat-name{font-weight:600;font-size:15px}
+.cat-count{font-size:12px;color:var(--tm);margin-top:4px}
+
+/* Specialist card */
+.spec-card .card-body{padding:20px}
+.spec-card-top{display:flex;gap:16px;align-items:flex-start;margin-bottom:12px}
+.spec-info{flex:1}
+.spec-name{font-weight:700;font-size:16px;margin-bottom:2px}
+.spec-prof{font-size:13px;color:var(--ts)}
+.spec-meta{display:flex;gap:16px;margin-top:8px;font-size:13px;color:var(--ts)}
+.spec-price{font-weight:700;color:var(--p);font-size:18px;margin-top:8px}
+.spec-desc{font-size:13px;color:var(--ts);margin-top:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.spec-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.spec-tag{padding:3px 10px;border-radius:12px;background:var(--pl);color:var(--p);font-size:12px}
+.verified{color:var(--s);font-size:13px;display:flex;align-items:center;gap:4px;margin-top:4px}
+
+/* Order card */
+.order-card{padding:20px;cursor:pointer}
+.order-title{font-weight:600;font-size:16px;margin-bottom:6px}
+.order-meta{display:flex;gap:20px;font-size:13px;color:var(--ts);margin-top:8px}
+.order-budget{font-weight:700;color:var(--p);font-size:15px}
+
+/* Filters */
+.filters{background:var(--w);border-radius:var(--r);border:1px solid var(--b);padding:24px}
+.filter-title{font-weight:600;font-size:14px;margin-bottom:12px;margin-top:20px}
+.filter-title:first-child{margin-top:0}
+.filter-group{margin-bottom:16px}
+.filter-label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--t);padding:6px 0;cursor:pointer}
+.filter-label input[type="checkbox"]{accent-color:var(--p);width:16px;height:16px}
+.range-inputs{display:flex;gap:8px}
+.range-inputs input{width:100%;padding:8px 12px;border:2px solid var(--b);border-radius:var(--rs);font-size:14px}
+
+/* Profile page */
+.profile-header{background:var(--w);border-radius:var(--rl);border:1px solid var(--b);padding:32px}
+.profile-top{display:flex;gap:24px;align-items:flex-start}
+.profile-info{flex:1}
+.profile-name{font-size:28px;font-weight:700;margin-bottom:4px}
+.profile-prof{font-size:16px;color:var(--ts);margin-bottom:8px}
+.profile-actions{display:flex;gap:12px;margin-top:16px}
+.profile-section{margin-top:32px}
+.profile-section-title{font-size:18px;font-weight:700;margin-bottom:16px}
+.skills{display:flex;gap:8px;flex-wrap:wrap}
+.skill{padding:6px 14px;background:var(--pl);color:var(--p);border-radius:20px;font-size:13px;font-weight:500}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.portfolio-item{aspect-ratio:4/3;background:linear-gradient(135deg,var(--pl),#ddd6fe);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--p);font-weight:500}
+
+/* Dashboard */
+.dashboard{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 64px)}
+.sidebar{background:var(--w);border-right:1px solid var(--b);padding:24px 0}
+.sidebar-item{display:flex;align-items:center;gap:12px;padding:12px 24px;color:var(--ts);cursor:pointer;transition:.2s;font-size:14px;font-weight:500}
+.sidebar-item:hover,.sidebar-item.active{background:var(--pl);color:var(--p)}
+.sidebar-item .icon{width:20px;text-align:center}
+.dash-content{padding:32px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--w);border-radius:var(--r);border:1px solid var(--b);padding:20px}
+.stat-value{font-size:28px;font-weight:700}
+.stat-label{font-size:13px;color:var(--ts);margin-top:4px}
+.stat-change{font-size:12px;color:var(--s);margin-top:4px}
+
+/* Chat */
+.chat-page{display:grid;grid-template-columns:340px 1fr;height:calc(100vh - 64px)}
+.chat-list{background:var(--w);border-right:1px solid var(--b);overflow-y:auto}
+.chat-item{display:flex;gap:12px;padding:16px 20px;cursor:pointer;border-bottom:1px solid var(--b);transition:.2s}
+.chat-item:hover,.chat-item.active{background:var(--pl)}
+.chat-item-info{flex:1;min-width:0}
+.chat-item-name{font-weight:600;font-size:14px}
+.chat-item-msg{font-size:13px;color:var(--ts);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-item-time{font-size:11px;color:var(--tm)}
+.chat-area{display:flex;flex-direction:column;background:var(--bg)}
+.chat-header{padding:16px 24px;background:var(--w);border-bottom:1px solid var(--b);display:flex;align-items:center;gap:12px}
+.chat-messages{flex:1;overflow-y:auto;padding:24px}
+.msg{max-width:70%;margin-bottom:16px;padding:12px 16px;border-radius:var(--r);font-size:14px}
+.msg-incoming{background:var(--w);border:1px solid var(--b);border-bottom-left-radius:4px}
+.msg-outgoing{background:var(--p);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.msg-time{font-size:11px;opacity:.7;margin-top:4px;text-align:right}
+.chat-input-area{display:flex;gap:12px;padding:16px 24px;background:var(--w);border-top:1px solid var(--b)}
+.chat-input-area input{flex:1;padding:12px 16px;border:2px solid var(--b);border-radius:var(--rs);font-size:14px}
+.chat-input-area input:focus{border-color:var(--p)}
+
+/* Admin */
+.admin-layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 64px)}
+.admin-sidebar{background:#1E293B;color:#fff;padding:24px 0}
+.admin-sidebar .sidebar-item{color:#94A3B8}
+.admin-sidebar .sidebar-item:hover,.admin-sidebar .sidebar-item.active{background:#334155;color:#fff}
+
+/* Table */
+.table-wrap{background:var(--w);border-radius:var(--r);border:1px solid var(--b);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;background:var(--bg);border-bottom:1px solid var(--b)}
+td{padding:12px 16px;border-bottom:1px solid var(--b);font-size:14px}
+tr:last-child td{border-bottom:none}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px}
+
+/* Notifications */
+.toast{position:fixed;bottom:24px;right:24px;background:#1E293B;color:#fff;padding:14px 20px;border-radius:var(--rs);box-shadow:var(--shm);z-index:2000;animation:slideUp .3s;font-size:14px;max-width:360px}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.page-enter{animation:slideUp .35s ease}
+.skeleton{background:linear-gradient(90deg,var(--b) 25%,#f1f5f9 50%,var(--b) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--rs)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Back btn */
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--ts);font-size:14px;cursor:pointer;margin-bottom:16px;background:none;border:none}
+.back-btn:hover{color:var(--t)}
+
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--b);margin-bottom:24px}
+.tab{padding:12px 24px;font-size:14px;font-weight:500;color:var(--ts);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s}
+.tab:hover{color:var(--t)}
+.tab.active{color:var(--p);border-color:var(--p)}
+
+/* Page layout */
+.page{padding:32px 0}
+.page-title{font-size:28px;font-weight:700;margin-bottom:6px}
+.page-sub{color:var(--ts);margin-bottom:32px}
+
+/* Search results layout */
+.search-layout{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start}
+
+/* Responsive */
+@media(max-width:1024px){
+  .grid-4{grid-template-columns:repeat(3,1fr)}
+  .search-layout{grid-template-columns:1fr}
+  .dashboard{grid-template-columns:1fr}
+  .admin-layout{grid-template-columns:1fr}
+  .chat-page{grid-template-columns:1fr}
+  .chat-list{display:none}
+}
+@media(max-width:768px){
+  .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:24px}
+  .hero p{font-size:15px}
+  .header-search{display:none}
+  .header-actions .btn span{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .profile-top{flex-direction:column;align-items:center;text-align:center}
+  .profile-actions{justify-content:center}
+  .form-row{grid-template-columns:1fr}
+  .page{padding:20px 0}
+  .section{padding:24px 0}
+  .sidebar{display:none}
+  .dash-content{padding:16px}
+  .mobile-sidebar-btn{display:flex!important}
+}
+@media(max-width:480px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .hero-search{flex-direction:column}
+  .container{padding:0 12px}
+  .modal{padding:24px 20px}
+}
+.mobile-sidebar-btn{display:none;background:none;border:none;font-size:24px;cursor:pointer;padding:4px;color:var(--t)}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="header"></div>
+  <div id="content"></div>
+  <div id="modal"></div>
+  <div id="toast"></div>
+</div>
+
+<script>
+// ===== MOCK DATA =====
+const CATEGORIES = [
+  {id:'med',icon:'🏥',name:'Медицина',count:284},
+  {id:'it',icon:'💻',name:'IT и разработка',count:562},
+  {id:'design',icon:'🎨',name:'Дизайн и креатив',count:341},
+  {id:'beauty',icon:'💅',name:'Красота и здоровье',count:198},
+  {id:'repair',icon:'🔧',name:'Ремонт и строительство',count:415},
+  {id:'edu',icon:'📚',name:'Обучение и курсы',count:227},
+  {id:'legal',icon:'⚖️',name:'Юридические услуги',count:156},
+  {id:'consult',icon:'💡',name:'Консультации',count:189}
+];
+const COLORS = ['#6C5CE7','#3B82F6','#EC4899','#F59E0B','#10B981','#EF4444','#8B5CF6','#14B8A6'];
+const SPECIALISTS = [
+  {id:1,name:'Александр Иванов',prof:'Врач-терапевт',cat:'med',price:5000,rating:4.8,reviews:124,exp:'10 лет',city:'Москва',online:true,verified:true,about:'Врач первой категории. Специализируюсь на диагностике и лечении заболеваний терапевтического профиля. Индивидуальный подход к каждому пациенту.',skills:['Терапия','Диагностика','ЭКГ','Назначение лечения'],educ:'МГМУ им. Сеченова, лечебное дело'},
+  {id:2,name:'Екатерина Смирнова',prof:'Frontend-разработчик',cat:'it',price:3000,rating:4.9,reviews:89,exp:'6 лет',city:'Санкт-Петербург',online:true,verified:true,about:'React/Next.js разработчик. Создаю современные веб-приложения с красивым UI и отличной производительностью.',skills:['React','Next.js','TypeScript','CSS','Vue'],educ:'СПбГУ, прикладная математика'},
+  {id:3,name:'Дмитрий Петров',prof:'UX/UI Дизайнер',cat:'design',price:4000,rating:4.7,reviews:67,exp:'7 лет',city:'Москва',online:false,verified:true,about:'Проектирую удобные интерфейсы. Работаю с продуктами любой сложности — от лендингов до сложных SaaS-платформ.',skills:['Figma','UX Research','Прототипирование','Дизайн-системы'],educ:'Британская высшая школа дизайна'},
+  {id:4,name:'Анна Кузнецова',prof:'Косметолог',cat:'beauty',price:3500,rating:4.9,reviews:203,exp:'8 лет',city:'Красноярск',online:true,verified:true,about:'Сертифицированный косметолог. Провожу процедуры по уходу за лицом, массаж, чистки, пилинги.',skills:['Чистка лица','Массаж','Пилинги','Уход'],educ:'КрасГМУ, дерматовенерология'},
+  {id:5,name:'Сергей Васильев',prof:'Мастер по ремонту',cat:'repair',price:2000,rating:4.6,reviews:312,exp:'15 лет',city:'Новосибирск',online:false,verified:false,about:'Выполняю все виды ремонтных работ: отделка квартир, сантехника, электрика.',skills:['Отделка','Сантехника','Электрика','Плитка'],educ:'Строительный техникум'},
+  {id:6,name:'Ольга Попова',prof:'Репетитор по английскому',cat:'edu',price:2500,rating:4.8,reviews:156,exp:'9 лет',city:'Онлайн',online:true,verified:true,about:'Преподаватель с международным сертификатом. Подготовка к IELTS, TOEFL, разговорный английский.',skills:['IELTS','TOEFL','Разговорный','Бизнес-английский'],educ:'МГЛУ, лингвистика'},
+  {id:7,name:'Михаил Соколов',prof:'Юрист',cat:'legal',price:5000,rating:4.5,reviews:98,exp:'12 лет',city:'Москва',online:true,verified:true,about:'Юрист по гражданским, семейным и арбитражным делам. Консультации и сопровождение сделок.',skills:['Гражданское право','Семейное право','Арбитраж','Договоры'],educ:'МГУ, юридический факультет'},
+  {id:8,name:'Наталья Белова',prof:'Бизнес-консультант',cat:'consult',price:8000,rating:4.9,reviews:74,exp:'14 лет',city:'Москва',online:true,verified:true,about:'Помогаю бизнесу расти. Стратегия, маркетинг, операционная эффективность.',skills:['Стратегия','Маркетинг','KPI','Управление'],educ:'МВА, Стокгольмская школа экономики'},
+  {id:9,name:'Алексей Морозов',prof:'PHP-разработчик',cat:'it',price:3500,rating:4.7,reviews:45,exp:'8 лет',city:'Казань',online:false,verified:true,about:'Backend-разработчик на PHP и Laravel. Проектирую архитектуру БД и API.',skills:['PHP','Laravel','MySQL','API','Docker'],educ:'КАИ, программная инженерия'},
+  {id:10,name:'Мария Лебедева',prof:'Стилист-имиджмейкер',cat:'beauty',price:3000,rating:4.8,reviews:167,exp:'11 лет',city:'Санкт-Петербург',online:true,verified:false,about:'Помогу подобрать стиль, разобрать гардероб, создать образ для любого случая.',skills:['Разбор гардероба','Шопинг-сопровождение','Стиль'],educ:'Школа стилистов Модный дом'},
+  {id:11,name:'Игорь Волков',prof:'Электрик',cat:'repair',price:1500,rating:4.6,reviews:234,exp:'20 лет',city:'Красноярск',online:true,verified:false,about:'Электрик с опытом. Монтаж проводки, ремонт электрощитов, установка оборудования.',skills:['Электромонтаж','Диагностика','Щитовое оборудование'],educ:'ПТУ №5, электромонтажник'},
+  {id:12,name:'Татьяна Новикова',prof:'Психолог',cat:'consult',price:4000,rating:4.9,reviews:213,exp:'16 лет',city:'Онлайн',online:true,verified:true,about:'Клинический психолог. Работаю с тревожностью, депрессией, отнощениями и самооценкой.',skills:['КПТ','Гештальт','Тревожность','Семейная терапия'],educ:'МГУ, психология'}
+];
+const ORDERS = [
+  {id:1,title:'Нужен разработчик сайта на React',desc:'Интернет-магазин с корзиной и админкой. Нужен опытный React-разработчик.',budget:50000,city:'Москва',cat:'it',date:'Сегодня'},
+  {id:2,title:'Требуется дизайн логотипа и брендинг',desc:'Разработать фирменный стиль для кофейни. Логотип, визитки, меню.',budget:15000,city:'Санкт-Петербург',cat:'design',date:'Сегодня'},
+  {id:3,title:'Ищу репетитора по математике (ЕГЭ)',desc:'Подготовка к профильному ЕГЭ по математике. Занятия 2 раза в неделю.',budget:2000,city:'Казань',cat:'edu',date:'Вчера'},
+  {id:4,title:'Сделать ремонт в ванной комнате',desc:'Полный ремонт: сантехника, плитка, потолок. Площадь 5 кв.м.',budget:80000,city:'Новосибирск',cat:'repair',date:'Вчера'},
+  {id:5,title:'Нужен юрист для сделки купли-продажи',desc:'Сопровождение сделки по покупке квартиры. Проверка документов.',budget:30000,city:'Москва',cat:'legal',date:'Позавчера'},
+  {id:6,title:'Консультация психолога онлайн',desc:'Тревожность и проблемы со сном. Хочу разобраться в себе.',budget:4000,city:'Онлайн',cat:'consult',date:'Позавчера'}
+];
+const CHATS = [
+  {id:1,specId:2,name:'Екатерина Смирнова',msg:'Добрый день! Готова приступить к работе над вашим проектом.',time:'12:34',online:true,unread:2},
+  {id:3,specId:3,name:'Дмитрий Петров',msg:'Да, могу показать портфолио в Figma',time:'11:20',online:false,unread:0},
+  {id:6,specId:1,name:'Александр Иванов',msg:'Запись на завтра в 15:00 подтверждена',time:'Вчера',online:true,unread:1}
+];
+function getSpec(id){return SPECIALISTS.find(s=>s.id==id)}
+function getCat(id){return CATEGORIES.find(c=>c.id==id)}
+
+// ===== STATE =====
+let C={route:'home',user:null,prevRoute:null,chatOpen:null,phoneStep:1,phone:'',specTab:'about'};
+
+function nav(h){C.prevRoute=C.route;C.route=h;render();window.scrollTo(0,0)}
+function toast(msg){const t=document.getElementById('toast');t.innerHTML=`<div class="toast">${msg}</div>`;setTimeout(()=>t.innerHTML='',3000)}
+function qs(s){return document.querySelector(s)}
+
+// ===== RENDER HELPERS =====
+function hStar(r){
+  let s='';const f=Math.floor(r);
+  for(let i=0;i<5;i++)s+=i<f?'★':i<r?'★':String.fromCharCode(9734);
+  return `<span class="stars">${s}</span>`;
+}
+function avatar(name,size=''){const c=name.split(' ').map(s=>s[0]).join('');return`<div class="avatar${size}" style="background:${COLORS[name.length%COLORS.length]}">${c}</div>`}
+function badge(text,type){const m={s:'badge-s',p:'badge-p',w:'badge-w',d:'bugde-d'}[type]||'badge-s';return`<span class="badge ${m}">${text}</span>`}
+
+// ===== HEADER =====
+function renderHeader(){
+  const u=C.user;
+  document.getElementById('header').innerHTML=`
+  <div class="header">
+    <div class="header-inner">
+      <button class="mobile-sidebar-btn" onclick="toggleMobileSidebar()">☰</button>
+      <a class="logo" href="#" onclick="nav('home');return false">
+        <div class="logo-icon">P</div>
+        <div>
+          <div class="logo-text">PALATOVDA</div>
+          <div class="logo-sub">МАРКЕТПЛЕЙС УСЛУГ</div>
+        </div>
+      </a>
+      <div class="header-search">
+        <span class="icon">🔍</span>
+        <input placeholder="Какую услугу вы ищете?" onfocus="nav('search')">
+      </div>
+      <div class="header-actions">
+        ${u?`<span style="font-size:14px;font-weight:500">${u.name}</span>`:`<button class="btn btn-ghost" onclick="openAuth()"><span>Войти</span></button>`}
+        <button class="btn btn-outline btn-sm" onclick="nav('spec-dashboard')"><span>Стать специалистом</span></button>
+        <button class="btn btn-primary btn-sm" onclick="nav('create-order')">+ <span>Создать заявку</span></button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== PAGES =====
+function pageAuth(){
+  document.getElementById('modal').innerHTML=`
+  <div class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      ${C.phoneStep===1?`
+        <div class="modal-title">Вход в PALATOVDA</div>
+        <div class="modal-sub">Войдите, чтобы создавать заявки и общаться со специалистами</div>
+        <div class="form-group">
+          <label class="form-label">Номер телефона</label>
+          <input class="form-input" value="+7 " style="font-size:18px;letter-spacing:1px" id="phoneInput">
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-bottom:12px" onclick="phoneNext()">Получить код</button>
+        <div style="text-align:center;position:relative;margin:16px 0">
+          <div style="border-top:1px solid var(--b)"></div>
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--w);padding:0 12px;font-size:13px;color:var(--tm)">или</div>
+        </div>
+        <button class="btn btn-outline btn-lg" style="width:100%;justify-content:center" onclick="telegramAuth()">
+          Продолжить через Telegram ✈️
+        </button>
+        <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--tm)">Входя по телефону, вы принимаете условия обработки данных</div>
+      `:`
+        <div class="modal-title">Подтверждение кода</div>
+        <div class="modal-sub">Код отправлен на ${C.phone}</div>
+        <div class="form-group">
+          <label class="form-label">Введите код из SMS</label>
+          <input class="form-input" placeholder="0000" maxlength="4" style="font-size:24px;text-align:center;letter-spacing:8px" id="codeInput" oninput="if(this.value.length===4)verifyCode()">
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="verifyCode()">Подтвердить</button>
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:8px" onclick="C.phoneStep=1;render()">Изменить номер</button>
+      `}
+    </div>
+  </div>`;
+  if(C.phoneStep===1)setTimeout(()=>{const i=document.getElementById('phoneInput');if(i){i.focus();i.setSelectionRange(3,3)}},100);
+  else setTimeout(()=>{const i=document.getElementById('codeInput');if(i)i.focus()},100);
+}
+function phoneNext(){
+  const i=document.getElementById('phoneInput');
+  if(!i||!i.value.trim()||i.value.length<5)return;
+  C.phone=i.value.trim();C.phoneStep=2;render();
+}
+function verifyCode(){C.user={name:'Михаил',role:'client',phone:C.phone};closeModal();toast('Вы вошли как Михаил');render()}
+function telegramAuth(){C.phoneStep=1;render();toast('✅ Telegram подключён! Выполнен вход как Дмитрий');C.user={name:'Дмитрий',role:'client',phone:'telegram'};closeModal();render()}
+function closeModal(e){if(e&&e.target!==e.currentTarget)return;document.getElementById('modal').innerHTML='';document.body.style.overflow=''}
+function openAuth(){C.phoneStep=1;C.phone='';pageAuth();document.body.style.overflow='hidden'}
+
+function pageHome(){
+  const cats=CATEGORIES.map((c,i)=>`
+    <div class="card cat-card" onclick="nav('search')">
+      <div class="cat-icon" style="background:${COLORS[i]}22;color:${COLORS[i]}">${c.icon}</div>
+      <div class="cat-name">${c.name}</div>
+      <div class="cat-count">${c.count} специалистов</div>
+    </div>`).join('');
+  const specs=SPECIALISTS.slice(0,4).map(s=>specialistCard(s)).join('');
+  const orders=ORDERS.map(o=>`
+    <div class="card order-card" onclick="nav('search')">
+      <div class="order-title">${o.title}</div>
+      <div style="font-size:13px;color:var(--ts);margin-top:4px">${o.desc}</div>
+      <div class="order-meta">
+        <span>💰 ${o.budget.toLocaleString()} ₽</span>
+        <span>📍 ${o.city}</span>
+        <span>🏷 ${getCat(o.cat)?.name||o.cat}</span>
+      </div>
+      <div style="margin-top:8px;font-size:12px;color:var(--tm)">${o.date}</div>
+    </div>`).join('');
+  return `
+  <div class="page-enter">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Найдите лучшего специалиста</h1>
+        <p>Более 2 500 проверенных специалистов готовы помочь вам</p>
+        <div class="hero-search">
+          <input placeholder="Какую услугу вы ищете?" onfocus="nav('search')">
+          <button class="btn btn-primary" onclick="nav('search')">Найти</button>
+        </div>
+        <div class="hero-tags">
+          <span class="hero-tag" onclick="nav('search')">Найти врача</span>
+          <span class="hero-tag" onclick="nav('search')">Найти юриста</span>
+          <span class="hero-tag" onclick="nav('search')">Создать сайт</span>
+          <span class="hero-tag" onclick="nav('search')">Сделать ремонт</span>
+          <span class="hero-tag" onclick="nav('search')">Найти репетитора</span>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="section">
+        <div class="section-header">
+          <div><div class="section-title">Категории услуг</div><div class="section-sub">Выберите категорию и найдите своего специалиста</div></div>
+        </div>
+        <div class="grid grid-4">${cats}</div>
+      </div>
+      <div class="section">
+        <div class="section-header">
+          <div><div class="section-title">Популярные специалисты</div><div class="section-sub">Лучшие специалисты с высоким рейтингом</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="nav('search')">Смотреть всех →</button>
+        </div>
+        <div class="grid grid-4">${specs}</div>
+      </div>
+      <div class="section">
+        <div class="section-header">
+          <div><div class="section-title">Новые заявки</div><div class="section-sub">Последние запросы клиентов</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="nav('create-order')">+ Создать заявку</button>
+        </div>
+        <div class="grid grid-2">${orders}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function specialistCard(s){
+  const v=s.verified?'<div class="verified">✓ Проверенный специалист</div>':'';
+  const o=s.online?'<div style="width:8px;height:8px;border-radius:50%;background:var(--s);display:inline-block;margin-right:4px"></div>Онлайн':'Офлайн';
+  return `
+  <div class="card spec-card" onclick="nav('spec-${s.id}')">
+    <div class="card-body">
+      <div class="spec-card-top">
+        ${avatar(s.name)}
+        <div class="spec-info">
+          <div class="spec-name">${s.name}</div>
+          <div class="spec-prof">${s.prof}</div>
+          ${hStar(s.rating)}<span class="rating-text">${s.rating} · ${s.reviews} отзывов</span>
+          ${v}
+        </div>
+      </div>
+      <div class="spec-meta">📍 ${s.city} · ${o} · Опыт ${s.exp}</div>
+      <div class="spec-desc">${s.about.slice(0,80)}...</div>
+      <div class="spec-tags">${s.skills.slice(0,3).map(t=>`<span class="spec-tag">${t}</span>`).join('')}</div>
+      <div class="spec-price">от ${s.price.toLocaleString()} ₽</div>
+    </div>
+  </div>`;
+}
+
+function pageSearch(){
+  const allSpecs=SPECIALISTS.map(s=>specialistCard(s)).join('');
+  return `
+  <div class="page-enter page">
+    <div class="container">
+      <div class="section-header">
+        <div><div class="page-title">Поиск специалистов</div><div class="page-sub">${SPECIALISTS.length} специалистов доступно</div></div>
+      </div>
+      <div class="search-layout">
+        <div class="filters">
+          <div class="filter-title">Категория</div>
+          <select class="form-select" style="margin-bottom:16px">
+            <option>Все категории</option>
+            ${CATEGORIES.map(c=>`<option>${c.icon} ${c.name}</option>`).join('')}
+          </select>
+          <div class="filter-title">Цена за час</div>
+          <div class="range-inputs">
+            <input placeholder="От" value="">
+            <input placeholder="До" value="">
+          </div>
+          <div class="filter-title">Город</div>
+          <input class="form-input" placeholder="Все города">
+          <div class="filter-title">Рейтинг</div>
+          <div class="filter-group">
+            ${[5,4,3].map(r=>`<label class="filter-label"><input type="checkbox"> от ${r} ★</label>`).join('')}
+          </div>
+          <div class="filter-title">Дополнительно</div>
+          <label class="filter-label"><input type="checkbox"> Онлайн</label>
+          <label class="filter-label"><input type="checkbox"> Выезд по адресу</label>
+          <label class="filter-label"><input type="checkbox"> Проверенные специалисты</label>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px">Применить</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">${allSpecs}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageSpecialist(id){
+  const s=getSpec(id);if(!s)return pageSearch();
+  const v=s.verified?'<span class="badge badge-s" style="margin-left:8px">✓ Проверен</span>':'';
+  const tabs=['about','services','portfolio','reviews'];
+  const tabNames=['О себе','Услуги','Портфолио','Отзывы'];
+  const t=tabs.map((t,i)=>`<div class="tab ${C.specTab===t?'active':''}" onclick="C.specTab='${t}';render()">${tabNames[i]}</div>`).join('');
+  const reviews=[
+    {name:'Алексей К.',rating:5,text:'Очень доволен работой! Профессионал своего дела. Всё чётко и в срок.',date:'2 дня назад'},
+    {name:'Мария В.',rating:5,text:'Отличный специалист. Приятный в общении, всё объяснил понятно. Рекомендую!',date:'1 неделя назад'},
+    {name:'Иван П.',rating:4,text:'Хорошая работа, но немного задержались по срокам. В остальном всё отлично.',date:'2 недели назад'}
+  ];
+  const services=[
+    {name:'Консультация',price:s.price,desc:'Первичная консультация, знакомство с задачей',duration:'1 час'},
+    {name:'Стандарт',price:Math.round(s.price*2.5),desc:'Полный цикл работ по вашему проекту',duration:'от 3 дней'},
+    {name:'Премиум',price:Math.round(s.price*5),desc:'Премиум сопровождение с приоритетом',duration:'от 1 дня'}
+  ];
+  let tabContent='';
+  if(C.specTab==='about')tabContent=`
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px">
+      <div>
+        <div class="profile-section-title">О себе</div>
+        <p style="color:var(--ts);line-height:1.7">${s.about}</p>
+        ${s.educ?`<div class="profile-section-title" style="margin-top:24px">Образование</div><p style="color:var(--ts)">${s.educ}</p>`:''}
+        <div class="profile-section-title" style="margin-top:24px">Навыки</div>
+        <div class="skills">${s.skills.map(t=>`<span class="skill">${t}</span>`).join('')}</div>
+      </div>
+      <div style="background:var(--bg);border-radius:var(--r);padding:20px">
+        <div style="margin-bottom:16px"><strong>Опыт работы:</strong><br><span style="color:var(--ts)">${s.exp}</span></div>
+        <div style="margin-bottom:16px"><strong>Город:</strong><br><span style="color:var(--ts)">${s.city}</span></div>
+        <div style="margin-bottom:16px"><strong>Работа:</strong><br><span style="color:var(--ts)">${s.online?'Онлайн и очно':'Только очно'}</span></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="nav('chat')">Связаться</button>
+      </div>
+    </div>`;
+  else if(C.specTab==='services')tabContent=`
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:16px">
+      ${services.map(sv=>`
+        <div class="card" style="padding:24px">
+          <div style="font-size:14px;color:var(--ts);margin-bottom:4px">${sv.duration}</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:8px">${sv.name}</div>
+          <div style="font-size:13px;color:var(--ts);margin-bottom:16px">${sv.desc}</div>
+          <div style="font-size:24px;font-weight:800;color:var(--p);margin-bottom:16px">${sv.price.toLocaleString()} ₽</div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center">Заказать</button>
+        </div>
+      `).join('')}
+    </div>`;
+  else if(C.specTab==='portfolio')tabContent=`
+    <div class="portfolio-grid">
+      ${[1,2,3,4,5,6].map(i=>`<div class="portfolio-item">Проект ${i}</div>`).join('')}
+    </div>`;
+  else if(C.specTab==='reviews')tabContent=`
+    <div style="display:flex;flex-direction:column;gap:16px">
+      ${reviews.map(r=>`
+        <div class="card" style="padding:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <strong>${r.name}</strong>
+            <span style="font-size:12px;color:var(--tm)">${r.date}</span>
+          </div>
+          ${hStar(r.rating)}
+          <p style="color:var(--ts);margin-top:8px;font-size:14px">${r.text}</p>
+        </div>
+      `).join('')}
+    </div>`;
+  return `
+  <div class="page-enter page">
+    <div class="container">
+      <button class="back-btn" onclick="nav('search')">← Назад к поиску</button>
+      <div class="profile-header">
+        <div class="profile-top">
+          ${avatar(s.name,'avatar-lg')}
+          <div class="profile-info">
+            <div class="profile-name">${s.name}${v}</div>
+            <div class="profile-prof">${s.prof}</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:6px">
+              ${hStar(s.rating)}<span class="rating-text">${s.rating} · ${s.reviews} отзывов</span>
+              <span style="color:var(--ts);font-size:14px">· ${s.online?'Онлайн':'Офлайн'}</span>
+            </div>
+            <div class="profile-actions">
+              <button class="btn btn-primary" onclick="nav('chat')">Написать</button>
+              <button class="btn btn-outline" onclick="nav('create-order')">Нанять</button>
+              <button class="btn btn-ghost">♡ В избранное</button>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:32px;font-weight:800;color:var(--p)">${s.price.toLocaleString()} ₽</div>
+            <div style="font-size:13px;color:var(--ts)">за услугу</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabs" style="margin-top:24px">${t}</div>
+      ${tabContent}
+    </div>
+  </div>`;
+}
+
+function pageCreateOrder(){
+  return `
+  <div class="page-enter page">
+    <div class="container" style="max-width:680px">
+      <div class="page-title">Создать заявку</div>
+      <div class="page-sub">Опишите задачу — специалисты сами предложат вам свои услуги</div>
+      <div class="card" style="padding:32px">
+        <div class="form-group">
+          <label class="form-label">Категория услуги</label>
+          <select class="form-select">
+            <option>Выберите категорию</option>
+            ${CATEGORIES.map(c=>`<option>${c.icon} ${c.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Название задачи</label>
+          <input class="form-input" placeholder="Например: Нужен сайт-визитка">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Описание задачи</label>
+          <textarea class="form-input" placeholder="Опишите подробно, что нужно сделать..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Бюджет</label>
+            <input class="form-input" placeholder="50 000 ₽">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Срок</label>
+            <select class="form-select">
+              <option>Не важно</option>
+              <option>1-3 дня</option>
+              <option>Неделя</option>
+              <option>2 недели</option>
+              <option>Месяц</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Город</label>
+            <input class="form-input" placeholder="Москва">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Формат работы</label>
+            <select class="form-select">
+              <option>Не важно</option>
+              <option>Удалённо</option>
+              <option>Выезд специалиста</option>
+              <option>У специалиста</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Прикрепить файлы (необязательно)</label>
+          <div style="border:2px dashed var(--b);border-radius:var(--rs);padding:32px;text-align:center;cursor:pointer;color:var(--tm)">
+            📎 Нажмите, чтобы загрузить файлы
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:8px" onclick="submitOrder()">Найти специалиста</button>
+      </div>
+    </div>
+  </div>`;
+}
+function submitOrder(){toast('✅ Заявка создана! Специалисты уже могут откликаться');nav('home')}
+
+function pageClientDashboard(){
+  const items=[
+    {icon:'🏠',label:'Главная',active:true},
+    {icon:'📋',label:'Мои заявки'},
+    {icon:'💬',label:'Сообщения'},
+    {icon:'⭐',label:'Избранное'},
+    {icon:'📦',label:'Заказы'},
+    {icon:'⚙️',label:'Настройки'}
+  ];
+  const myOrders=[
+    {title:'Нужен разработчик сайта',status:'published',budget:50000,responses:3,date:'12.07.2026'},
+    {title:'Дизайн логотипа',status:'responses',budget:15000,responses:5,date:'10.07.2026'},
+    {title:'Репетитор по математике',status:'selected',budget:2000,responses:2,date:'08.07.2026'}
+  ];
+  function orderStatus(s){
+    const m={published:'Опубликована',responses:'Есть отклики',selected:'Выбран специалист',done:'Завершена'};
+    const t={published:'w',responses:'p',selected:'s',done:'s'};
+    return badge(m[s],t[s]);
+  }
+  return `
+  <div class="page-enter dashboard">
+    <div class="sidebar">
+      ${items.map(i=>`<div class="sidebar-item${i.active?' active':''}"><span class="icon">${i.icon}</span> ${i.label}</div>`).join('')}
+    </div>
+    <div class="dash-content">
+      <div class="page-title" style="margin-bottom:24px">Мои заявки</div>
+      ${myOrders.map(o=>`
+      <div class="card" style="margin-bottom:12px;padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-weight:600;font-size:16px">${o.title}</div>
+            <div style="display:flex;gap:16px;margin-top:6px;font-size:13px;color:var(--ts)">
+              <span>💰 ${o.budget.toLocaleString()} ₽</span>
+              <span>📅 ${o.date}</span>
+              <span>👥 ${o.responses} отклика</span>
+            </div>
+          </div>
+          ${orderStatus(o.status)}
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm">Посмотреть отклики</button>
+          <button class="btn btn-outline btn-sm">Редактировать</button>
+        </div>
+      </div>`).join('')}
+      <button class="btn btn-primary" style="margin-top:8px" onclick="nav('create-order')">+ Создать новую заявку</button>
+    </div>
+  </div>`;
+}
+
+function pageSpecDashboard(){
+  const sideItems=[
+    {icon:'👤',label:'Мой профиль',active:true},
+    {icon:'📋',label:'Мои услуги'},
+    {icon:'📩',label:'Заявки'},
+    {icon:'💬',label:'Отклики'},
+    {icon:'💬',label:'Сообщения'},
+    {icon:'💰',label:'Финансы'},
+    {icon:'⚙️',label:'Настройки'}
+  ];
+  const services=[
+    {name:'Консультация',price:5000,status:'Активна'},
+    {name:'Лечение',price:12000,status:'Активна'},
+    {name:'Диагностика',price:3000,status:'Черновик'}
+  ];
+  return `
+  <div class="page-enter dashboard">
+    <div class="sidebar">
+      ${sideItems.map(i=>`<div class="sidebar-item${i.active?' active':''}"><span class="icon">${i.icon}</span> ${i.label}</div>`).join('')}
+    </div>
+    <div class="dash-content">
+      <div class="stats">
+        <div class="stat-card"><div class="stat-value">847</div><div class="stat-label">Просмотров профиля</div><div class="stat-change">↑ 12%</div></div>
+        <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Новых заявок</div><div class="stat-change">↑ 3</div></div>
+        <div class="stat-card"><div class="stat-value">128 000 ₽</div><div class="stat-label">Заработано</div><div class="stat-change">↑ 8%</div></div>
+        <div class="stat-card"><div class="stat-value">4.8</div><div class="stat-label">Рейтинг</div><div class="stat-change">★ ★ ★ ★ ☆</div></div>
+      </div>
+      <div class="page-title" style="font-size:20px;margin-bottom:16px">Мои услуги</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+        ${services.map(s=>`
+        <div class="card" style="padding:16px;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:600">${s.name}</div>
+            <div style="font-size:13px;color:var(--ts)">${s.price.toLocaleString()} ₽</div>
+          </div>
+          ${badge(s.status,'s')}
+        </div>`).join('')}
+      </div>
+      <div class="page-title" style="font-size:20px;margin-bottom:16px">Подходящие заявки</div>
+      ${ORDERS.slice(0,3).map(o=>`
+      <div class="card" style="padding:20px;margin-bottom:12px">
+        <div style="font-weight:600">${o.title}</div>
+        <div style="color:var(--ts);font-size:13px;margin-top:4px">${o.desc}</div>
+        <div class="order-meta">
+          <span>💰 ${o.budget.toLocaleString()} ₽</span>
+          <span>📍 ${o.city}</span>
+        </div>
+        <button class="btn btn-primary btn-sm" style="margin-top:10px">Откликнуться</button>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function pageChat(){
+  return `
+  <div class="page-enter chat-page">
+    <div class="chat-list">
+      ${CHATS.map(c=>`
+      <div class="chat-item${C.chatOpen===c.id?' active':''}" onclick="C.chatOpen=${c.id};render()">
+        ${avatar(c.name,'avatar-sm')}
+        <div class="chat-item-info">
+          <div class="chat-item-name">${c.name}${c.online?' <span style="color:var(--s);font-size:10px">●</span>':''}</div>
+          <div class="chat-item-msg">${c.msg}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="chat-item-time">${c.time}</div>
+          ${c.unread?`<div style="background:var(--p);color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center;margin:4px 0 0 auto">${c.unread}</div>`:''}
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="chat-area">
+      ${C.chatOpen?(()=>{const ch=CHATS.find(c=>c.id===C.chatOpen);if(!ch)return'<div style="display:flex;align-items:center;justify-content:center;flex:1;color:var(--tm)">Выберите чат</div>';
+      return`
+      <div class="chat-header">
+        ${avatar(ch.name,'avatar-sm')}
+        <div>
+          <div style="font-weight:600">${ch.name}</div>
+          <div style="font-size:12px;color:var(--s)">${ch.online?'Онлайн':'Был(а) недавно'}</div>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg msg-incoming">Здравствуйте! Меня заинтересовала ваша заявка.<div class="msg-time">${ch.time}</div></div>
+        <div class="msg msg-outgoing">Здравствуйте! Расскажите подробнее о вашем предложении.<div class="msg-time">${ch.time}</div></div>
+        <div class="msg msg-incoming">${ch.msg}<div class="msg-time">${ch.time}</div></div>
+      </div>
+      <div class="chat-input-area">
+        <input placeholder="Напишите сообщение..." id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="btn btn-primary btn-icon" onclick="sendChat()">➤</button>
+        <button class="btn btn-outline btn-icon">📎</button>
+      </div>`;})():`
+      <div style="display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;color:var(--tm)">
+        <div style="font-size:48px;margin-bottom:12px">💬</div>
+        <div style="font-size:18px;font-weight:600;color:var(--t);margin-bottom:4px">Выберите диалог</div>
+        <div style="font-size:14px">Нажмите на чат слева, чтобы начать общение</div>
+      </div>`}
+    </div>
+  </div>`;
+}
+function sendChat(){
+  const inp=document.getElementById('chatInput');
+  if(!inp||!inp.value.trim())return;
+  const area=document.getElementById('chatMessages');
+  if(!area)return;
+  const now=new Date();
+  const time=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  area.innerHTML+=`<div class="msg msg-outgoing">${inp.value}<div class="msg-time">${time}</div></div>`;
+  inp.value='';
+  area.scrollTop=area.scrollHeight;
+  setTimeout(()=>{
+    const msgs=document.getElementById('chatMessages');
+    if(!msgs)return;
+    msgs.innerHTML+=`<div class="msg msg-incoming">Спасибо! Скоро свяжусь с вами по вашему вопросу.<div class="msg-time">${time}</div></div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  },1500);
+}
+
+function pageAdmin(){
+  const sideItems=[
+    {icon:'📊',label:'Dashboard',active:true},
+    {icon:'👥',label:'Пользователи'},
+    {icon:'⭐',label:'Специалисты'},
+    {icon:'📋',label:'Заявки'},
+    {icon:'🚩',label:'Жалобы'},
+    {icon:'⚙️',label:'Настройки'}
+  ];
+  return `
+  <div class="page-enter admin-layout">
+    <div class="admin-sidebar">
+      <div style="padding:0 24px 20px;border-bottom:1px solid #334155;margin-bottom:16px">
+        <div style="font-weight:700;font-size:16px">PALATOVDA CMS</div>
+        <div style="font-size:12px;color:#64748B;margin-top:2px">Административная панель</div>
+      </div>
+      ${sideItems.map(i=>`<div class="sidebar-item${i.active?' active':''}"><span class="icon">${i.icon}</span> ${i.label}</div>`).join('')}
+    </div>
+    <div class="dash-content">
+      <div class="stats">
+        <div class="stat-card"><div class="stat-value">4 892</div><div class="stat-label">Пользователей</div><div class="stat-change">↑ 12%</div></div>
+        <div class="stat-card"><div class="stat-value">1 245</div><div class="stat-label">Специалистов</div><div class="stat-change">↑ 8%</div></div>
+        <div class="stat-card"><div class="stat-value">6 231</div><div class="stat-label">Заявок</div><div class="stat-change">↑ 15%</div></div>
+        <div class="stat-card"><div class="stat-value">3.2 млн ₽</div><div class="stat-label">Доход</div><div class="stat-change">↑ 24%</div></div>
+      </div>
+      <div class="page-title" style="font-size:20px;margin-bottom:16px">Последние пользователи</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Пользователь</th><th>Роль</th><th>Статус</th><th>Дата</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Михаил Фёдоров</strong><br><span style="color:var(--ts);font-size:12px">+7 999 123-45-67</span></td><td>Клиент</td><td><span class="status-dot" style="background:var(--s)"></span>Активен</td><td>12.07.2026</td></tr>
+            <tr><td><strong>Анна Кузнецова</strong><br><span style="color:var(--ts);font-size:12px">+7 999 234-56-78</span></td><td>Специалист</td><td><span class="status-dot" style="background:var(--s)"></span>Активен</td><td>10.07.2026</td></tr>
+            <tr><td><strong>Сергей Васильев</strong><br><span style="color:var(--ts);font-size:12px">+7 999 345-67-89</span></td><td>Специалист</td><td><span class="status-dot" style="background:var(--a)"></span>На проверке</td><td>09.07.2026</td></tr>
+            <tr><td><strong>Ольга Попова</strong><br><span style="color:var(--ts);font-size:12px">+7 999 456-78-90</span></td><td>Специалист</td><td><span class="status-dot" style="background:var(--s)"></span>Активен</td><td>08.07.2026</td></tr>
+            <tr><td><strong>Иван Петров</strong><br><span style="color:var(--ts);font-size:12px">+7 999 567-89-01</span></td><td>Клиент</td><td><span class="status-dot" style="background:var(--s)"></span>Активен</td><td>07.07.2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== ROUTER =====
+function render(){
+  renderHeader();
+  let html='';
+  const r=C.route;
+  if(r==='home')html=pageHome();
+  else if(r==='search')html=pageSearch();
+  else if(r.startsWith('spec-'))html=pageSpecialist(parseInt(r.split('-')[1]));
+  else if(r==='create-order')html=pageCreateOrder();
+  else if(r==='client-dashboard')html=pageClientDashboard();
+  else if(r==='spec-dashboard')html=pageSpecDashboard();
+  else if(r==='chat')html=pageChat();
+  else if(r==='admin')html=pageAdmin();
+  else html=pageHome();
+  document.getElementById('content').innerHTML=html;
+}
+function toggleMobileSidebar(){document.querySelector('.sidebar')?.classList.toggle('show')}
+
+// ===== INIT =====
+render();
+</script>
+</body>
+</html>
