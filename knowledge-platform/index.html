@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ясность — образовательная платформа</title>
+<style>
+:root {
+  --cream:#FAF8F3; --paper:#fff;
+  --navy-900:#14213D; --navy-700:#1F3358; --navy-500:#3D4663; --navy-300:#6B7280;
+  --line:#E7E2D8; --line-soft:#F0ECE2;
+  --gold-600:#A17F42; --gold-500:#B08D57; --gold-100:#F1E9D8;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--navy-900);background:var(--cream);font-size:15px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button,input{font:inherit;outline:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.serif{font-family:var(--serif)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:2px;padding:12px 24px;font-weight:600;font-size:14px;cursor:pointer}
+.btn-navy{background:var(--navy-900);color:var(--cream)}
+.btn-navy:hover{background:var(--navy-700)}
+.btn-gold{background:transparent;border:1.5px solid var(--gold-500);color:var(--gold-600)}
+.btn-gold:hover{background:var(--gold-100)}
+.card{border:1px solid var(--line);background:var(--paper)}
+header{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
+.header-inner{display:flex;flex-wrap:wrap;align-items:center;gap:28px;padding:20px 24px;max-width:1180px;margin:0 auto}
+.logo{font-family:var(--serif);font-weight:700;font-size:20px;cursor:pointer}
+nav{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;color:var(--navy-500);flex:1}
+nav a{cursor:pointer}
+nav a:hover{color:var(--navy-900);text-decoration:underline}
+.hero{border-bottom:1px solid var(--line);background:var(--paper)}
+.hero-inner{display:grid;gap:40px;padding:64px 24px;max-width:1180px;margin:0 auto;grid-template-columns:1fr 320px;align-items:center}
+@media(max-width:850px){.hero-inner{grid-template-columns:1fr}}
+.tag{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-600)}
+h1.title{font-family:var(--serif);font-size:44px;font-weight:700;margin:12px 0;line-height:1.2}
+.section{max-width:1180px;margin:0 auto;padding:64px 24px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+.section-head h2{font-family:var(--serif);font-size:24px;font-weight:700}
+.section-head a{font-size:14px;color:var(--navy-500);cursor:pointer}
+.section-head a:hover{color:var(--gold-600)}
+.grid{display:grid;gap:24px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid-3{grid-template-columns:1fr}}
+.acard{cursor:pointer;display:flex;flex-direction:column;overflow:hidden}
+.acard .ph{aspect-ratio:16/10;overflow:hidden;background:var(--line-soft)}
+.acard .ph img{width:100%;height:100%;object-fit:cover}
+.acard .body{padding:22px;display:flex;flex-direction:column;flex:1}
+.acard h3{font-family:var(--serif);font-size:18px;font-weight:700;margin:8px 0}
+.acard:hover h3{color:var(--gold-600)}
+.meta{font-size:12px;color:var(--navy-300)}
+.subscribe{background:var(--line-soft);border:1px solid var(--line);padding:36px;text-align:center}
+.subscribe h3{font-family:var(--serif);font-size:20px;margin-bottom:8px}
+.subscribe p{color:var(--navy-500);font-size:14px;margin-bottom:18px;max-width:480px;margin-left:auto;margin-right:auto}
+.subscribe form{display:flex;gap:8px;max-width:360px;margin:0 auto}
+.subscribe input{flex:1;border:1px solid var(--line);padding:11px 14px;font-size:14px;background:var(--paper)}
+.quote-day{background:var(--navy-900);color:var(--cream);padding:36px;text-align:center}
+.quote-day .tag{color:var(--gold-500)}
+.quote-day p.q{font-family:var(--serif);font-size:20px;max-width:640px;margin:12px auto}
+.book{display:flex;flex-direction:column;justify-content:space-between;color:var(--cream);padding:18px;aspect-ratio:3/4}
+.bookrow{display:grid;grid-template-columns:160px 1fr;gap:32px;align-items:center;padding:32px}
+@media(max-width:700px){.bookrow{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:36px 24px;text-align:center;color:var(--navy-300);font-size:13px}
+.back{font-size:13px;color:var(--navy-500);cursor:pointer;display:inline-block;margin-bottom:16px}
+.back:hover{color:var(--gold-600)}
+.benefits{display:grid;gap:20px;grid-template-columns:repeat(4,1fr)}
+@media(max-width:850px){.benefits{grid-template-columns:repeat(2,1fr)}}
+.benefits .card{padding:20px}
+.benefits h4{font-weight:600;margin-bottom:6px;font-size:14px}
+.benefits p{font-size:13px;color:var(--navy-500)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+const AUTHOR = {
+  name: 'Антон Ветров',
+  role: 'Автор платформы «Ясность», психолог, преподаватель',
+  bio: 'Более пятнадцати лет изучаю и преподаю практическую философию внутреннего роста. «Ясность» — архив материалов для тех, кто хочет разбираться в себе и мире вдумчиво, без спешки.',
+  photo: 'images/hero-author.jpg',
+};
+
+const ARTICLES = [
+  { slug:'tishina', title:'Что такое внутренняя тишина и зачем она нужна', date:'18 июля 2026', cat:'Осознанность', cover:'images/cover-solitude.jpg',
+    body:['Внутренняя тишина — это не отсутствие мыслей, а способность не вовлекаться в каждую из них.','Когда человек учится замечать реакцию раньше, чем она превращается в действие, у него появляется пространство для выбора.','Практика внутренней тишины не требует особых условий — она требует регулярности.'] },
+  { slug:'granicy', title:'Границы как форма уважения — к себе и другим', date:'10 июля 2026', cat:'Отношения', cover:'images/cover-community.jpg',
+    body:['Границы часто путают со стеной. На самом деле граница — это скорее дверь.','Отсутствие границ не делает отношения ближе — оно делает их более тревожными.','Умение обозначить границу спокойно — один из самых недооценённых навыков зрелого общения.'] },
+  { slug:'smysl', title:'Смысл не находят, а строят', date:'29 июня 2026', cat:'Смысл', cover:'images/cover-hiker.jpg',
+    body:['Идея о том, что смысл жизни где-то спрятан, красива, но обманчива.','На практике смысл появляется как результат повторяющегося выбора.','Это медленный процесс, но именно его медленность делает результат устойчивым.'] },
+  { slug:'filosofiya', title:'Философия как практика, а не теория', date:'14 июня 2026', cat:'Философия', cover:'images/cover-forest.jpg',
+    body:['Можно прочитать сотню книг о спокойствии и ни разу не почувствовать себя спокойным.','Философия становится практикой только тогда, когда идея проверяется в конкретной ситуации.'] },
+  { slug:'chtenie', title:'Как читать медленно и зачем это делать', date:'30 мая 2026', cat:'Практика', cover:'images/cover-wave.jpg',
+    body:['Медленное чтение — это не про скорость страниц в час.','Попробуйте перечитать один и тот же абзац через неделю — почти всегда вы увидите в нём что-то новое.'] },
+  { slug:'odinochestvo', title:'Одиночество и уединение — в чём разница', date:'12 мая 2026', cat:'Осознанность', cover:'images/cover-city.jpg',
+    body:['Одиночество — это ощущение нехватки связи. Уединение — это выбор побыть с собой.','Научиться отличать одно от другого — значит вернуть себе право на паузу без чувства вины.'] },
+];
+
+const BOOKS = [
+  { title:'Ясность', spine:'#1F3358', tag:'Бестселлер' },
+  { title:'Границы без стен', spine:'#A17F42', tag:'Новинка' },
+  { title:'Тишина внутри', spine:'#3D4663', tag:'' },
+  { title:'Практика выбора', spine:'#14213D', tag:'' },
+];
+
+const QUOTE = { text:'Спокойствие — это не отсутствие бури, а умение не быть бурей самому.', author:'Антон Ветров' };
+
+let route = 'home';
+function nav(r){ route = r; render(); window.scrollTo(0,0); }
+
+function header(){
+  const items = [['home','Главная'],['articles','Статьи'],['books','Книги'],['community','Сообщество']];
+  return `<header><div class="header-inner">
+    <span class="logo" onclick="nav('home')">Ясность</span>
+    <nav>${items.map(i=>`<a onclick="nav('${i[0]}')">${i[1]}</a>`).join('')}</nav>
+    <button class="btn btn-gold" onclick="nav('community')">Вступить в клуб</button>
+  </div></header>`;
+}
+
+function footer(){
+  return `<footer>© 2026 Ясность — платформа Антона Ветрова. Все материалы носят образовательный характер.</footer>`;
+}
+
+function articleCard(a){
+  return `<div class="card acard" onclick="nav('article-${a.slug}')">
+    <div class="ph"><img src="${a.cover}" alt=""></div>
+    <div class="body"><span class="tag">${a.cat}</span><h3>${a.title}</h3>
+      <div class="meta" style="margin-top:auto">${a.date}</div>
+    </div>
+  </div>`;
+}
+
+function subscribeWidget(){
+  return `<div class="subscribe"><h3>Подпишитесь на новые материалы</h3>
+    <p>Новые статьи, видео и подкасты — не чаще одного письма в неделю.</p>
+    <form onsubmit="event.preventDefault();this.innerHTML='<p style=color:var(--gold-600);font-size:14px>Спасибо, вы подписаны.</p>'">
+      <input type="email" required placeholder="Ваш email">
+      <button class="btn btn-navy">Подписаться</button>
+    </form></div>`;
+}
+
+function pageHome(){
+  return `
+  <section class="hero"><div class="hero-inner">
+    <div>
+      <span class="tag">Образовательная платформа</span>
+      <h1 class="title">${AUTHOR.name}</h1>
+      <p style="font-size:17px;color:var(--navy-700);margin-bottom:8px">${AUTHOR.role}</p>
+      <p style="color:var(--navy-500);max-width:520px;margin-bottom:28px">${AUTHOR.bio}</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-navy" onclick="nav('articles')">Смотреть материалы</button>
+        <button class="btn btn-gold" onclick="nav('community')">Вступить в клуб</button>
+      </div>
+    </div>
+    <div class="card" style="overflow:hidden"><img src="${AUTHOR.photo}" style="aspect-ratio:3/4;object-fit:cover"></div>
+  </div></section>
+  <div class="section">
+    <div class="section-head"><h2>Последние статьи</h2><a onclick="nav('articles')">Смотреть все →</a></div>
+    <div class="grid grid-3">${ARTICLES.slice(0,3).map(articleCard).join('')}</div>
+  </div>
+  <div class="section" style="padding-top:0">${subscribeWidget()}</div>
+  <div class="section" style="padding-top:0">
+    <div class="quote-day"><span class="tag">Цитата дня</span><p class="q">«${QUOTE.text}»</p><p style="opacity:.6;font-size:14px">${QUOTE.author}</p></div>
+  </div>
+  <div class="section" style="padding-top:0">
+    <div class="bookrow card">
+      <div class="book" style="background:${BOOKS[0].spine}"><span style="font-size:11px;text-transform:uppercase;opacity:.7">Ясность</span><span class="serif" style="font-size:20px;font-weight:700">${BOOKS[0].title}</span></div>
+      <div>
+        <span class="tag">Книга</span>
+        <h3 class="serif" style="font-size:22px;margin:8px 0">${BOOKS[0].title}</h3>
+        <p style="color:var(--navy-500);margin-bottom:16px">Первая книга автора — введение в практику осознанного внимания к себе.</p>
+        <button class="btn btn-navy" onclick="nav('books')">Смотреть в каталоге</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageArticles(){
+  return `<div class="section">
+    <h1 class="title" style="font-size:32px">Статьи</h1>
+    <p style="color:var(--navy-500);margin-bottom:32px">Материалы об осознанности, отношениях и практической философии.</p>
+    <div class="grid grid-3">${ARTICLES.map(articleCard).join('')}</div>
+  </div>`;
+}
+
+function pageArticle(slug){
+  const a = ARTICLES.find(x=>x.slug===slug);
+  if(!a) return `<div class="section"><p>Статья не найдена.</p></div>`;
+  return `<div class="section" style="max-width:760px">
+    <span class="back" onclick="nav('articles')">← Все статьи</span>
+    <span class="tag">${a.cat}</span>
+    <h1 class="title" style="font-size:32px">${a.title}</h1>
+    <p class="meta" style="margin-bottom:24px">${a.date}</p>
+    <div class="card" style="overflow:hidden;margin-bottom:32px"><img src="${a.cover}" style="aspect-ratio:16/9;object-fit:cover"></div>
+    <div style="font-size:16px;line-height:1.8">${a.body.map(p=>`<p style="margin-bottom:18px">${p}</p>`).join('')}</div>
+    <div style="margin:40px 0">${subscribeWidget()}</div>
+  </div>`;
+}
+
+function pageBooks(){
+  return `<div class="section">
+    <h1 class="title" style="font-size:32px">Книги</h1>
+    <p style="color:var(--navy-500);margin-bottom:32px">Книги Антона Ветрова — от введения в практику до прикладных упражнений.</p>
+    <div class="grid grid-3">
+      ${BOOKS.map(b=>`<div class="card">
+        <div class="book" style="background:${b.spine}"><span style="font-size:11px;text-transform:uppercase;opacity:.7">Ясность</span><span class="serif" style="font-size:20px;font-weight:700">${b.title}</span></div>
+        <div style="padding:18px">${b.tag?`<span class="tag">${b.tag}</span>`:''}<button class="btn" style="padding:0;color:var(--navy-700);font-size:13px;margin-top:8px" onclick="nav('books')">Смотреть книгу →</button></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function pageCommunity(){
+  const benefits = [['Ежемесячные встречи','Живые эфиры с разбором вопросов участников.'],['Закрытые материалы','Расширенные версии статей и записи встреч.'],['Обратная связь','Возможность задать вопрос лично.'],['Спокойный темп','Без давления и обязательных программ.']];
+  return `
+  <section class="hero"><div class="hero-inner">
+    <div>
+      <span class="tag">Клуб «Ясность»</span>
+      <h1 class="title">Практика вместе, а не в одиночку</h1>
+      <p style="color:var(--navy-500);max-width:480px;margin-bottom:24px">Сообщество для тех, кто хочет обсуждать материалы и применять их на практике.</p>
+      <button class="btn btn-navy" onclick="alert('Демо-режим: форма вступления недоступна в превью')">Вступить в клуб</button>
+    </div>
+    <div class="card" style="overflow:hidden"><img src="images/cover-community.jpg" style="aspect-ratio:4/3;object-fit:cover"></div>
+  </div></section>
+  <div class="section">
+    <div class="section-head"><h2>Что даёт участие</h2></div>
+    <div class="benefits">${benefits.map(b=>`<div class="card"><h4>${b[0]}</h4><p>${b[1]}</p></div>`).join('')}</div>
+  </div>
+  <div class="section" style="padding-top:0">${subscribeWidget()}</div>`;
+}
+
+function render(){
+  const el = document.getElementById('app');
+  let body;
+  if(route === 'home') body = pageHome();
+  else if(route === 'articles') body = pageArticles();
+  else if(route.startsWith('article-')) body = pageArticle(route.slice(8));
+  else if(route === 'books') body = pageBooks();
+  else if(route === 'community') body = pageCommunity();
+  else body = pageHome();
+  el.innerHTML = header() + body + footer();
+}
+render();
+</script>
+</body>
+</html>
