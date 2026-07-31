@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="580" viewBox="0 0 900 580" role="img" aria-label="Little Barista — мобильный кейтеринг">
+  <defs>
+    <linearGradient id="lbPage" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDFBF8"/>
+      <stop offset="100%" stop-color="#F4EFE7"/>
+    </linearGradient>
+    <radialGradient id="lbWash1" cx="12%" cy="8%" r="58%">
+      <stop offset="0%" stop-color="#C9A876" stop-opacity=".34"/>
+      <stop offset="100%" stop-color="#C9A876" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lbWash2" cx="90%" cy="12%" r="50%">
+      <stop offset="0%" stop-color="#B08A54" stop-opacity=".24"/>
+      <stop offset="100%" stop-color="#B08A54" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lbWash3" cx="82%" cy="86%" r="55%">
+      <stop offset="0%" stop-color="#8C7259" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#8C7259" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lbStage" x1="8%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0%" stop-color="#EAE4DA"/>
+      <stop offset="48%" stop-color="#D2BFA4"/>
+      <stop offset="100%" stop-color="#B79E7F"/>
+    </linearGradient>
+    <linearGradient id="lbGloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="lbSoft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#1A1A1C" flood-opacity=".10"/>
+    </filter>
+    <filter id="lbCard" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#1A1A1C" flood-opacity=".07"/>
+    </filter>
+  </defs>
+
+  <!-- подложка и тёплые пятна, как на сайте -->
+  <rect width="900" height="580" fill="url(#lbPage)"/>
+  <rect width="900" height="580" fill="url(#lbWash1)"/>
+  <rect width="900" height="580" fill="url(#lbWash2)"/>
+  <rect width="900" height="580" fill="url(#lbWash3)"/>
+
+  <!-- матовая шапка -->
+  <rect x="0" y="0" width="900" height="52" fill="#FFFFFF" fill-opacity=".55"/>
+  <line x1="0" y1="52" x2="900" y2="52" stroke="#E4DED4" stroke-width="1"/>
+  <text x="40" y="33" font-family="Segoe UI Variable Display, Segoe UI, -apple-system, sans-serif"
+        font-size="17" font-weight="600" letter-spacing="-.4" fill="#1A1A1C">Little <tspan fill="#B08A54">Barista</tspan></text>
+  <g fill="#6C6862" font-family="Segoe UI, -apple-system, sans-serif" font-size="11.5">
+    <text x="558" y="31">Кино и ТВ</text>
+    <text x="633" y="31">Мероприятия</text>
+    <text x="723" y="31">Промо</text>
+  </g>
+  <rect x="778" y="16" width="86" height="24" rx="12" fill="#1A1A1C"/>
+  <text x="821" y="32" text-anchor="middle" font-family="Segoe UI, -apple-system, sans-serif"
+        font-size="10.5" font-weight="500" fill="#FFFFFF">Обсудить</text>
+
+  <!-- первый экран -->
+  <text x="450" y="103" text-anchor="middle" font-family="Segoe UI, -apple-system, sans-serif"
+        font-size="11" font-weight="600" letter-spacing="2.2" fill="#B08A54">МОБИЛЬНЫЙ КЕЙТЕРИНГ</text>
+
+  <text x="450" y="152" text-anchor="middle" font-family="Segoe UI Variable Display, Segoe UI, -apple-system, sans-serif"
+        font-size="40" font-weight="600" letter-spacing="-1.4" fill="#1A1A1C">Little Barista: от вечеринки</text>
+  <text x="450" y="196" text-anchor="middle" font-family="Segoe UI Variable Display, Segoe UI, -apple-system, sans-serif"
+        font-size="40" font-weight="600" letter-spacing="-1.4" fill="#1A1A1C">до съёмочной площадки</text>
+
+  <text x="450" y="226" text-anchor="middle" font-family="Segoe UI, -apple-system, sans-serif"
+        font-size="13.5" fill="#6C6862">Фудтрак, который накормит группу в поле и станет изюминкой праздника</text>
+
+  <!-- три сценарные карточки: развилка -->
+  <g filter="url(#lbCard)">
+    <rect x="40"  y="252" width="260" height="62" rx="18" fill="#FFFFFF" fill-opacity=".72" stroke="#E4DED4"/>
+    <rect x="320" y="252" width="260" height="62" rx="18" fill="#FFFFFF" fill-opacity=".72" stroke="#E4DED4"/>
+    <rect x="600" y="252" width="260" height="62" rx="18" fill="#FFFFFF" fill-opacity=".72" stroke="#E4DED4"/>
+  </g>
+  <g font-family="Segoe UI, -apple-system, sans-serif" text-anchor="middle">
+    <text x="170" y="280" font-size="13.5" font-weight="600" fill="#1A1A1C">Съёмочные группы</text>
+    <text x="170" y="299" font-size="11" fill="#6C6862">Кино / TV / Реклама</text>
+    <text x="450" y="280" font-size="13.5" font-weight="600" fill="#1A1A1C">Мероприятия</text>
+    <text x="450" y="299" font-size="11" fill="#6C6862">Свадьбы / Корпоративы</text>
+    <text x="730" y="280" font-size="13.5" font-weight="600" fill="#1A1A1C">Промо и BTL</text>
+    <text x="730" y="299" font-size="11" fill="#6C6862">Дегустации / Брендирование</text>
+  </g>
+
+  <!-- главный кадр -->
+  <g filter="url(#lbSoft)">
+    <rect x="40" y="338" width="820" height="206" rx="28" fill="url(#lbStage)"/>
+  </g>
+  <rect x="40" y="338" width="820" height="72" rx="28" fill="url(#lbGloss)"/>
+  <text x="70" y="522" font-family="Segoe UI, -apple-system, sans-serif"
+        font-size="10.5" font-weight="500" letter-spacing="1.6" fill="#1A1A1C" fill-opacity=".42">ФУДТРАК — ГЛАВНЫЙ ГЕРОЙ</text>
+
+  <!-- цифры под кадром -->
+  <g font-family="Segoe UI, -apple-system, sans-serif" text-anchor="middle">
+    <text x="143" y="566" font-size="15" font-weight="600" letter-spacing="-.5" fill="#1A1A1C">350+</text>
+    <text x="348" y="566" font-size="15" font-weight="600" letter-spacing="-.5" fill="#1A1A1C">до 300</text>
+    <text x="553" y="566" font-size="15" font-weight="600" letter-spacing="-.5" fill="#1A1A1C">40 мин</text>
+    <text x="758" y="566" font-size="15" font-weight="600" letter-spacing="-.5" fill="#1A1A1C">150 км</text>
+  </g>
+</svg>
