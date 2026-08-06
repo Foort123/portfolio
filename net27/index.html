@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net27ru — оптовый интернет-магазин спутникового, сетевого и серверного оборудования</title>
+<meta name="description" content="Оптовый интернет-магазин Net27ru: спутниковые телефоны и терминалы, VSAT, видеонаблюдение, Wi-Fi, серверное и сетевое оборудование. Хабаровск, круглосуточно.">
+<style>
+:root{
+  --brand:#005bff; --brand-d:#0043c4; --brand-l:#e8f0ff;
+  --pink:#f91155; --pink-l:#ffe9ef;
+  --green:#1fa34a; --green-l:#e7f7ed;
+  --ink:#001a34; --ink-2:#3c4653; --muted:#7a869a;
+  --bg:#f4f7fb; --line:#e6ecf5;
+  --r:16px; --r-s:10px;
+  --sh:0 1px 2px rgba(0,26,52,.06);
+  --sh-h:0 10px 34px -10px rgba(0,42,110,.22);
+  --wrap:1320px;
+  --f:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--f);color:var(--ink);line-height:1.45;background:var(--bg);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+svg{flex:none}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+h1,h2,h3,h4{margin:0;letter-spacing:-.02em}
+
+/* ============ header ============ */
+.util{background:#fff;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+.util .wrap{display:flex;align-items:center;gap:20px;height:38px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.util .wrap::-webkit-scrollbar{display:none}
+.util a{display:inline-flex;align-items:center;gap:6px}
+.util a:hover{color:var(--brand)}
+.util .r{margin-left:auto;display:flex;gap:20px}
+
+header{position:sticky;top:0;z-index:60;background:#fff;box-shadow:0 2px 14px rgba(0,26,52,.07)}
+.bar{display:flex;align-items:center;gap:16px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;letter-spacing:-.03em;flex:none}
+.logo .m{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#2f8dff,var(--brand-d));display:grid;place-items:center;color:#fff}
+.logo small{display:block;font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
+.catbtn{display:flex;align-items:center;gap:9px;height:46px;padding:0 20px;border-radius:12px;background:var(--brand);color:#fff;font-weight:700;font-size:15px;flex:none;transition:.15s}
+.catbtn:hover{background:var(--brand-d)}
+.catwrap{position:relative}
+.drop{position:absolute;top:calc(100% + 10px);left:0;width:340px;background:#fff;border-radius:18px;box-shadow:0 22px 60px -14px rgba(0,26,52,.32);padding:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.18s;z-index:70}
+.catwrap:hover .drop,.catwrap:focus-within .drop{opacity:1;visibility:visible;transform:none}
+.drop a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;font-size:14.5px;font-weight:500}
+.drop a:hover{background:var(--brand-l);color:var(--brand-d)}
+.drop a i{width:34px;height:34px;border-radius:10px;background:var(--brand-l);display:grid;place-items:center;color:var(--brand)}
+
+.srch{flex:1;min-width:180px;display:flex;height:46px;border:2px solid var(--brand);border-radius:12px;overflow:hidden;background:#fff}
+.srch input{flex:1;border:0;padding:0 16px;font-size:15px;outline:0;color:var(--ink);min-width:0}
+.srch input::placeholder{color:#9aa7b8}
+.srch button{width:52px;background:var(--brand);color:#fff;display:grid;place-items:center}
+.srch button:hover{background:var(--brand-d)}
+
+.acts{display:flex;gap:4px;flex:none}
+.act{position:relative;width:66px;padding:6px 0;border-radius:12px;display:grid;justify-items:center;gap:3px;font-size:11px;color:var(--ink-2);font-weight:500}
+.act:hover{background:var(--brand-l);color:var(--brand-d)}
+.act b{position:absolute;top:2px;right:12px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:var(--pink);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+
+.chips{background:#fff;border-top:1px solid var(--line)}
+.chips .wrap{display:flex;gap:6px;height:50px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.chips .wrap::-webkit-scrollbar{display:none}
+.chips a{padding:8px 14px;border-radius:10px;font-size:14px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.chips a:hover{background:var(--brand-l);color:var(--brand-d)}
+.chips a.hot{color:var(--pink);font-weight:700}
+
+/* ============ layout ============ */
+main{padding:20px 0 40px}
+section{margin-bottom:34px}
+.shead{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.shead h2{font-size:clamp(20px,2.4vw,28px);font-weight:800}
+.shead .all{margin-left:auto;color:var(--brand);font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:5px}
+.shead .all:hover{gap:9px}
+.card{background:#fff;border-radius:var(--r);box-shadow:var(--sh)}
+
+/* hero */
+.hero{display:grid;gap:12px;margin-bottom:24px}
+.slider{position:relative;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;height:100%}
+.slides{flex:1;min-width:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;border-radius:20px}
+.slides::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;height:100%;min-height:440px;border-radius:20px;display:flex;align-items:center;padding:clamp(24px,4vw,52px);position:relative;overflow:hidden;color:#fff}
+.s1{background:linear-gradient(115deg,#0043c4,#2f8dff 60%,#7cc0ff)}
+.s2{background:linear-gradient(115deg,#00306e,#0a63d6 55%,#39a0ff)}
+.s3{background:linear-gradient(115deg,#c1093f,#f91155 60%,#ff6b93)}
+.slide::after{content:"";position:absolute;right:-90px;top:-90px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.12)}
+.slide::before{content:"";position:absolute;right:60px;bottom:-140px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.1)}
+.slide .in{position:relative;z-index:2;max-width:60%}
+.slide .tag{display:inline-block;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.2);font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;backdrop-filter:blur(4px)}
+.slide h2{font-size:clamp(26px,3.6vw,44px);font-weight:800;line-height:1.06;margin-bottom:12px}
+.slide p{margin:0 0 22px;font-size:16px;opacity:.92;max-width:44ch}
+.slide .btn{background:#fff;color:var(--brand-d)}
+.slide .art{position:absolute;right:clamp(10px,4vw,60px);top:50%;transform:translateY(-50%);z-index:1;opacity:.9}
+.dots{position:absolute;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:7px;z-index:3}
+.dots button{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.5)}
+.dots button[aria-current=true]{width:26px;border-radius:5px;background:#fff}
+.nav-a{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--ink);display:grid;place-items:center;z-index:3;box-shadow:var(--sh-h);opacity:0;transition:.2s}
+.slider:hover .nav-a{opacity:1}
+.nav-a.prev{left:14px}.nav-a.next{right:14px}
+
+.side-col{display:flex;flex-direction:column;gap:8px}
+.promos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1}
+.promo{border-radius:18px;padding:18px 20px;background:#fff;box-shadow:var(--sh);display:flex;flex-direction:column;justify-content:center;min-height:0;transition:.18s}
+.promo:hover{box-shadow:var(--sh-h);transform:translateY(-2px)}
+.promo i{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;margin-bottom:8px}
+.promo b{display:block;font-size:15px;font-weight:700;margin-bottom:2px}
+.promo span{color:var(--muted);font-size:12.5px}
+.promo.tg{background:linear-gradient(135deg,#e8f4ff,#fff);border:1px solid #d5e9ff}
+
+/* advantages */
+
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.cat{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px;text-align:center;transition:.18s}
+.cat:hover{box-shadow:var(--sh-h);transform:translateY(-3px)}
+.cat .pic{width:88px;height:88px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(150deg,#eef5ff,#dbe9ff);display:grid;place-items:center;color:var(--brand-d);transition:.25s}
+.cat:hover .pic{transform:scale(1.06)}
+.cat b{font-size:14px;font-weight:600;display:block;line-height:1.3}
+.cat span{font-size:12.5px;color:var(--muted)}
+
+/* tabs + rail */
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-left:6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{height:38px;padding:0 16px;border-radius:10px;font-weight:600;font-size:14.5px;color:var(--ink-2);white-space:nowrap}
+.tab:hover{background:var(--brand-l)}
+.tab[aria-selected=true]{background:var(--brand);color:#fff}
+.railwrap{position:relative}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;scrollbar-width:none;padding:4px 2px 6px}
+.rail::-webkit-scrollbar{display:none}
+.arw{position:absolute;top:38%;width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 6px 22px rgba(0,26,52,.2);display:grid;place-items:center;z-index:5;opacity:0;transition:.18s}
+.railwrap:hover .arw{opacity:1}
+.arw:hover{background:var(--brand);color:#fff}
+.arw.prev{left:-14px}.arw.next{right:-14px}
+
+/* product card */
+.p{flex:0 0 232px;scroll-snap-align:start;background:#fff;border-radius:var(--r);padding:12px;display:flex;flex-direction:column;position:relative;transition:.18s}
+.p:hover{box-shadow:var(--sh-h);z-index:2}
+.p .pic{height:190px;border-radius:12px;background:linear-gradient(155deg,#f7fafe,#eaf2ff);display:grid;place-items:center;margin-bottom:10px;position:relative;overflow:hidden}
+.p .pic>img{width:100%;height:100%;object-fit:cover;transition:.25s;border-radius:12px}
+.p:hover .pic>img{transform:scale(1.06)}
+.p .pic>svg{width:96px;height:96px;color:#2f6bd0;transition:.25s}
+.p:hover .pic>svg{transform:scale(1.07)}
+.p .off{position:absolute;top:8px;left:8px;background:var(--pink);color:#fff;font-size:12px;font-weight:800;padding:4px 8px;border-radius:8px}
+.p .tag{position:absolute;top:8px;left:8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:4px 8px;border-radius:8px;color:#fff;background:var(--green)}
+.p .off+.tag{top:38px}
+.p .fav{position:absolute;top:6px;right:6px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#9aa7b8;background:rgba(255,255,255,.85)}
+.p .fav:hover,.p .fav[aria-pressed=true]{color:var(--pink)}
+.p .qv{position:absolute;left:8px;right:8px;bottom:8px;height:34px;border-radius:9px;background:rgba(0,26,52,.82);color:#fff;font-size:12.5px;font-weight:600;opacity:0;transform:translateY(6px);transition:.18s}
+.p:hover .qv,.p .qv:focus-visible{opacity:1;transform:none}
+.pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.pr b{font-size:20px;font-weight:800;letter-spacing:-.03em}
+.pr b.sale{color:var(--pink)}
+.pr s{color:#9aa7b8;font-size:13.5px}
+.rate{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.rate b{color:var(--ink);font-weight:600}
+.rate .st{color:#ffa621}
+.p h4{font-size:13.5px;font-weight:500;line-height:1.35;color:var(--ink-2);margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:37px}
+.p:hover h4{color:var(--brand-d)}
+.stock{font-size:12.5px;color:var(--green);font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.buy{margin-top:auto;height:40px;border-radius:10px;background:var(--brand-l);color:var(--brand-d);font-weight:700;font-size:14px;transition:.15s;display:flex;align-items:center;justify-content:center;gap:7px}
+.buy:hover{background:var(--brand);color:#fff}
+.buy.in{background:var(--green-l);color:var(--green)}
+
+/* review card */
+.rv{flex:0 0 330px;scroll-snap-align:start;background:#fff;border-radius:var(--r);padding:18px;display:flex;flex-direction:column;box-shadow:var(--sh);transition:.18s}
+.rv:hover{box-shadow:var(--sh-h)}
+.rv .t{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.rv .t i{width:86px;height:86px;flex:none;border-radius:12px;background:linear-gradient(150deg,#f7fafe,#e6f0ff);display:grid;place-items:center;color:#2f6bd0;transition:.2s;overflow:hidden}
+.rv .t i img{width:100%;height:100%;object-fit:cover}
+.rv:hover .t i{transform:scale(1.04)}
+.dlg .pic img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.rv .t b{font-size:14px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.rv .t a:hover b{color:var(--brand-d)}
+.rv .st{color:#ffa621;font-size:13px;letter-spacing:1px;margin-bottom:8px}
+.rv p{margin:0 0 14px;font-size:14px;color:var(--ink-2)}
+.rv .all{margin-top:auto;color:var(--brand);font-weight:600;font-size:13.5px}
+
+/* articles */
+.arts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.a{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:.18s}
+.a:hover{box-shadow:var(--sh-h);transform:translateY(-3px)}
+.a .pic{height:140px;position:relative;overflow:hidden;background:#001a34;display:grid;place-items:center}
+.a .pic img{width:100%;height:100%;object-fit:cover;transition:.3s}
+.a:hover .pic img{transform:scale(1.08)}
+.a .in{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.a h4{font-size:15.5px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.a p{margin:0 0 14px;font-size:13px;color:var(--muted)}
+.a .all{margin-top:auto;color:var(--brand);font-weight:600;font-size:13.5px}
+
+/* brands */
+.brands{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.br{height:78px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);display:grid;place-items:center;font-weight:800;font-size:16px;color:#546a87;letter-spacing:-.02em;transition:.18s}
+.br:hover{color:var(--brand);transform:translateY(-3px);box-shadow:var(--sh-h)}
+
+/* about */
+.about{background:#fff;border-radius:20px;padding:clamp(20px,3.4vw,44px);box-shadow:var(--sh)}
+.about h2{font-size:clamp(21px,2.6vw,30px);font-weight:800;margin-bottom:16px;max-width:26ch}
+.about p{color:var(--ink-2);max-width:88ch;font-size:15.5px}
+.about h3{font-size:18px;margin:28px 0 12px}
+.ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.ul li{display:flex;gap:11px;color:var(--ink-2);font-size:15px}
+.ul li svg{color:var(--brand);margin-top:2px}
+.ul li b{color:var(--ink)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;align-items:center;font-size:14.5px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:12px;font-weight:700;font-size:15px;background:var(--brand);color:#fff;transition:.15s}
+.btn:hover{background:var(--brand-d)}
+.btn.g{background:var(--brand-l);color:var(--brand-d)}
+.btn.g:hover{background:#d7e6ff}
+
+/* footer */
+footer{background:#001227;color:#9fb3cc;padding:44px 0 0;font-size:14px}
+.fcols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.5fr;gap:32px;padding-bottom:36px}
+footer h5{color:#fff;font-size:15px;margin-bottom:16px}
+footer a:hover{color:#fff}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.kv{display:grid;gap:13px}
+.kv span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:#5f7794;margin-bottom:2px}
+.kv b{color:#fff;font-weight:600;font-size:15px}
+.soc{display:flex;gap:8px;margin-top:6px}
+.soc a{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:.15s}
+.soc a:hover{background:var(--brand);color:#fff}
+.sub input{width:100%;height:46px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;padding:0 15px;margin-bottom:9px;font-size:14.5px;outline:0}
+.sub input::placeholder{color:#5f7794}
+.sub input:focus{border-color:var(--brand)}
+.sub button{width:100%;height:46px;border-radius:11px;background:var(--brand);color:#fff;font-weight:700}
+.sub button:hover{background:#1a6dff}
+.sub small{display:block;margin-top:9px;color:#5f7794;font-size:12.5px}
+.fbot{border-top:1px solid rgba(255,255,255,.08);padding:18px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:#5f7794}
+.pay{display:flex;gap:7px;flex-wrap:wrap}
+.pay span{padding:5px 10px;border-radius:7px;background:rgba(255,255,255,.07);font-size:11.5px;font-weight:700;color:#9fb3cc;letter-spacing:.02em}
+
+/* dialog */
+dialog{border:0;padding:0;border-radius:20px;max-width:440px;width:calc(100% - 32px);box-shadow:0 30px 80px -20px rgba(0,26,52,.5)}
+dialog::backdrop{background:rgba(0,18,39,.55)}
+.dlg{padding:22px}
+.dlg .pic{height:190px;border-radius:14px;background:linear-gradient(155deg,#f7fafe,#eaf2ff);display:grid;place-items:center;margin-bottom:16px}
+.dlg .pic svg{width:110px;height:110px;color:#2f6bd0}
+.dlg h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:#eef3fa;display:grid;place-items:center;font-size:18px;line-height:1;z-index:3}
+
+/* float contact */
+.float{position:fixed;right:16px;bottom:16px;z-index:80;display:grid;gap:9px}
+.float a{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 10px 26px -8px rgba(0,26,52,.5);transition:.15s}
+.float a:hover{transform:scale(1.07)}
+.float .t{background:#2aabee}
+.float .m{background:#546a87}
+
+@media(max-width:1180px){
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .brands{grid-template-columns:repeat(5,1fr)}
+  .arts{grid-template-columns:repeat(2,1fr)}
+  .hero{grid-template-columns:1fr}
+  .promos{grid-template-columns:1fr 1fr 1fr}
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  .bar{flex-wrap:wrap;height:auto;padding:12px 0;gap:10px}
+  .srch{order:9;flex:0 0 100%}
+  .acts{margin-left:auto}
+  .catbtn span{display:none}
+  .catbtn{padding:0 14px}
+  .slide .in{max-width:100%}
+  .slide{min-height:300px}
+  .slide .art{display:none}
+}
+@media(max-width:640px){
+  .promos{grid-template-columns:1fr}
+  .cats{grid-template-columns:1fr 1fr}
+  .arts{grid-template-columns:1fr}
+  .brands{grid-template-columns:repeat(3,1fr)}
+  .fcols{grid-template-columns:1fr}
+  .p{flex:0 0 168px}
+  .p .pic{height:150px}
+  .rv{flex:0 0 84%}
+  .slide{min-height:280px}
+  .arw{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-sat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21a9 9 0 0 1 9-9"/><path d="M3 21a15 15 0 0 1 15-15"/><circle cx="4.5" cy="19.5" r="1.5" fill="currentColor" stroke="none"/><path d="M15 3l6 6-3 3-6-6z"/></symbol>
+  <symbol id="i-dish" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l6-6"/><path d="M2 14a10 10 0 0 1 10-10l2 8z"/><circle cx="14" cy="12" r="1.6"/><path d="M4 20h6"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l14-4 2 6-14 4z"/><path d="M6 13v4a2 2 0 0 0 2 2h2"/><path d="M19 10l3-1v5l-3-1"/></symbol>
+  <symbol id="i-net" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="13" width="20" height="7" rx="2"/><path d="M6 16.5h.01M9.5 16.5h.01M13 16.5h.01"/><path d="M12 13V9m0 0H7V6m5 3h5V6"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9a15 15 0 0 1 19 0"/><path d="M5.5 12.5a10.5 10.5 0 0 1 13 0"/><path d="M8.5 16a6 6 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-srv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h4M11 17.5h4"/></symbol>
+  <symbol id="i-sw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 11v2M9 11v2M12 11v2M15 11v2M18 11v2"/></symbol>
+  <symbol id="i-rtr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="12" width="20" height="8" rx="2"/><path d="M6 16h.01M9.5 16h.01"/><path d="M17 4v6M13 6l4-3 4 3"/></symbol>
+  <symbol id="i-voip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a1 1 0 0 1-1 1A17 17 0 0 1 3 5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 6h4M10 18h4"/></symbol>
+  <symbol id="i-spk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 8.5a5 5 0 0 1 0 7"/><path d="M20 6a9 9 0 0 1 0 12"/></symbol>
+  <symbol id="i-ups" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M13 7l-3 5h4l-3 5"/></symbol>
+  <symbol id="i-drl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h10v6H3z"/><path d="M13 9h5l3 1-3 1h-5"/><path d="M6 13v4h4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></symbol>
+  <symbol id="i-cmp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5 20V9M12 20V4M19 20v-7"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9L18.4 5c.4-.3-.1-.5-.6-.2L5.7 12.5l-4.8-1.5c-1-.3-1-1 .2-1.5l18.8-7.2c.9-.3 1.6.2 1.3 1z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span>📍 г. Хабаровск</span>
+    <span>🕘 Круглосуточно</span>
+    <span class="r">
+      <a href="#reviews">Отзывы</a>
+      <a href="#articles">Статьи</a>
+      <a href="#products">Новинки</a>
+      <a href="#products" style="color:var(--pink);font-weight:600">Скидки</a>
+      <a href="https://t.me/Alexey_Liss" target="_blank" rel="noopener">@Alexey_Liss</a>
+    </span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="#top">
+        <span class="m"><svg width="22" height="22"><use href="#i-sat"/></svg></span>
+        <span>Net27<small>спутниковая связь</small></span>
+      </a>
+
+      <div class="catwrap">
+        <button class="catbtn" aria-haspopup="true">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 4h13M2 8.5h13M2 13h13"/></svg>
+          <span>Каталог</span>
+        </button>
+        <div class="drop">
+          <a href="#catalog"><i><svg width="19" height="19"><use href="#i-sat"/></svg></i> Спутниковые телефоны и терминалы</a>
+          <a href="#catalog"><i><svg width="19" height="19"><use href="#i-dish"/></svg></i> Спутниковое оборудование VSAT</a>
+          <a href="#catalog"><i><svg width="19" height="19"><use href="#i-cam"/></svg></i> Оборудование для видеонаблюдения</a>
+          <a href="#catalog"><i><svg width="19" height="19"><use href="#i-net"/></svg></i> Сетевое оборудование прочее</a>
+          <a href="#catalog"><i><svg width="19" height="19"><use href="#i-wifi"/></svg></i> Беспроводное оборудование Wi-Fi</a>
+          <a href="#catalog"><i><svg width="19" height="19"><use href="#i-srv"/></svg></i> Оборудование серверное</a>
+        </div>
+      </div>
+
+      <form class="srch" role="search" onsubmit="return false">
+        <label class="sr" for="q">Поиск по сайту</label>
+        <input id="q" placeholder="Искать: антенна, MikroTik, ИБП, Iridium…">
+        <button aria-label="Найти"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="8" cy="8" r="6"/><path d="m13 13 4 4"/></svg></button>
+      </form>
+
+      <div class="acts">
+        <button class="act"><svg width="22" height="22"><use href="#i-heart"/></svg>Избранное<b data-c="fav">0</b></button>
+        <button class="act"><svg width="22" height="22"><use href="#i-cmp"/></svg>Сравнение<b data-c="cmp">0</b></button>
+        <button class="act"><svg width="22" height="22"><use href="#i-cart"/></svg>Корзина<b data-c="cart">0</b></button>
+      </div>
+    </div>
+  </div>
+  <div class="chips">
+    <div class="wrap">
+      <a href="#catalog">Спутниковые телефоны</a>
+      <a href="#catalog">VSAT</a>
+      <a href="#catalog">Видеонаблюдение</a>
+      <a href="#catalog">Wi-Fi</a>
+      <a href="#catalog">Серверное</a>
+      <a href="#brands">Бренды</a>
+      <a href="#articles">Статьи</a>
+      <a href="#about">Информация</a>
+      <a href="#contacts">Контакты</a>
+      <a class="hot" href="#products">🔥 Акции месяца</a>
+    </div>
+  </div>
+</header>
+
+<main id="top"><div class="wrap">
+
+  <section class="hero">
+    <div class="slider">
+      <div class="slides" id="slides">
+        <div class="slide s1"><div class="in">
+          <span class="tag">Весь месяц</span>
+          <h2>Индивидуальная система скидок</h2>
+          <p>Покупайте больше — платите меньше, из месяца в месяц. Персональные условия для оптовиков.</p>
+          <a class="btn" href="#products">Смотреть товары</a>
+        </div><svg class="art" width="230" height="230"><use href="#i-dish"/></svg></div>
+        <div class="slide s2"><div class="in">
+          <span class="tag">Спутниковая связь</span>
+          <h2>Терминалы и телефоны в наличии</h2>
+          <p>Iridium, Inmarsat, iDirect, Hughes. Подберём комплект под задачу и бюджет — консультируют инженеры.</p>
+          <a class="btn" href="#catalog">Перейти в каталог</a>
+        </div><svg class="art" width="230" height="230"><use href="#i-sat"/></svg></div>
+        <div class="slide s3"><div class="in">
+          <span class="tag">Выгода до −50%</span>
+          <h2>Комплекты оборудования</h2>
+          <p>Готовые решения для офиса, базовой станции и видеонаблюдения. Бесплатная доставка от 300 000 ₽.</p>
+          <a class="btn" href="#products">Собрать комплект</a>
+        </div><svg class="art" width="230" height="230"><use href="#i-wifi"/></svg></div>
+      </div>
+      <button class="nav-a prev" aria-label="Назад"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M11 3 5 9l6 6"/></svg></button>
+      <button class="nav-a next" aria-label="Вперёд"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m7 3 6 6-6 6"/></svg></button>
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <div class="side-col">
+      <div class="promos">
+        <a class="promo" href="#products">
+          <div><i style="background:var(--green-l);color:var(--green)"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 5h11v10H2zM13 8h4l3 3v4h-7z"/><circle cx="6" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg></i>
+          <b>Бесплатная доставка</b><span>На заказы от 300 000 ₽ по всей России</span></div>
+        </a>
+        <a class="promo" href="#products">
+          <div><i style="background:var(--pink-l);color:var(--pink)"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5h.01M15 15h.01M4 16 16 4"/><circle cx="10" cy="10" r="8.2"/></svg></i>
+          <b>Персональные скидки</b><span>Большие скидки для оптовиков</span></div>
+        </a>
+        <a class="promo tg" href="https://t.me/Alexey_Liss" target="_blank" rel="noopener">
+          <div><i style="background:#e1f2ff;color:#2aabee"><svg width="22" height="22"><use href="#i-tg"/></svg></i>
+          <b>Быстро отвечаем в Телеграм</b><span>@Alexey_Liss · круглосуточно</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalog">
+    <div class="shead"><h2>Каталог товаров</h2><a class="all" href="#products">Все разделы →</a></div>
+    <div class="cats">
+      <a class="cat" href="#products"><div class="pic"><svg width="44" height="44"><use href="#i-sat"/></svg></div><b>Спутниковые телефоны</b><span>и терминалы</span></a>
+      <a class="cat" href="#products"><div class="pic"><svg width="44" height="44"><use href="#i-dish"/></svg></div><b>Оборудование VSAT</b><span>антенны, BUC, LNB</span></a>
+      <a class="cat" href="#products"><div class="pic"><svg width="44" height="44"><use href="#i-cam"/></svg></div><b>Видеонаблюдение</b><span>камеры, регистраторы</span></a>
+      <a class="cat" href="#products"><div class="pic"><svg width="44" height="44"><use href="#i-net"/></svg></div><b>Сетевое прочее</b><span>грозозащита, фильтры</span></a>
+      <a class="cat" href="#products"><div class="pic"><svg width="44" height="44"><use href="#i-wifi"/></svg></div><b>Беспроводное Wi-Fi</b><span>точки доступа</span></a>
+      <a class="cat" href="#products"><div class="pic"><svg width="44" height="44"><use href="#i-srv"/></svg></div><b>Серверное</b><span>серверы, шкафы, ИБП</span></a>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="shead">
+      <h2>Товары</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-f="all">Новинки</button>
+        <button class="tab" role="tab" aria-selected="false" data-f="kit">Комплекты</button>
+        <button class="tab" role="tab" aria-selected="false" data-f="rec">Рекомендуемые</button>
+        <button class="tab" role="tab" aria-selected="false" data-f="hit">Лидеры продаж</button>
+      </div>
+      <a class="all" href="#products">Все новинки →</a>
+    </div>
+    <div class="railwrap">
+      <div class="rail" id="grid"></div>
+      <button class="arw prev"data-rail="grid" data-d="-1" aria-label="Назад"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M11 3 5 9l6 6"/></svg></button>
+      <button class="arw next"data-rail="grid" data-d="1" aria-label="Вперёд"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m7 3 6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="shead"><h2>Отзывы о наших товарах</h2><a class="all" href="#reviews">Все отзывы →</a></div>
+    <div class="railwrap">
+      <div class="rail" id="revs"></div>
+      <button class="arw prev"data-rail="revs" data-d="-1" aria-label="Назад"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M11 3 5 9l6 6"/></svg></button>
+      <button class="arw next"data-rail="revs" data-d="1" aria-label="Вперёд"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m7 3 6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <section id="articles">
+    <div class="shead"><h2>Статьи и новости</h2><a class="all" href="#articles">Все статьи →</a></div>
+    <div class="arts">
+      <article class="a"><div class="pic"><img src="images/art_wimax.jpg" alt="Преимущества и недостатки WiMax" loading="lazy"></div><div class="in"><h4>Преимущества и недостатки WiMax</h4><p>Что такое беспроводная связь · Особенности Wi-Fi-технологий · Особенности WiMax · Преимущества AirMax перед…</p><a class="all" href="#articles">Подробнее →</a></div></article>
+      <article class="a"><div class="pic"><img src="images/art_inmarsat.jpg" alt="Терминал Inmarsat Explorer 300. Быстрый старт" loading="lazy"></div><div class="in"><h4>Терминал Inmarsat Explorer 300. Быстрый старт</h4><p>Параметры терминала BGAN Explorer 300 · Настройка терминала · Передача голосовых, информационных и текстовых…</p><a class="all" href="#articles">Подробнее →</a></div></article>
+      <article class="a"><div class="pic"><img src="images/art_mikrotik.jpg" alt="Маршрутизатор MikroTik. Руководство по настройке" loading="lazy"></div><div class="in"><h4>Маршрутизатор MikroTik. Руководство по настройке</h4><p>Сброс настроек, подключение через Winbox · Режим моста (Bridge) · Создание IP-сети, настройка DHCP-клиента…</p><a class="all" href="#articles">Подробнее →</a></div></article>
+      <article class="a"><div class="pic"><img src="images/art_battery.jpg" alt="Батарея CSB 12V 26Ah. Инструкция по эксплуатации" loading="lazy"></div><div class="in"><h4>Батарея CSB 12V 26Ah. Инструкция по эксплуатации</h4><p>Основные свойства и применение · Механизм рекомбинации газов · Технические характеристики · Транспортировка…</p><a class="all" href="#articles">Подробнее →</a></div></article>
+    </div>
+  </section>
+
+  <section id="brands">
+    <div class="shead"><h2>Наши бренды</h2></div>
+    <div class="brands" id="brs"></div>
+  </section>
+
+  <section id="about">
+    <div class="about">
+      <h2>Сетевое, спутниковое и серверное оборудование: надёжность и удобство каждый день</h2>
+      <p>Без Интернета как без рук: сбой в компьютере — и останавливается работа целой команды. Спутниковый телефон является главным спутником, если вы планируете отправляться в горы. Видеонаблюдение и видеорегистратор уже давно и с успехом охраняют дома, офисы и автомобили… Каждый день нас окружает тысяча привычных «помощников», без которых в современном мире не обойтись.</p>
+
+      <h3>Ищете надёжную технику? Наш оптовый интернет-склад www.net27.ru предлагает:</h3>
+      <ul class="ul">
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m4 10 4 4 8-8"/></svg><span><b>Спутниковое оборудование:</b> офсетная или прямофокусная антенна, BUC, LNB, приёмопередатчик (приёмник и передатчик), модем, кабель и прочие устройства, необходимые для организации надёжной спутниковой связи.</span></li>
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m4 10 4 4 8-8"/></svg><span><b>Сетевое оборудование:</b> сетевые фильтры, модули грозозащиты, стабилизаторы напряжения и прочие комплектующие от известных и надёжных производителей.</span></li>
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m4 10 4 4 8-8"/></svg><span><b>Беспроводное оборудование</b> (точки доступа Wi-Fi) с различным радиусом действия для дома и офиса и оборудование для базовых станций.</span></li>
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m4 10 4 4 8-8"/></svg><span><b>Спутниковый телефон</b> и переносной терминал популярных и новейших моделей.</span></li>
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m4 10 4 4 8-8"/></svg><span><b>Серверное оборудование</b> (сервер, маршрутизатор, коммутационный шкаф и т.д.) для повышения защиты Вашей информации.</span></li>
+      </ul>
+
+      <h3>Конкурентоспособные цены на товар в нашем магазине</h3>
+      <p>Как мы обеспечиваем низкую цену даже на самые популярные модели оборудования?</p>
+      <ul class="ul" style="margin-top:12px">
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10" cy="10" r="8.2"/><path d="M10 6v5M10 13.5h.01"/></svg><span>У нас нет выставочного зала в центре города. Поэтому выбрать, потрогать, примерить, сравнить покупаемый товар «вживую» проблематично. Мы ориентируемся на покупателей-специалистов, которые знают, что им нужно, ещё до прихода в наш офис выдачи товара. За счёт этого нам удалось максимально снизить наценку на товар.</span></li>
+        <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10" cy="10" r="8.2"/><path d="M10 6v5M10 13.5h.01"/></svg><span>У нас нет отряда скучающих менеджеров, слоняющихся по залу в ожидании клиента. Мы готовы подробно и профессионально проконсультировать Вас по применению товара, сравнению параметров похожих моделей, порекомендовать варианты доставки и оплаты. Мы максимально сократили свой штат, оставив только настоящих профессионалов с широким кругозором.</span></li>
+      </ul>
+
+      <p style="margin-top:24px">Чтобы задать вопрос или оформить заявку, нажмите на кнопку ниже.</p>
+      <div class="cta">
+        <a class="btn" href="https://t.me/Alexey_Liss" target="_blank" rel="noopener">Задать вопрос</a>
+        <a class="btn g" href="#contacts">Заказать звонок</a>
+        <a class="btn g" href="#contacts">Оформить заявку</a>
+        <span>или напишите в Телеграм: <a href="https://t.me/Alexey_Liss" target="_blank" rel="noopener" style="color:var(--brand);font-weight:600">@Alexey_Liss</a></span>
+      </div>
+    </div>
+  </section>
+
+</div></main>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <h5>Контакты</h5>
+        <div class="kv">
+          <div><span>Адрес</span><b>г. Хабаровск</b></div>
+          <div><span>Телеграм</span><b><a href="https://t.me/Alexey_Liss" target="_blank" rel="noopener">@Alexey_Liss</a></b></div>
+          <div><span>Email</span><b><a href="mailto:info@net27.ru">info@net27.ru</a></b></div>
+          <div><span>Рабочие дни / часы</span><b>Круглосуточно</b></div>
+          <div><span>Мы в соц. сетях</span>
+            <div class="soc">
+              <a href="https://t.me/Alexey_Liss" target="_blank" rel="noopener" aria-label="Telegram"><svg width="18" height="18"><use href="#i-tg"/></svg></a>
+              <a href="mailto:info@net27.ru" aria-label="Email"><svg width="18" height="18"><use href="#i-mail"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h5>Информация</h5>
+        <ul><li><a href="#about">О компании</a></li><li><a href="#products">Доставка</a></li><li><a href="#products">Оплата</a></li><li><a href="#contacts">Личный кабинет</a></li><li><a href="#articles">Новости</a></li><li><a href="#contacts">Контакты</a></li></ul>
+      </div>
+      <div>
+        <h5>Интересно</h5>
+        <ul><li><a href="#reviews">Отзывы о товарах</a></li><li><a href="#products">Новинки</a></li><li><a href="#products">Скидки</a></li><li><a href="#products">Рекомендуемые</a></li><li><a href="#articles">Статьи</a></li></ul>
+      </div>
+      <div class="sub">
+        <h5>Будь первым</h5>
+        <p style="margin:0 0 14px">Узнавайте первыми о скидках, распродажах, специальных акциях, поступлениях и новостях!</p>
+        <form onsubmit="this.reset();this.querySelector('button').textContent='Готово ✓';return false">
+          <label class="sr" for="mail">Ваш E-Mail</label>
+          <input id="mail" type="email" required placeholder="Ваш E-Mail">
+          <button>Подписаться</button>
+        </form>
+        <small>Никакого спама, обещаем.</small>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>Оптовый интернет-магазин Net27ru © 2011—2026. Все права защищены</span>
+      <span class="pay"><span>MasterCard</span><span>VISA</span><span>МИР</span><span>Безналичный расчёт</span><span>СБП</span></span>
+    </div>
+  </div>
+</footer>
+
+<div class="float">
+  <a class="t" href="https://t.me/Alexey_Liss" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg width="24" height="24"><use href="#i-tg"/></svg></a>
+  <a class="m" href="mailto:info@net27.ru" aria-label="Написать на почту"><svg width="22" height="22"><use href="#i-mail"/></svg></a>
+</div>
+
+<dialog id="qv"><button class="x" onclick="qv.close()" aria-label="Закрыть">×</button><div class="dlg"></div></dialog>
+
+<script>
+const P=[
+ ["Точка доступа TP-Link TL-WA701ND","i-wifi",800,480,5,"new","all rec","images/tplink_wa701nd.png"],
+ ["Коммутатор TP-Link TL-SF1005D","i-sw",1100,660,6,"new","all rec","images/tplink_sf1005d.png"],
+ ["Маршрутизатор DVB Pent@OFFICE","i-rtr",11400,0,4,"new","all kit","images/dvb_pentoffice.jpg"],
+ ["Голосовой шлюз VoIP D-Link DVG-2001S","i-voip",3300,2310,5,"new","all rec","images/dlink_dvg2001s.jpg"],
+ ["IP-телефон D-Link DPH-300S","i-tel",10400,7280,5,"new","all kit","images/dlink_dph300s.jpg"],
+ ["Модуль IP-оповещения 2N NetSpeaker","i-spk",49900,34930,5,"","all kit rec","images/netspeaker.jpg"],
+ ["Маршрутизатор Микротик RB2011iL-IN","i-rtr",21600,10800,9,"hit","all hit rec","images/mikrotik_rb2011.jpg"],
+ ["ИБП GE EP Series 1000 LRT","i-ups",38200,26740,5,"","all kit","images/ge_ups1000.jpg"],
+ ["Дрель BOSCH GSB-13 RE (уценка)","i-drl",3200,1920,5,"","all hit","images/bosch_gsb13.jpg"],
+ ["Дрель BOSCH GSB-16 RE (уценка)","i-drl",6000,3600,5,"hit","all hit","images/bosch_gsb16.jpg"]
+];
+const R=[
+ ["Точка доступа NanoStation M2","Впечатляет своей дальностью сигнала и стабильностью работы. Это отличное решение для создания мощной беспроводной сети с простым…","i-wifi","images/tplink_wa701nd.png"],
+ ["Маршрутизатор Cisco 2901 (уценка)","Легко интегрируется с другим оборудованием Cisco и поддерживает широкий спектр сетевых протоколов.","i-rtr","images/dvb_pentoffice.jpg"],
+ ["Видеокамера D-link DCS-930","D-link DCS-930 легка в установке и настройке. Я смог подключить её к своему Wi-Fi и начать мониторинг своего дома в течение нескольких…","i-cam","images/dlink_dvg2001s.jpg"],
+ ["Модем-маршрутизатор iDirect X3","Значительно улучшил качество связи в нашем офисе. Скорость и стабильность соединения теперь на высоте!","i-rtr","images/dvb_pentoffice.jpg"],
+ ["Стабилизатор SVEN AVR-1000","Сервис порадовал. Быстрая доставка.","i-ups","images/ge_ups1000.jpg"],
+ ["Приёмник LNB Ku-Band iDirect PLL Universal","iDirect PLL Universal обеспечил нам исключительную точность и стабильность сигнала. Отличный выбор для стандартного Ku-Band!","i-dish","images/mikrotik_rb2011.jpg"],
+ ["Маршрутизатор Микротик RB2011iL-IN","Mikrotik RB2011iL-IN стал отличным решением для моего бизнеса. Надёжность и простота в использовании не оставляют желать лучшего!","i-rtr","images/mikrotik_rb2011.jpg"],
+ ["Аккумуляторы Li-Ion для Иридиум-9555 или 9575","Аккумулятор прослужил мне гораздо дольше, чем я ожидал. Отличное качество и надёжность. Поэтому заказал ещё.","i-tel","images/dlink_dph300s.jpg"],
+ ["Антенна секторная AirMAX AM-2G15-120 бу","Великолепный выбор и сервис, буду заказывать ещё.","i-wifi","images/tplink_wa701nd.png"],
+ ["Точка доступа Ubiquiti UniFi AP-LR","С этим роутером мой дом полностью покрыт надёжным Wi-Fi. Прощайте, мёртвые зоны!","i-wifi","images/tplink_sf1005d.png"]
+];
+const B=["APC","Bosch","Cisco","D-Link","Eastar","Hughes","iDirect","Inmarsat","Iridium","MikroTik","SkyWare","TP-Link","Ubiquiti","Yealink"];
+
+const rub=n=>n.toLocaleString("ru-RU")+" ₽";
+const plural=n=>n%10==1&&n%100!=11?"отзыв":[2,3,4].includes(n%10)&&!(n%100>11&&n%100<15)?"отзыва":"отзывов";
+
+grid.innerHTML=P.map(([n,ic,old,now,rv,tag,f,img],i)=>{
+  const off=now?Math.round((1-now/old)*100):0;
+  return `<article class="p" data-f="${f}" data-i="${i}">
+  <div class="pic">
+    ${img?`<img src="${img}" alt="${n}" loading="lazy">`:`<svg><use href="#${ic}"/></svg>`}
+    ${off?`<span class="off">−${off}%</span>`:""}
+    ${tag?`<span class="tag" ${tag=="hit"?'style="background:#ff7a1a"':""}>${tag=="new"?"Новинка":"Хит"}</span>`:""}
+    <button class="fav" aria-pressed="false" aria-label="В избранное"><svg width="17" height="17"><use href="#i-heart"/></svg></button>
+    <button class="qv">Быстрый просмотр</button>
+  </div>
+  <div class="pr"><b class="${off?"sale":""}">${rub(now||old)}</b>${off?`<s>${rub(old)}</s>`:""}</div>
+  <div class="rate"><span class="st">★★★★★</span><b>5,0</b><span>· ${rv} ${plural(rv)}</span></div>
+  <h4><a href="#products">${n}</a></h4>
+  <div class="stock">✓ В наличии</div>
+  <button class="buy"><svg width="17" height="17"><use href="#i-cart"/></svg>Купить</button>
+</article>`}).join("");
+
+revs.innerHTML=R.map(([n,t,ic,img])=>`<article class="rv">
+  <a class="t" href="#products"><i>${img?`<img src="${img}" alt="${n}">`:`<svg width="46" height="46"><use href="#${ic}"/></svg>`}</i><b>${n}</b></a>
+  <div class="st">★★★★★</div>
+  <p>${t}</p><a class="all" href="#reviews">Подробнее →</a></article>`).join("");
+
+brs.innerHTML=B.map(b=>`<a class="br" href="#brands">${b}</a>`).join("");
+
+// tabs
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x==t));
+  document.querySelectorAll(".p").forEach(p=>p.hidden=!p.dataset.f.split(" ").includes(t.dataset.f));
+  grid.scrollTo({left:0});
+});
+
+// rails
+document.querySelectorAll(".arw").forEach(b=>b.onclick=()=>{
+  const r=document.getElementById(b.dataset.rail);
+  r.scrollBy({left:r.clientWidth*.85*b.dataset.d});
+});
+
+// cart / fav / quick view
+const bump=(k,d=1)=>{const e=document.querySelector(`[data-c=${k}]`);e.textContent=Math.max(0,+e.textContent+d)};
+grid.onclick=e=>{
+  const card=e.target.closest(".p"); if(!card)return;
+  const fav=e.target.closest(".fav");
+  if(fav){const on=fav.getAttribute("aria-pressed")=="true";fav.setAttribute("aria-pressed",!on);return bump("fav",on?-1:1)}
+  const buy=e.target.closest(".buy");
+  if(buy){bump("cart");buy.classList.add("in");buy.lastChild.textContent="В корзине";return}
+  if(e.target.closest(".qv")){
+    const [n,ic,old,now,rv,tag,f,img]=P[card.dataset.i], off=now?Math.round((1-now/old)*100):0;
+    qv.querySelector(".dlg").innerHTML=`<div class="pic">${img?`<img src="${img}" alt="${n}">`:`<svg><use href="#${ic}"/></svg>`}</div>
+      <h3>${n}</h3>
+      <div class="pr"><b class="${off?"sale":""}">${rub(now||old)}</b>${off?`<s>${rub(old)}</s>`:""}</div>
+      <div class="rate"><span class="st">★★★★★</span><b>5,0</b><span>· ${rv} ${plural(rv)}</span></div>
+      <div class="stock">✓ В наличии, отгрузка со склада</div>
+      <button class="btn" style="width:100%">Купить</button>`;
+    qv.querySelector(".btn").onclick=()=>{bump("cart");qv.close()};
+    qv.showModal();
+  }
+};
+
+// banner carousel
+const S=[...slides.children];
+dots.innerHTML=S.map((_,i)=>`<button aria-label="Слайд ${i+1}" ${i?"":'aria-current="true"'}></button>`).join("");
+const go=i=>slides.scrollTo({left:slides.clientWidth*((i+S.length)%S.length)});
+const cur=()=>Math.round(slides.scrollLeft/slides.clientWidth);
+[...dots.children].forEach((d,i)=>d.onclick=()=>go(i));
+document.querySelector(".nav-a.prev").onclick=()=>go(cur()-1);
+document.querySelector(".nav-a.next").onclick=()=>go(cur()+1);
+slides.onscroll=()=>[...dots.children].forEach((d,i)=>d.setAttribute("aria-current",i==cur()));
+let timer=setInterval(()=>go(cur()+1),6000);
+slides.parentElement.onpointerenter=()=>clearInterval(timer);
+slides.parentElement.onpointerleave=()=>timer=setInterval(()=>go(cur()+1),6000);
+</script>
+</body>
+</html>
