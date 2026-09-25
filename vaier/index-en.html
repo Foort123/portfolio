@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vaier — очки дополненной реальности</title>
-<meta name="description" content="Vaier One — очки дополненной реальности: 78 граммов, поле зрения 52°, 9 часов автономной работы.">
+<title>Vaier — Augmented Reality Glasses</title>
+<meta name="description" content="Vaier One — augmented reality glasses: 78 grams, 52° field of view, 9 hours of battery life.">
 <style>
 :root{
   --ice-100:#EFF6FA; --ice-200:#DCE9F2; --ice-300:#B7CEDD; --steel:#8FB0C6;
@@ -191,8 +191,7 @@ tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
 .review .who b{display:block;font-size:15px;font-weight:500;color:var(--ink)}
 .review .who small{display:block;font-size:12px;margin-top:2px}
 .review p{margin-top:18px;max-width:none}
-/* ховер карточек секций не переопределяем — работает общее правило .card:hover,
-   то же самое, что у карточек бенто */
+/* Section card hover is not overridden — inherits general .card:hover */
 
 /* ---------- contacts ---------- */
 .contacts-box{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;padding:44px;border-radius:28px;margin-top:44px}
@@ -230,9 +229,8 @@ textarea{resize:vertical;min-height:110px}
 .footer a:hover{color:var(--ink)}
 
 /* ---------- scroll reveal ---------- */
-/* Появление — та же keyframe-анимация cardIn, что и у карточек бенто.
-   Именно animation, а не transition: шорткат `transition` на .reveal затирал
-   у .card его собственный transition, и ховер срабатывал без перехода. */
+/* Appearance uses the same cardIn keyframe animation as bento cards.
+   Using animation rather than transition so it doesn't overwrite .card's own hover transition. */
 .reveal{opacity:0}
 .reveal.in{animation:cardIn .8s cubic-bezier(.22,1,.36,1) both}
 .reveal.in:nth-child(2){animation-delay:.1s}
@@ -271,7 +269,7 @@ textarea{resize:vertical;min-height:110px}
   *{animation:none !important;transition:none !important}
   .word,.hero-photo,.label,.cta,.card,.reveal{opacity:1 !important;translate:none !important;scale:none !important}
   .cta{translate:-50% 50% !important}
-  /* ховер остаётся, но только как смена цвета — без сдвига */
+  /* Hover remains as color change only — no translate */
   .section .card{transition:background-color .3s cubic-bezier(.22,1,.36,1) !important}
   .section .card:hover{transform:none !important}
 }
@@ -288,26 +286,26 @@ textarea{resize:vertical;min-height:110px}
 <header class="nav">
   <div class="brand"><span class="mark"><span></span></span>Vaier</div>
   <nav class="links">
-    <a href="#obzor">Обзор</a><i>·</i>
-    <a href="#tech">Технологии</a><i>·</i>
-    <a href="#compare">Сравнение</a><i>·</i>
-    <a href="#reviews">Отзывы</a><i>·</i>
-    <a href="#contacts">Контакты</a>
+    <a href="#overview">Overview</a><i>·</i>
+    <a href="#tech">Technology</a><i>·</i>
+    <a href="#compare">Comparison</a><i>·</i>
+    <a href="#reviews">Reviews</a><i>·</i>
+    <a href="#contacts">Contact</a>
   </nav>
   <div class="nav-actions">
-    <a class="lang-switch" href="index-en.html" title="English version">EN</a>
-    <a class="ghost" href="#contacts">Оформить заказ</a>
+    <a class="lang-switch" href="index.html" title="Russian version">RU</a>
+    <a class="ghost" href="#contacts">Order Now</a>
   </div>
 </header>
 
 <div class="screen">
   <section class="hero">
     <h1 class="word w-brand">Vaier</h1>
-    <p class="word w-sub">Дополненная реальность</p>
+    <p class="word w-sub">Augmented Reality</p>
 
-    <!-- HERO_IMAGE — заменить плейсхолдер: вместо этого <svg> поставить
-         <img class="hero-photo" src="hero.png" alt="Человек в очках дополненной реальности Vaier">
-         и положить рядом с файлом PNG с прозрачным фоном. -->
+    <!-- HERO_IMAGE — replace placeholder: instead of this <svg>, place
+         <img class="hero-photo" src="hero.png" alt="Person wearing Vaier augmented reality glasses">
+         with a transparent background PNG file placed in the same directory. -->
     <svg class="hero-photo" viewBox="0 0 468 700" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
       <defs>
         <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
@@ -328,14 +326,14 @@ textarea{resize:vertical;min-height:110px}
 
     <div class="glass label label-a">
       <span class="thumb"><b></b></span>
-      <p>Покупай<br>Скорее</p>
+      <p>Order<br>Today</p>
     </div>
     <div class="glass label label-b">
       <span class="thumb"><b></b></span>
-      <p>Виртуальный мир<br>Ждёт тебя</p>
+      <p>A New Reality<br>Awaits You</p>
     </div>
 
-    <a class="cta" href="#contacts">Купить за 54 900 ₽</a>
+    <a class="cta" href="#contacts">Buy for $599</a>
   </section>
 
   <section class="bento">
@@ -344,152 +342,152 @@ textarea{resize:vertical;min-height:110px}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
       </div>
-      <h3>Помогаем бизнесу внедрять дополненную реальность.</h3>
-      <a class="more" href="#tech">Подробнее
+      <h3>Helping businesses integrate augmented reality.</h3>
+      <a class="more" href="#tech">Learn more
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </article>
 
     <article class="glass card">
-      <h3>Очки Vaier One — реальность с дополнением</h3>
-      <p>Полупрозрачные линзы, поле зрения 52° и вес 78 граммов. Цифровой слой ложится поверх мира так, что вы забываете о том, что на вас очки.</p>
+      <h3>Vaier One Glasses — Reality Augmented</h3>
+      <p>Semi-transparent lenses, 52° field of view, and a 78-gram featherweight build. The digital layer merges so naturally you’ll forget you’re wearing glasses.</p>
     </article>
 
     <article class="glass card">
       <div class="rating"><em>★</em> 4.9</div>
       <div class="reviews-line">
         <div class="avatars"><span class="av1"></span><span class="av2"></span><span class="av3"></span><span class="av4"></span></div>
-        <div class="count"><b>750+</b><small>Отзывов</small></div>
+        <div class="count"><b>750+</b><small>Reviews</small></div>
       </div>
-      <p>Нас выбирают инженеры, хирурги и архитекторы в 14 странах.</p>
+      <p>Trusted by engineers, surgeons, and architects across 14 countries.</p>
     </article>
   </section>
 </div>
 
-<!-- ========== Обзор ========== -->
-<section class="section" id="obzor">
+<!-- ========== Overview ========== -->
+<section class="section" id="overview">
   <div class="reveal">
-    <h2>Vaier One — второе поколение</h2>
-    <p class="lead">Мы убрали провода, лишний вес и задержку. Осталось только то, ради чего вы надеваете очки.</p>
+    <h2>Vaier One — The Second Generation</h2>
+    <p class="lead">We eliminated cables, extra weight, and latency. Only the pure experience of augmented reality remains.</p>
   </div>
   <div class="grid g-4">
-    <article class="glass card stat reveal"><b>78 г</b><span>Вес корпуса</span></article>
-    <article class="glass card stat reveal"><b>52°</b><span>Поле зрения</span></article>
-    <article class="glass card stat reveal"><b>9 ч</b><span>Автономная работа</span></article>
-    <article class="glass card stat reveal"><b>12 мс</b><span>Задержка отрисовки</span></article>
+    <article class="glass card stat reveal"><b>78 g</b><span>Frame weight</span></article>
+    <article class="glass card stat reveal"><b>52°</b><span>Field of view</span></article>
+    <article class="glass card stat reveal"><b>9 hrs</b><span>Battery life</span></article>
+    <article class="glass card stat reveal"><b>12 ms</b><span>Motion-to-photon latency</span></article>
   </div>
 </section>
 
-<!-- ========== Технологии ========== -->
+<!-- ========== Technology ========== -->
 <section class="section" id="tech">
-  <div class="reveal"><h2>Что внутри</h2></div>
+  <div class="reveal"><h2>What’s Inside</h2></div>
   <div class="grid g-2">
     <article class="glass card tech reveal">
       <div class="icons">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M2 20h20"/></svg>
       </div>
-      <h3>Оптика Prism Wave</h3>
-      <p>Волноводные линзы собственной разработки: 4000 нит яркости, читаемая картинка даже на прямом солнце.</p>
+      <h3>Prism Wave Optics</h3>
+      <p>Proprietary waveguide lenses delivering 4,000 nits of peak brightness — crisp, readable visuals even in direct sunlight.</p>
     </article>
     <article class="glass card tech reveal">
       <div class="icons">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V7a2 2 0 0 0-4 0M14 10V5a2 2 0 0 0-4 0v6M10 11V6.5a2 2 0 0 0-4 0V14"/><path d="M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8v-1a2 2 0 0 1 4 0"/></svg>
       </div>
-      <h3>Трекинг рук без контроллеров</h3>
-      <p>Шесть камер и нейросетевая модель распознают жест за 12 мс. Контроллеры в комплекте не нужны.</p>
+      <h3>Controller-Free Hand Tracking</h3>
+      <p>Six onboard cameras and a neural network recognize gestures in 12 ms. No physical controllers needed.</p>
     </article>
     <article class="glass card tech reveal">
       <div class="icons">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
       </div>
-      <h3>Процессор Vaier V2</h3>
-      <p>Восемь ядер и отдельный сопроцессор для компьютерного зрения. Рендер локально, без облака.</p>
+      <h3>Vaier V2 Processor</h3>
+      <p>Eight high-performance cores with a dedicated computer vision co-processor. Fully on-device rendering without cloud latency.</p>
     </article>
     <article class="glass card tech reveal">
       <div class="icons">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
       </div>
-      <h3>Пространственный звук</h3>
-      <p>Четыре динамика в дужках. Звук идёт от объекта, а не от очков, соседи в опенспейсе ничего не слышат.</p>
+      <h3>Spatial Audio</h3>
+      <p>Four temple-integrated speakers. Sound radiates from virtual objects rather than your glasses, while remaining inaudible to colleagues.</p>
     </article>
   </div>
 </section>
 
-<!-- ========== Сравнение ========== -->
+<!-- ========== Comparison ========== -->
 <section class="section" id="compare">
   <div class="reveal">
-    <h2>Результаты независимых тестов</h2>
-    <p class="lead">Лаборатория XR Bench, март 2026. Одинаковый сценарий: 60 минут работы в CAD-приложении.</p>
+    <h2>Independent Benchmark Results</h2>
+    <p class="lead">XR Bench Laboratory, March 2026. Standardized testing: 60 continuous minutes in a CAD workstation app.</p>
   </div>
   <div class="reveal">
     <div class="glass table-wrap">
       <div class="table-scroll">
         <table>
           <thead>
-            <tr><th>Параметр</th><th>Vaier One</th><th>Конкурент A</th><th>Конкурент B</th></tr>
+            <tr><th>Metric</th><th>Vaier One</th><th>Competitor A</th><th>Competitor B</th></tr>
           </thead>
           <tbody>
-            <tr><th>Вес, г</th><td>78</td><td>121</td><td>143</td></tr>
-            <tr><th>Поле зрения</th><td>52°</td><td>46°</td><td>50°</td></tr>
-            <tr><th>Автономность</th><td>9 ч</td><td>5 ч</td><td>6,5 ч</td></tr>
-            <tr><th>Задержка</th><td>12 мс</td><td>21 мс</td><td>18 мс</td></tr>
-            <tr><th>Точность трекинга рук</th><td>98,4 %</td><td>94,1 %</td><td>95,7 %</td></tr>
-            <tr><th>Цена</th><td>54 900 ₽</td><td>89 000 ₽</td><td>71 500 ₽</td></tr>
+            <tr><th>Weight, g</th><td>78</td><td>121</td><td>143</td></tr>
+            <tr><th>Field of View</th><td>52°</td><td>46°</td><td>50°</td></tr>
+            <tr><th>Battery Life</th><td>9 hrs</td><td>5 hrs</td><td>6.5 hrs</td></tr>
+            <tr><th>Latency</th><td>12 ms</td><td>21 ms</td><td>18 ms</td></tr>
+            <tr><th>Hand Tracking Accuracy</th><td>98.4%</td><td>94.1%</td><td>95.7%</td></tr>
+            <tr><th>Price</th><td>$599 (54,900 ₽)</td><td>$970 (89,000 ₽)</td><td>$780 (71,500 ₽)</td></tr>
           </tbody>
         </table>
       </div>
     </div>
-    <p class="note">Конкуренты обезличены по требованию лаборатории. Полный протокол теста доступен по запросу.</p>
+    <p class="note">Competitors anonymized per laboratory disclosure policy. Full benchmark protocol available upon request.</p>
   </div>
 </section>
 
-<!-- ========== Отзывы ========== -->
+<!-- ========== Reviews ========== -->
 <section class="section" id="reviews">
-  <div class="reveal"><h2>Кому это уже пригодилось</h2></div>
+  <div class="reveal"><h2>Who’s Already Benefiting</h2></div>
   <div class="grid g-3">
     <article class="glass card review reveal">
       <div class="who">
         <span class="av1"></span>
-        <div><b>Артём Соколов</b><small>инженер-конструктор</small></div>
+        <div><b>Artem Sokolov</b><small>Design Engineer</small></div>
       </div>
-      <p>Собирали прототип станка вдвоём с коллегой из другого города. Он видел мою модель поверх реального стола. Раньше на это уходила неделя переписки.</p>
+      <p>Assembled a machine tool prototype with a remote colleague. He could see my 3D model overlaid right on his physical workbench. Previously, that took a week of email back-and-forth.</p>
     </article>
     <article class="glass card review reveal">
       <div class="who">
         <span class="av3"></span>
-        <div><b>Марина Левченко</b><small>архитектор</small></div>
+        <div><b>Marina Levchenko</b><small>Architect</small></div>
       </div>
-      <p>Показываю клиентам проект прямо на участке. Вопрос «а как это будет выглядеть» просто перестал существовать.</p>
+      <p>I present projects to clients right on the construction site. The question “what will it look like in real life?” has completely vanished.</p>
     </article>
     <article class="glass card review reveal">
       <div class="who">
         <span class="av4"></span>
-        <div><b>Дмитрий Рау</b><small>хирург</small></div>
+        <div><b>Dmitry Rau</b><small>Surgeon</small></div>
       </div>
-      <p>Снимки пациента висят в поле зрения, руки свободны. Через два часа операции про очки просто забываешь — это главный комплимент весу.</p>
+      <p>Patient scans hover in my field of view while my hands remain completely free. Two hours into surgery, you forget you’re even wearing glasses — the highest compliment to their weight.</p>
     </article>
   </div>
 </section>
 
-<!-- ========== Контакты ========== -->
+<!-- ========== Contact ========== -->
 <section class="section" id="contacts">
-  <div class="reveal"><h2>Контакты</h2></div>
+  <div class="reveal"><h2>Contact Us</h2></div>
   <div class="glass contacts-box reveal">
     <div>
-      <h3>Остались вопросы?</h3>
-      <p class="lead">Ответим в течение рабочего дня и пришлём спецификацию.</p>
+      <h3>Have Questions?</h3>
+      <p class="lead">We’ll respond within one business day and send full specifications.</p>
       <form id="lead" novalidate="false">
-        <input type="text" name="name" placeholder="Имя" required autocomplete="name">
-        <input type="email" name="email" placeholder="E-mail" required autocomplete="email">
-        <textarea name="message" placeholder="Сообщение" required></textarea>
-        <button class="submit" type="submit">Отправить заявку</button>
+        <input type="text" name="name" placeholder="Name" required autocomplete="name">
+        <input type="email" name="email" placeholder="Email" required autocomplete="email">
+        <textarea name="message" placeholder="Message" required></textarea>
+        <button class="submit" type="submit">Submit Request</button>
       </form>
     </div>
     <div class="contact-list">
-      <div><small>Почта</small><b><a href="mailto:vaiervr@gmail.com">vaiervr@gmail.com</a></b></div>
-      <div><small>Телефон</small><b><a href="tel:+74951204590">+7 495 120-45-90</a></b></div>
-      <div><small>Офис и шоурум</small><b>Москва, Пресненская наб., 12, этаж 8</b></div>
-      <div><small>Часы работы</small><b>пн–пт, 10:00–19:00 МСК</b></div>
+      <div><small>Email</small><b><a href="mailto:vaiervr@gmail.com">vaiervr@gmail.com</a></b></div>
+      <div><small>Phone</small><b><a href="tel:+74951204590">+7 495 120-45-90</a></b></div>
+      <div><small>Office & Showroom</small><b>Presnenskaya Embankment 12, Floor 8, Moscow</b></div>
+      <div><small>Business Hours</small><b>Mon–Fri, 10:00–19:00 MSK (UTC+3)</b></div>
     </div>
   </div>
 </section>
@@ -497,24 +495,24 @@ textarea{resize:vertical;min-height:110px}
 <footer class="footer">
   <div>
     <div class="brand"><span class="mark"><span></span></span>Vaier</div>
-    <p class="copy">© 2026 Vaier. Все права защищены.</p>
+    <p class="copy">© 2026 Vaier. All rights reserved.</p>
   </div>
   <div>
-    <h4>Продукт</h4>
-    <ul><li><a href="#obzor">Vaier One</a></li><li><a href="#">Аксессуары</a></li><li><a href="#">Совместимость</a></li></ul>
+    <h4>Product</h4>
+    <ul><li><a href="#overview">Vaier One</a></li><li><a href="#">Accessories</a></li><li><a href="#">Compatibility</a></li></ul>
   </div>
   <div>
-    <h4>Компания</h4>
-    <ul><li><a href="#">О нас</a></li><li><a href="#">Вакансии</a></li><li><a href="#">Пресс-кит</a></li></ul>
+    <h4>Company</h4>
+    <ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press Kit</a></li></ul>
   </div>
   <div>
-    <h4>Поддержка</h4>
-    <ul><li><a href="#">Доставка и оплата</a></li><li><a href="#">Гарантия 24 месяца</a></li><li><a href="#">Политика конфиденциальности</a></li></ul>
+    <h4>Support</h4>
+    <ul><li><a href="#">Shipping & Payment</a></li><li><a href="#">24-Month Warranty</a></li><li><a href="#">Privacy Policy</a></li></ul>
   </div>
 </footer>
 
 <script>
-// появление секций один раз при попадании во вьюпорт
+// Reveal sections once upon entering the viewport
 const io = new IntersectionObserver((entries) => {
   for (const e of entries) {
     if (!e.isIntersecting) continue;
@@ -524,11 +522,11 @@ const io = new IntersectionObserver((entries) => {
 }, {threshold: 0.15, rootMargin: '0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// форма без бэкенда: нативная валидация required + состояние «отправлено»
+// Client-side form handling: native validation + submitted state
 document.getElementById('lead').addEventListener('submit', (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('.submit');
-  btn.textContent = 'Заявка отправлена';
+  btn.textContent = 'Request Sent';
   btn.disabled = true;
 });
 </script>
