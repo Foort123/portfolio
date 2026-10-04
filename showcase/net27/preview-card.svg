@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="580" viewBox="0 0 900 580">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005BFF"/>
+      <stop offset="100%" style="stop-color:#0039B3"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#f4f7fb"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#001a34" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="580" fill="#f4f7fb"/>
+
+  <!-- === TOP UTILITY BAR === -->
+  <rect width="900" height="36" fill="#ffffff"/>
+  <line x1="0" y1="36" x2="900" y2="36" stroke="#e6ecf5" stroke-width="1"/>
+  <text x="30" y="23" fill="#7a869a" font-family="system-ui, sans-serif" font-size="12" font-weight="500">📍 Хабаровск (круглосуточно)</text>
+  <text x="240" y="23" fill="#005BFF" font-family="system-ui, sans-serif" font-size="12" font-weight="600">⚡ Оптовые цены от производителя</text>
+  <text x="740" y="23" fill="#7a869a" font-family="system-ui, sans-serif" font-size="12" font-weight="500">📞 8 (800) 555-27-27</text>
+
+  <!-- === HEADER === -->
+  <rect y="36" width="900" height="70" fill="#ffffff" filter="url(#shadow)"/>
+  
+  <!-- Logo -->
+  <rect x="30" y="51" width="110" height="40" rx="8" fill="#005BFF"/>
+  <text x="85" y="77" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="20" font-weight="900" letter-spacing="-0.5">NET27<tspan fill="#00d2ff">.RU</tspan></text>
+  
+  <!-- Search Bar -->
+  <rect x="160" y="51" width="460" height="40" rx="10" fill="#f4f7fb" stroke="#e6ecf5" stroke-width="1"/>
+  <text x="180" y="76" fill="#7a869a" font-family="system-ui, sans-serif" font-size="13">Поиск по 15 000+ наименованиям оборудования...</text>
+  <rect x="540" y="55" width="76" height="32" rx="6" fill="#005BFF"/>
+  <text x="578" y="76" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Найти</text>
+
+  <!-- Catalog Button & Cart -->
+  <rect x="635" y="51" width="110" height="40" rx="8" fill="#001a34"/>
+  <text x="690" y="76" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">📂 Каталог</text>
+
+  <rect x="755" y="51" width="115" height="40" rx="8" fill="#f91155"/>
+  <text x="812" y="76" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">🛒 Корзина</text>
+
+  <!-- === HERO BANNER === -->
+  <g transform="translate(30, 125)">
+    <rect width="840" height="150" rx="16" fill="url(#bgGrad)"/>
+    <circle cx="720" cy="75" r="140" fill="#ffffff" opacity="0.06"/>
+    
+    <rect x="30" y="25" width="130" height="24" rx="12" fill="#ffffff" opacity="0.2"/>
+    <text x="95" y="41" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="700">ОПТОВЫЙ СКЛАД</text>
+    
+    <text x="30" y="80" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="800">Спутниковое, сетевое и серверное оборудование</text>
+    <text x="30" y="106" fill="#e8f0ff" font-family="system-ui, sans-serif" font-size="14">Прямые поставки • Гарантия от 24 месяцев • Доставка по всей России</text>
+
+    <!-- Badges -->
+    <g transform="translate(30, 118)">
+      <rect x="0" y="0" width="140" height="22" rx="4" fill="#ffffff"/>
+      <text x="70" y="15" text-anchor="middle" fill="#005BFF" font-family="system-ui, sans-serif" font-size="11" font-weight="700">✓ В наличии 12 400 шт.</text>
+      
+      <rect x="150" y="0" width="140" height="22" rx="4" fill="#ffffff" opacity="0.2"/>
+      <text x="220" y="15" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="600">★ Скидки от 500 тыс. ₽</text>
+    </g>
+  </g>
+
+  <!-- === PRODUCT CARDS GRID === -->
+  <text x="30" y="305" fill="#001a34" font-family="system-ui, sans-serif" font-size="18" font-weight="800">🔥 Популярные категории &amp; Оптовые хиты</text>
+
+  <!-- Card 1: Router / MikroTik -->
+  <g transform="translate(30, 320)">
+    <rect width="195" height="230" rx="14" fill="url(#cardGrad)" stroke="#e6ecf5" stroke-width="1" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="165" height="100" rx="8" fill="#ffffff"/>
+    <!-- Router Icon Graphic -->
+    <rect x="45" y="55" width="105" height="30" rx="4" fill="#3c4653"/>
+    <circle cx="65" cy="70" r="3" fill="#1fa34a"/>
+    <circle cx="75" cy="70" r="3" fill="#1fa34a"/>
+    <circle cx="85" cy="70" r="3" fill="#005BFF"/>
+    <line x1="60" y1="55" x2="50" y2="30" stroke="#7a869a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="135" y1="55" x2="145" y2="30" stroke="#7a869a" stroke-width="3" stroke-linecap="round"/>
+
+    <text x="15" y="138" fill="#001a34" font-family="system-ui, sans-serif" font-size="13" font-weight="700">MikroTik RB2011</text>
+    <text x="15" y="154" fill="#7a869a" font-family="system-ui, sans-serif" font-size="11">Маршрутизатор 10xLAN</text>
+    <text x="15" y="185" fill="#005BFF" font-family="system-ui, sans-serif" font-size="16" font-weight="800">14 850 ₽</text>
+    <text x="15" y="202" fill="#1fa34a" font-family="system-ui, sans-serif" font-size="10" font-weight="600">● Опт от 5 шт</text>
+  </g>
+
+  <!-- Card 2: Satellite Phone -->
+  <g transform="translate(245, 320)">
+    <rect width="195" height="230" rx="14" fill="url(#cardGrad)" stroke="#e6ecf5" stroke-width="1" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="165" height="100" rx="8" fill="#ffffff"/>
+    <!-- Phone Graphic -->
+    <rect x="75" y="30" width="45" height="70" rx="6" fill="#001a34"/>
+    <rect x="80" y="36" width="35" height="40" rx="2" fill="#005BFF"/>
+    <line x1="97" y1="30" x2="97" y2="20" stroke="#001a34" stroke-width="4" stroke-linecap="round"/>
+
+    <text x="15" y="138" fill="#001a34" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Inmarsat IsatPhone 2</text>
+    <text x="15" y="154" fill="#7a869a" font-family="system-ui, sans-serif" font-size="11">Спутниковый телефон</text>
+    <text x="15" y="185" fill="#005BFF" font-family="system-ui, sans-serif" font-size="16" font-weight="800">112 000 ₽</text>
+    <text x="15" y="202" fill="#1fa34a" font-family="system-ui, sans-serif" font-size="10" font-weight="600">● В наличии в Хабаровске</text>
+  </g>
+
+  <!-- Card 3: Switch / TP-Link -->
+  <g transform="translate(460, 320)">
+    <rect width="195" height="230" rx="14" fill="url(#cardGrad)" stroke="#e6ecf5" stroke-width="1" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="165" height="100" rx="8" fill="#ffffff"/>
+    <!-- Switch Graphic -->
+    <rect x="35" y="45" width="125" height="40" rx="4" fill="#e8f0ff" stroke="#005BFF" stroke-width="2"/>
+    <rect x="45" y="55" width="12" height="12" rx="2" fill="#005BFF"/>
+    <rect x="62" y="55" width="12" height="12" rx="2" fill="#005BFF"/>
+    <rect x="79" y="55" width="12" height="12" rx="2" fill="#005BFF"/>
+    <rect x="96" y="55" width="12" height="12" rx="2" fill="#005BFF"/>
+    <rect x="113" y="55" width="12" height="12" rx="2" fill="#005BFF"/>
+
+    <text x="15" y="138" fill="#001a34" font-family="system-ui, sans-serif" font-size="13" font-weight="700">TP-Link TL-SF1005D</text>
+    <text x="15" y="154" fill="#7a869a" font-family="system-ui, sans-serif" font-size="11">Коммутатор 5 портов</text>
+    <text x="15" y="185" fill="#005BFF" font-family="system-ui, sans-serif" font-size="16" font-weight="800">1 290 ₽</text>
+    <text x="15" y="202" fill="#1fa34a" font-family="system-ui, sans-serif" font-size="10" font-weight="600">● Гарантия 3 года</text>
+  </g>
+
+  <!-- Card 4: UPS / Power -->
+  <g transform="translate(675, 320)">
+    <rect width="195" height="230" rx="14" fill="url(#cardGrad)" stroke="#e6ecf5" stroke-width="1" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="165" height="100" rx="8" fill="#ffffff"/>
+    <!-- UPS Graphic -->
+    <rect x="65" y="30" width="65" height="70" rx="4" fill="#3c4653"/>
+    <circle cx="97" cy="50" r="10" fill="#005BFF"/>
+    <rect x="75" y="75" width="45" height="8" rx="2" fill="#1fa34a"/>
+
+    <text x="15" y="138" fill="#001a34" font-family="system-ui, sans-serif" font-size="13" font-weight="700">GE UPS Digital 1000</text>
+    <text x="15" y="154" fill="#7a869a" font-family="system-ui, sans-serif" font-size="11">ИБП On-Line 1000 ВА</text>
+    <text x="15" y="185" fill="#005BFF" font-family="system-ui, sans-serif" font-size="16" font-weight="800">38 400 ₽</text>
+    <text x="15" y="202" fill="#1fa34a" font-family="system-ui, sans-serif" font-size="10" font-weight="600">● Спеццена для дилеров</text>
+  </g>
+</svg>

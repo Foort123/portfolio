@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>KlourkStudio® — Портфолио веб-разработчика</title>
+    <meta name="description" content="KlourkStudio — разработка современных сайтов, интернет-магазинов, веб-сервисов и промо-страниц с высокой производительностью и эстетикой." />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg?v=2" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/portfolio/favicon-32x32.png?v=2" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/portfolio/favicon-16x16.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/portfolio/apple-touch-icon.png?v=2" />
+    <link rel="alternate icon" href="/portfolio/favicon.ico?v=2" />
+    <meta name="theme-color" content="#efded9" />
+    <!-- Preload Fonts -->
+    <link rel="preload" as="font" crossorigin href="/portfolio/fonts/NeueMontreal-Regular.woff2" />
+    <link rel="preload" as="font" crossorigin href="/portfolio/fonts/SaolDisplay-Light.woff2" />
+    <link rel="preload" as="font" crossorigin href="/portfolio/fonts/SaolDisplay-LightItalic.woff2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Styles -->
+
+    <style>
+      /* Film Grain Tactile Overlay */
+      .film-grain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 95;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      .logo-text {
+        font-family: var(--font-sans);
+        font-size: 1.45rem;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        color: var(--color-offblack);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        text-shadow: 0 1px 3px rgba(70, 35, 24, 0.14);
+      }
+
+      .logo-text span {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 400;
+      }
+    </style>
+    <script type="module" crossorigin src="/portfolio/assets/index-50o0HGKl.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-iZSJvwVa.css">
+  </head>
+  <body>
+    <!-- Film Grain Overlay -->
+    <div class="film-grain"></div>
+
+    <!-- Custom Fluid Cursor -->
+    <div class="custom-cursor">
+      <div class="cursor__inner">
+        <div class="cursor__circle"></div>
+        <div class="cursor__drag-label">
+          <span>Открыть</span>
+        </div>
+        <svg class="cursor__video-icon" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="cursor__zoom-icon cursor__zoom-icon--in" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+          <line x1="21" y1="21" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="11" y1="8" x2="11" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg class="cursor__zoom-icon cursor__zoom-icon--out" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+          <line x1="21" y1="21" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Animated KLOURK Preloader with Character on 3D Platform Throwing Letters -->
+    <div class="loader">
+      <div class="loader__inner">
+        <!-- Interactive Character standing on 3D Platform throwing letters K L O U R K -->
+        <div class="loader__stage" data-cursor="pointer">
+          <canvas class="loader__character-canvas"></canvas>
+        </div>
+
+        <span class="loader__title">KlourkStudio®</span>
+        <p class="loader__tagline">
+          Разработка современных сайтов и цифровых сервисов с акцентом на высокую производительность, плавную анимацию и эстетику.
+        </p>
+
+        <div class="loader-actions">
+          <button class="loader__enter-btn js-enter-audio" data-cursor="pointer">
+            <span>Войти со звуком</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <button class="loader__no-audio-btn js-enter-no-audio" data-cursor="pointer">
+            Войти без звука
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Progress Bar -->
+      <div class="loader-track">
+        <div class="loader-track__bar"></div>
+      </div>
+    </div>
+
+    <!-- Main Site Container (Slides out on card click) -->
+    <div class="site-main" id="site-main">
+      <!-- Fixed Header -->
+      <header class="header">
+        <div class="header__logo">
+          <a href="#" data-cursor="pointer" title="KlourkStudio Главная">
+            <div class="logo-text">
+              KLOURK<span>STUDIO</span>®
+            </div>
+          </a>
+        </div>
+
+        <div class="header__right">
+          <nav class="nav-links">
+            <a href="https://kwork.ru/user/klourk" target="_blank" rel="noopener" class="nav-item js-nav-link" data-cursor="pointer">
+              <span class="nav-item__text">Kwork</span>
+              <span class="nav-item__text--hover">Kwork</span>
+            </a>
+            <a href="https://t.me/Indcet" target="_blank" rel="noopener" class="nav-item js-nav-link" data-cursor="pointer">
+              <span class="nav-item__text">Telegram</span>
+              <span class="nav-item__text--hover">Telegram</span>
+            </a>
+          </nav>
+
+          <!-- Sound toggle pill -->
+          <button class="audio-toggle-btn js-audio-toggle" data-cursor="pointer" title="Переключить звук">
+            <span class="audio-waves is-playing">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="audio-label">Sound</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Project Filters Header -->
+      <div class="project-filters">
+        <h1 class="sr-only">Портфолио проектов</h1>
+        <div class="project-filters__inner">
+          <div class="filter-active-pill"></div>
+          <div class="project-filters__list">
+            <button class="filter-btn is-active" data-filter="all" data-cursor="pointer">
+              Все <span class="filter-btn__count">5</span>
+            </button>
+            <button class="filter-btn" data-filter="sites" data-cursor="pointer">
+              Сайты <span class="filter-btn__count">2</span>
+            </button>
+            <button class="filter-btn" data-filter="billboards" data-cursor="pointer">
+              Билборды <span class="filter-btn__count">2</span>
+            </button>
+            <button class="filter-btn" data-filter="graphics" data-cursor="pointer">
+              Превью <span class="filter-btn__count">1</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- WebGL Canvas -->
+      <div id="canvas-container">
+        <canvas id="gl"></canvas>
+      </div>
+
+      <!-- Bottom Floating CTA -->
+      <div class="project-grid-cta is-hidden">
+        <p>Нужен современный сайт для вашего проекта?</p>
+        <a href="https://kwork.ru/user/klourk" target="_blank" rel="noopener" class="cta-btn" data-cursor="pointer">
+          <span>Заказать на Kwork</span>
+          <svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Fullscreen Overlay Menu -->
+    <div class="menu">
+      <div class="menu__nav">
+        <a href="#" class="menu__nav-item is-active" data-cursor="pointer">
+          <span class="menu__nav-number">01</span>
+          <div class="menu__nav-title-wrap">
+            <span class="menu__nav-text">Портфолио</span>
+            <span class="menu__nav-text--hover">Портфолио</span>
+          </div>
+        </a>
+        <a href="https://kwork.ru/user/klourk" target="_blank" rel="noopener" class="menu__nav-item" data-cursor="pointer">
+          <span class="menu__nav-number">02</span>
+          <div class="menu__nav-title-wrap">
+            <span class="menu__nav-text">Kwork Профиль</span>
+            <span class="menu__nav-text--hover">Kwork Профиль</span>
+          </div>
+        </a>
+        <a href="https://t.me/Indcet" target="_blank" rel="noopener" class="menu__nav-item" data-cursor="pointer">
+          <span class="menu__nav-number">03</span>
+          <div class="menu__nav-title-wrap">
+            <span class="menu__nav-text">Telegram Чат</span>
+            <span class="menu__nav-text--hover">Telegram Чат</span>
+          </div>
+        </a>
+        <a href="mailto:klourk@example.com" class="menu__nav-item" data-cursor="pointer">
+          <span class="menu__nav-number">04</span>
+          <div class="menu__nav-title-wrap">
+            <span class="menu__nav-text">Сотрудничество</span>
+            <span class="menu__nav-text--hover">Сотрудничество</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="menu__footer">
+        <div class="menu__contact">
+          <a href="https://t.me/Indcet" target="_blank" rel="noopener" data-cursor="pointer">Telegram: @Indcet</a>
+          <a href="https://kwork.ru/user/klourk" target="_blank" rel="noopener" data-cursor="pointer">Kwork: kwork.ru/user/klourk</a>
+        </div>
+        <div class="menu__social">
+          <a href="https://t.me/Indcet" target="_blank" rel="noopener" data-cursor="pointer">Telegram</a>
+          <a href="https://kwork.ru/user/klourk" target="_blank" rel="noopener" data-cursor="pointer">Kwork</a>
+          <a href="#" data-cursor="pointer">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-Screen Project Screen (Slide Transition View) -->
+    <section class="project-screen project-viewer" id="project-viewer" aria-hidden="true" aria-label="Страница проекта">
+      <!-- Floating Back Button (No full-width panel) -->
+      <button class="project-screen__floating-back js-project-back" type="button" data-cursor="pointer" title="Назад к проектам">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Назад</span>
+      </button>
+
+
+      <!-- Media Stage -->
+      <div class="project-screen__stage">
+        <div class="project-viewer__loader" aria-live="polite">
+          <div class="project-loader__spinner"></div>
+          <span class="project-loader__caption">Загрузка проекта...</span>
+        </div>
+        <div class="project-viewer__image-wrapper" id="project-viewer-image-wrapper">
+          <img class="project-viewer__image" id="project-viewer-image" alt="Просмотр проекта" decoding="async" />
+        </div>
+        <iframe class="project-viewer__frame" id="project-viewer-frame" title="Просмотр сайта проекта"></iframe>
+
+        <!-- Sleek Floating Zoom Toolbar -->
+        <div class="project-viewer__zoom-toolbar" id="project-viewer-zoom-toolbar" aria-label="Управление масштабом">
+          <button type="button" class="zoom-btn js-zoom-out" data-cursor="pointer" title="Уменьшить (−)" aria-label="Уменьшить">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </button>
+          <button type="button" class="zoom-btn zoom-btn--val js-zoom-reset" data-cursor="pointer" title="Сбросить масштаб (100%)" aria-label="Сбросить масштаб">
+            <span class="zoom-val-text">100%</span>
+          </button>
+          <button type="button" class="zoom-btn js-zoom-in" data-cursor="pointer" title="Увеличить (+)" aria-label="Увеличить">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </button>
+          <div class="zoom-divider"></div>
+          <button type="button" class="zoom-btn zoom-btn--fit js-zoom-fit" data-cursor="pointer" title="Вписать в экран" aria-label="Вписать в экран">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6m0-6l-7 7M9 21H3v-6m0 6l7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Entry Point -->
+  </body>
+</html>
