@@ -1,0 +1,140 @@
+/* Project Filters Header & Filter Pills */
+
+.project-filters {
+  position: fixed;
+  top: 5.5rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 50;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 640px) {
+  .project-filters {
+    top: 4.5rem;
+  }
+}
+
+.project-filters.is-hidden {
+  opacity: 0;
+  transform: translateY(-24px);
+  pointer-events: none;
+}
+
+.project-filters.is-hidden .project-filters__inner {
+  pointer-events: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.title-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.title-char {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.title-char:hover {
+  transform: translateY(-3px) scale(1.04);
+}
+
+.project-filters__inner {
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  position: relative;
+  background: rgba(235, 222, 215, 0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.35rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 16px 36px rgba(80, 42, 30, 0.14),
+    0 4px 12px rgba(80, 42, 30, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.75);
+}
+
+.project-filters__list {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.filter-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #7a665d;
+  border-radius: 9999px;
+  transition: color 0.3s ease;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .filter-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+  }
+}
+
+.filter-btn:hover {
+  color: #38251e;
+}
+
+.filter-btn.is-active {
+  color: #322119;
+  font-weight: 600;
+}
+
+.filter-btn__count {
+  font-size: 0.76rem;
+  color: #9d887f;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+.filter-btn.is-active .filter-btn__count {
+  color: #6a5348;
+}
+
+/* Sliding active pill indicator */
+.filter-active-pill {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.35rem;
+  height: calc(100% - 0.7rem);
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 
+    0 5px 16px rgba(80, 42, 30, 0.16),
+    0 1px 4px rgba(80, 42, 30, 0.08);
+  pointer-events: none;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}

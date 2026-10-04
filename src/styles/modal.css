@@ -1,0 +1,339 @@
+/* ============================================================
+   KlourkStudio® Full-Screen Slide Transition Interface
+   Two-screen physical horizontal motion (60 FPS GPU compositor)
+   ============================================================ */
+
+/* Main Site Wrapper (Slides left when project opens) */
+.site-main {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 20;
+}
+
+.site-main.is-slid-out {
+  transform: translate3d(-100vw, 0, 0);
+  pointer-events: none;
+}
+
+/* Full-Screen Project Screen (Slides in from right to left) */
+.project-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  transform: translate3d(100vw, 0, 0);
+  will-change: transform;
+  visibility: hidden;
+  pointer-events: none;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.15);
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.75s;
+  overflow: hidden;
+}
+
+.project-screen.is-active {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.project-screen.is-image-mode {
+  background: #0e0e0e;
+}
+
+/* Floating Navigation Controls (No top header panel) */
+.project-screen__floating-back {
+  position: absolute;
+  top: 21px;
+  left: 20px;
+  z-index: 60;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px 0 12px;
+  font-family: var(--font-sans, "Neue Montreal", sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 9999px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.project-screen__floating-back svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  fill: none;
+  transition: transform 0.2s ease;
+}
+
+.project-screen__floating-back:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #000;
+  transform: translateX(-3px);
+  border-color: rgba(0, 0, 0, 0.28);
+}
+
+.project-screen__floating-back:hover svg {
+  transform: translateX(-2px);
+}
+
+.project-screen.is-image-mode .project-screen__floating-back {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #f0f0f0;
+  box-shadow: none;
+}
+
+.project-screen.is-image-mode .project-screen__floating-back:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Main Showcase Stage (Full 100vw x 100vh) */
+.project-screen__stage {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-screen.is-image-mode .project-screen__stage {
+  background: #0e0e0e;
+}
+
+.project-viewer__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #ffffff;
+  opacity: 0;
+  transition: opacity .35s ease;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.project-viewer__frame::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.project-screen.is-ready .project-viewer__frame {
+  opacity: 1;
+}
+
+.project-viewer__image-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+.project-viewer__image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  opacity: 0;
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform;
+}
+
+.project-screen.is-ready .project-viewer__image {
+  opacity: 1;
+}
+
+.project-screen.is-image-mode .project-viewer__frame {
+  display: none !important;
+}
+
+.project-screen:not(.is-image-mode) .project-viewer__image-wrapper,
+.project-screen:not(.is-image-mode) .project-viewer__image {
+  display: none !important;
+}
+
+/* Floating Zoom Toolbar */
+.project-viewer__zoom-toolbar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  background: rgba(18, 18, 20, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.project-screen.is-image-mode.is-ready .project-viewer__zoom-toolbar {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  color: #e0e0e0;
+  font-family: var(--font-sans, "Neue Montreal", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.zoom-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+.zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.zoom-btn:active {
+  transform: scale(0.95);
+}
+
+.zoom-btn--val {
+  min-width: 52px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.zoom-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 0 2px;
+}
+
+/* Minimalist Agency Loader */
+.project-viewer__loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: #faf8f7;
+  color: var(--color-offblack, #212121);
+  z-index: 10;
+  opacity: 1;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+.project-screen.is-ready .project-viewer__loader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.project-loader__spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  border-top-color: #212121;
+  border-radius: 50%;
+  animation: viewer-spin 0.8s linear infinite;
+}
+
+@keyframes viewer-spin {
+  to { transform: rotate(360deg); }
+}
+
+.project-loader__caption {
+  font-family: var(--font-sans, "Neue Montreal", sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: #777;
+  letter-spacing: .02em;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .project-screen__floating-back {
+    top: 14px;
+    left: 14px;
+    height: 36px;
+    padding: 0 12px 0 10px;
+  }
+
+  .project-viewer__zoom-toolbar {
+    bottom: 18px;
+    padding: 4px 6px;
+  }
+
+  .zoom-btn {
+    height: 30px;
+    min-width: 30px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+  .zoom-btn--val {
+    min-width: 44px;
+  }
+}
