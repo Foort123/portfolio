@@ -3,9 +3,28 @@
 class SoundEffects {
   constructor() {
     this.ctx = null;
-    this.isMuted = false;
+    this.isMuted = true;
     this.initialized = false;
     this.ratchetCounter = 0;
+    this.listeners = new Set();
+  }
+
+  subscribe(callback) {
+    if (typeof callback === 'function') {
+      this.listeners.add(callback);
+      callback(this.isMuted);
+    }
+    return () => this.listeners.delete(callback);
+  }
+
+  notify() {
+    this.listeners.forEach((cb) => {
+      try {
+        cb(this.isMuted);
+      } catch (err) {
+        console.error('SoundEffects listener error:', err);
+      }
+    });
   }
 
   init() {
@@ -26,12 +45,13 @@ class SoundEffects {
   }
 
   toggleMute() {
-    this.isMuted = !this.isMuted;
+    this.setMuted(!this.isMuted);
     return this.isMuted;
   }
 
   setMuted(val) {
-    this.isMuted = val;
+    this.isMuted = Boolean(val);
+    this.notify();
   }
 
   // Soft mechanical ratchet tick with realistic micro-pitch variation

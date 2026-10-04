@@ -11,6 +11,7 @@ import { JumpingCharacter } from './components/JumpingCharacter.js';
 
 class App {
   constructor() {
+    document.title = 'KlourkStudio - Портфолио';
     this.projects = projects;
     this.canvas = document.getElementById('gl');
     this.cursor = new Cursor();
@@ -36,15 +37,29 @@ class App {
     const audioBtn = document.querySelector('.js-audio-toggle');
     const audioWaves = audioBtn?.querySelector('.audio-waves');
 
+    const updateAudioUI = (isMuted) => {
+      if (!audioBtn || !audioWaves) return;
+      if (isMuted) {
+        audioWaves.classList.remove('is-playing');
+        audioWaves.classList.add('is-muted');
+        audioBtn.classList.add('is-muted');
+        audioBtn.setAttribute('title', 'Включить звук');
+        audioBtn.setAttribute('aria-label', 'Включить звук');
+      } else {
+        audioWaves.classList.add('is-playing');
+        audioWaves.classList.remove('is-muted');
+        audioBtn.classList.remove('is-muted');
+        audioBtn.setAttribute('title', 'Выключить звук');
+        audioBtn.setAttribute('aria-label', 'Выключить звук');
+      }
+    };
+
+    sounds.subscribe(updateAudioUI);
+
     audioBtn?.addEventListener('click', () => {
       sounds.init();
-      const isMuted = sounds.toggleMute();
-      if (isMuted) {
-        audioWaves?.classList.remove('is-playing');
-        audioWaves?.classList.add('is-muted');
-      } else {
-        audioWaves?.classList.add('is-playing');
-        audioWaves?.classList.remove('is-muted');
+      const nowMuted = sounds.toggleMute();
+      if (!nowMuted) {
         sounds.playClick();
       }
     });
